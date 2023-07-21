@@ -1,25 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
+import GlobalStyle from 'GlobalStyle';
+import SLayout from 'Components/style/SLayout';
 
 function App() {
+  const setScreenSize = () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  };
+  useEffect(() => {
+    setScreenSize();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RecoilRoot>
+      <SLayout>
+        <GlobalStyle />
+        <Outlet />
+      </SLayout>
+    </RecoilRoot>
   );
 }
 
