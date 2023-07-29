@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const SLayout = styled.div`
+  position: relative;
   max-width: 430px;
   min-width: 375px;
   height: calc(var(--vh, 1vh) * 100);
