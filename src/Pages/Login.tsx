@@ -15,7 +15,7 @@ const Login = () => {
 
       <ButtonGenderList />
       <ButtonAgeList />
-      <Button text='시작하기' />
+      <Button>시작하기</Button>
     </SLoginLayout>
   );
 };
