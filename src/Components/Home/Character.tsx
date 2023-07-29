@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import CharacterModal from '../Home/CharacterModal';
+import CharacterModal from 'Components/Home/CharacterModal';
 
-import charMale from '../../Assets/char-male.png';
-import touchPointer from '../../Assets/touch-pointer.svg';
+import charMale from 'Assets/char-male.png';
+import touchPointer from 'Assets/touch-pointer.svg';
 
 interface CharacterProps {}
 
@@ -34,5 +34,6 @@ const SCharacter = styled.section`
 
   img {
     width: 200px;
+    cursor: pointer;
   }
 `;

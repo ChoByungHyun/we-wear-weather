@@ -3,7 +3,7 @@ import Header from 'Components/common/Header';
 import BottomNav from 'Components/common/BottomNav';
 import Character from 'Components/Home/Character';
 import ParticulateMatter from 'Components/Home/ParticulateMatter';
-import HourlyForcast from 'Components/Home/HourlyForcast';
+import HourlyForcast from 'Components/Home/HourlyForecast';
 
 const Home = () => {
   return (
