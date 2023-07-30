@@ -5,6 +5,7 @@ import Login from 'Pages/Login';
 import Search from 'Pages/Search';
 import Weekly from 'Pages/Weekly';
 import Setting from 'Pages/Setting';
+import SearchDetail from 'Pages/SearchDetail';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: 'setting',
         element: <Setting />,
+      },
+      {
+        path: 'searchDetail',
+        element: <SearchDetail />,
       },
     ],
   },
