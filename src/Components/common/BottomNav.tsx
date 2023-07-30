@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import { bottomNavAtom } from 'Atom/BottomNavStore';
@@ -14,7 +14,6 @@ import SettingIcon_Fill from 'Assets/setting-fill-icon.svg';
 
 const BottomNav: React.FC = () => {
   const [bottomNavIndexState, setBottomNavIndexState] = useRecoilState<number>(bottomNavAtom);
-
   const navItems: string[] = ['home', 'search', 'weekly', 'setting'];
   const iconArr: { active: string; inactive: string }[] = [
     { active: HomeIcon_Fill, inactive: HomeIcon },
@@ -23,9 +22,36 @@ const BottomNav: React.FC = () => {
     { active: SettingIcon_Fill, inactive: SettingIcon },
   ];
 
+  const location = useLocation(); // 현재 경로 정보 가져오기
+
+  // 현재 경로에 따라서 bottomNavIndexState를 업데이트하는 함수
+  const updateBottomNavIndexState = () => {
+    const path = location.pathname; // 현재 경로
+    switch (path) {
+      case '/':
+        setBottomNavIndexState(0);
+        break;
+      case '/search':
+        setBottomNavIndexState(1);
+        break;
+      case '/weekly':
+        setBottomNavIndexState(2);
+        break;
+      case '/setting':
+        setBottomNavIndexState(3);
+        break;
+      default:
+        break;
+    }
+  };
+
+  // 첫 렌더링 시 현재 경로에 따라 bottomNavIndexState 초기화
+  useEffect(() => {
+    updateBottomNavIndexState();
+  }, []);
+
   const handleClick = (index: number): void => {
     setBottomNavIndexState(index);
-    console.log(bottomNavIndexState);
   };
   return (
     <SNavLayout>
