@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import backBtn from 'Assets/backBtn-icon.svg';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const [headerBtn, setHeaderBtn] = useState<string | undefined>(undefined);
   const location = useLocation();
+  const navigate = useNavigate();
+  function handleBack() {
+    navigate(-1);
+  }
 
   useEffect(() => {
     const path = location.pathname.replace('/', '');
-    if (path === 'weekly' || path === 'setting') {
+    if (path === 'setting' || path === 'searchDetail') {
       setHeaderBtn(backBtn);
     }
   }, [location.pathname]);
 
   return (
-    <SLayout>
+    <SLayout onClick={handleBack}>
       <button>{headerBtn && <img src={headerBtn} alt='' />}</button>
     </SLayout>
   );
@@ -33,4 +37,5 @@ const SLayout = styled.div`
   box-sizing: border-box;
   align-items: center;
   margin-bottom: 15px;
+  cursor: pointer;
 `;
