@@ -25,7 +25,7 @@ const BottomNav: React.FC = () => {
   const location = useLocation(); // 현재 경로 정보 가져오기
 
   // 현재 경로에 따라서 bottomNavIndexState를 업데이트하는 함수
-  const updateBottomNavIndexState = () => {
+  function updateBottomNavIndexState() {
     const path = location.pathname; // 현재 경로
     switch (path) {
       case '/':
@@ -43,16 +43,16 @@ const BottomNav: React.FC = () => {
       default:
         break;
     }
-  };
+  }
 
   // 첫 렌더링 시 현재 경로에 따라 bottomNavIndexState 초기화
   useEffect(() => {
     updateBottomNavIndexState();
   }, []);
 
-  const handleClick = (index: number): void => {
+  function handleClick(index: number): void {
     setBottomNavIndexState(index);
-  };
+  }
   return (
     <SNavLayout>
       <SListStyle>
