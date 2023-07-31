@@ -10,11 +10,11 @@ const Setting = () => {
   return (
     <>
       <Header />
-      <SSettingLayout>
+      <SSettingSection>
         <SetAlarmLocation />
         <SetProfile />
         <TermsOfUse />
-      </SSettingLayout>
+      </SSettingSection>
       <SVersion>Ver. 0.0.1</SVersion>
       <BottomNav />
     </>
@@ -23,7 +23,7 @@ const Setting = () => {
 
 export default Setting;
 
-const SSettingLayout = styled.article`
+const SSettingSection = styled.section`
   display: flex;
   flex-direction: column;
   gap: 12px;
