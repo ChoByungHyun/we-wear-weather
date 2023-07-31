@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 
-import pmGood from '../../Assets/particulate-matter-good.svg';
-import pmSoso from '../../Assets/particulate-matter-soso.svg';
-import pmBad from '../../Assets/particulate-matter-bad.svg';
+import pmGood from 'Assets/particulate-matter-good.svg';
+import pmSoso from 'Assets/particulate-matter-soso.svg';
+import pmBad from 'Assets/particulate-matter-bad.svg';
 
 interface ParticulateMatterProps {}
 
@@ -33,6 +33,7 @@ const SPMLayout = styled.article`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   gap: 6px;
   max-width: 70px;
   padding: 19px 8px;
