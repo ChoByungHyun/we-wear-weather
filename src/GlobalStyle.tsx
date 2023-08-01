@@ -10,6 +10,13 @@ const GlobalStyle = createGlobalStyle`
     font-style: normal;
   }
 
+  @font-face {
+    font-family: 'Pretendard-Lighter';
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraLight.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+  }
+
   /* Reset */
   ${reset}
 
