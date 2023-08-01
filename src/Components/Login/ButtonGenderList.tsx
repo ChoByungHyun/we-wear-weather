@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import ButtonGender from './ButtonGender';
-import genderMale from '../../Assets/gender-male.png';
-import genderFemale from '../../Assets/gender-female.png';
+import ButtonGender from 'Components/Login/ButtonGender';
 
 const ButtonGenderList = () => {
+  const [genderIndex, setGenderIndex] = useState<number | null>(null);
+  const genderItem: string[] = ['남성', '여성'];
+
+  function handleActive(index: number): void {
+    setGenderIndex(index);
+  }
+
   return (
     <SBtnGenderWrap>
-      <ButtonGender isActive={false} gender={genderMale} text='남성' />
-      <ButtonGender isActive={false} gender={genderFemale} text='여성' />
+      {genderItem.map((el, index) => {
+        return (
+          <ButtonGender
+            key={index}
+            active={index === genderIndex}
+            gender={el}
+            text={el}
+            onClick={() => {
+              handleActive(index);
+            }}
+          />
+        );
+      })}
     </SBtnGenderWrap>
   );
 };

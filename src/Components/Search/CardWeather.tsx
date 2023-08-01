@@ -20,14 +20,12 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, icon, name }) => {
   useEffect(() => {
     if (15 < currentTime) {
       setIsNight(true);
-    } else if (0 < currentTime && currentTime < 5) {
+    } else if (0 <= currentTime && currentTime < 5) {
       setIsNight(true);
     } else {
       setIsNight(false);
     }
-  }, [currentTime]);
 
-  useEffect(() => {
     switch (name) {
       case '비옴':
         setIsRain(true);
@@ -39,7 +37,7 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, icon, name }) => {
         setIsRain(true);
         break;
     }
-  });
+  }, [currentTime]);
 
   return (
     <SCardWeatherWrap isNight={isNight}>

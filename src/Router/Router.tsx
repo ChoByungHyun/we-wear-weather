@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from 'App';
 import Home from 'Pages/Home';
+import Permission from 'Pages/Permission';
 import Login from 'Pages/Login';
 import Search from 'Pages/Search';
 import Weekly from 'Pages/Weekly';
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <Home />,
+      },
+      {
+        path: 'permission',
+        element: <Permission />,
       },
       {
         path: 'login',

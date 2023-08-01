@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 interface CardRainProps {
@@ -6,6 +6,7 @@ interface CardRainProps {
 }
 const CardRain: FC<CardRainProps> = ({ isNight }) => {
   const nbDrop: number = 80;
+  const rainRef = useRef<HTMLDivElement>(null);
 
   function randRange(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -13,26 +14,24 @@ const CardRain: FC<CardRainProps> = ({ isNight }) => {
 
   useEffect(() => {
     const createRain = () => {
-      const rainContainers = document.querySelectorAll('.rain');
+      const rainContainer = rainRef.current;
 
-      rainContainers.forEach((rainContainer) => {
-        for (let i = 1; i < nbDrop; i++) {
-          const dropLeft = randRange(0, 1600);
-          const dropTop = randRange(-1000, 1400);
+      for (let i = 1; i < nbDrop; i++) {
+        const dropLeft = randRange(0, 1600);
+        const dropTop = randRange(-1000, 1400);
 
-          const drop = document.createElement('div');
-          drop.className = 'drop';
-          drop.style.left = dropLeft + 'px';
-          drop.style.top = dropTop + 'px';
-          (rainContainer as Element).appendChild(drop);
-        }
-      });
+        const drop = document.createElement('div');
+        drop.className = 'drop';
+        drop.style.left = dropLeft + 'px';
+        drop.style.top = dropTop + 'px';
+        rainContainer?.appendChild(drop);
+      }
     };
 
     createRain();
   }, []);
 
-  return <CardRainWrap style={{ opacity: isNight ? 0.6 : 1 }} className='rain'></CardRainWrap>;
+  return <CardRainWrap ref={rainRef} style={{ opacity: isNight ? 0.6 : 1 }} className='rain'></CardRainWrap>;
 };
 
 const CardRainWrap = styled.div`

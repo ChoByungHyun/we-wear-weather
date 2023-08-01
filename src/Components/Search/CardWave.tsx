@@ -8,9 +8,9 @@ interface CardWaveProps {
 const CardWave: FC<CardWaveProps> = ({ isNight }) => {
   return (
     <SCardWaveLayout style={{ opacity: isNight ? 0.4 : 1 }}>
-      <div className='wave -one'></div>
-      <div className='wave -two'></div>
-      <div className='wave -three'></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </SCardWaveLayout>
   );
 };
@@ -34,7 +34,7 @@ const SCardWaveLayout = styled.div`
     transform: translate3d(0, 0, 0);
   }
 
-  .wave {
+  & div {
     opacity: 0.3;
     position: absolute;
     top: 3%;
@@ -49,17 +49,17 @@ const SCardWaveLayout = styled.div`
     animation: drift 10000ms infinite linear;
   }
 
-  .wave.-three {
-    opacity: 0.2;
-    animation: drift 7000ms infinite linear;
-    margin-top: -10px;
+  & div:nth-child(2) {
+    opacity: 0.4;
+    animation: drift 14000ms infinite linear;
+    margin-top: 15px;
     margin-left: -400px;
   }
 
-  .wave.-two {
-    animation: drift 14000ms infinite linear;
-    opacity: 0.4;
-    margin-top: 15px;
+  & div:nth-child(3) {
+    opacity: 0.2;
+    animation: drift 7000ms infinite linear;
+    margin-top: -10px;
     margin-left: -400px;
   }
 
