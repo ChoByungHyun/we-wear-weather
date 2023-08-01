@@ -1,38 +1,53 @@
 import React from 'react';
 import styled from 'styled-components';
+import genderMale from 'Assets/gender-male.png';
+import genderFemale from 'Assets/gender-female.png';
 
 interface OwnProps {
-  isActive: boolean;
-  gender?: string;
-  text?: string;
+  active: boolean;
+  gender: string;
+  text: string;
+  onClick: () => void;
 }
 
-const ButtonGender: React.FC<OwnProps> = (props) => {
+const ButtonGender: React.FC<OwnProps> = ({ active, gender, text, onClick }) => {
   return (
-    <SBtnGenderLayout isActive={props.isActive} type='button'>
-      <img src={props.gender} alt='성별 이미지' />
-      {props.text}
+    <SBtnGenderLayout type='button'>
+      <img
+        className={active ? 'active' : ''}
+        src={gender === '남성' ? genderMale : genderFemale}
+        alt='성별 이미지'
+        onClick={onClick}
+      />
+      {text}
     </SBtnGenderLayout>
   );
 };
 
-const SBtnGenderLayout = styled.button<OwnProps>`
-  cursor: pointer;
+const SBtnGenderLayout = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: ${(props) => (props.isActive ? 'black' : 'var(--gray-600)')};
+  color: var(--gray-600);
   font-size: 16px;
 
   img {
     width: 120px;
     aspect-ratio: 1 / 1;
     border-radius: 100px;
+    border: 1px solid var(--gray-200);
     background-color: white;
     vertical-align: top;
-    border: ${(props) => (props.isActive ? '2px solid var( --orange)' : '1px solid var(--gray-200)')};
     margin-bottom: 12px;
-    transition: all 0.3s;
+    transition: all 0.1s;
+  }
+
+  .active {
+    outline: 2px solid var(--orange);
+  }
+
+  &:has(.active) {
+    color: black;
   }
 
   &:hover {

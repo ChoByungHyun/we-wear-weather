@@ -2,27 +2,33 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface OwnProps {
-  text?: string;
-  isActive: boolean;
+  text: string;
+  active: boolean;
+  onClick: () => void;
 }
 
-const ButtonAge: React.FC<OwnProps> = ({ text, isActive }) => {
+const ButtonAge: React.FC<OwnProps> = ({ text, active, onClick }) => {
   return (
-    <SBtnAgeLayout isActive={isActive} type='button'>
+    <SBtnAgeLayout className={active ? 'active' : ''} onClick={onClick} type='button'>
       {text}
     </SBtnAgeLayout>
   );
 };
 
-const SBtnAgeLayout = styled.button<OwnProps>`
+const SBtnAgeLayout = styled.button`
   padding: 12px 36px;
   background-color: white;
   border-radius: 50px;
-  color: ${(props) => (props.isActive ? 'black' : 'var(--gray-600)')};
-  border: ${(props) => (props.isActive ? '2px solid var(--orange)' : '1px solid var(--gray-200)')};
+  color: var(--gray-600);
+  border: 1px solid var(--gray-200);
   font-weight: 500;
   font-size: 16px;
-  transition: all 0.3s;
+  transition: all 0.1s;
+
+  &.active {
+    color: black;
+    outline: 2px solid var(--orange);
+  }
 
   &:hover {
     background-color: #f6f6f6;

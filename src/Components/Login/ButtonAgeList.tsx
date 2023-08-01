@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import ButtonAge from './ButtonAge';
+import ButtonAge from 'Components/Login/ButtonAge';
 
 const ButtonAgeList = () => {
+  const [ageIndex, setAgeIndex] = useState<number | null>(null);
   const ageList: string[] = ['10대', '20대', '30대', '40대', '50대'];
+
+  function handleActive(index: number): void {
+    setAgeIndex(index);
+  }
   return (
     <SBtnAgeWrap>
-      {ageList.map((el, idx) => {
-        return <ButtonAge isActive={false} key={idx} text={el} />;
+      {ageList.map((el, index) => {
+        console.log(ageIndex === index);
+        return (
+          <ButtonAge
+            key={index}
+            active={ageIndex === index}
+            text={el}
+            onClick={() => {
+              handleActive(index);
+            }}
+          />
+        );
       })}
     </SBtnAgeWrap>
   );
