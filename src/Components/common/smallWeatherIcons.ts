@@ -9,15 +9,15 @@ import showerRainy from 'Assets/icons-sm-weather/icon-shower-rainy.svg';
 import snow from 'Assets/icons-sm-weather/icon-snow.svg';
 
 const smallWeatherIcons = {
-  brokenClouds: brokenClouds,
-  clearSky: clearSky,
-  fewClouds: fewClouds,
-  mist: mist,
-  rainyThunder: rainyThunder,
-  rainy: rainy,
+  brokenClouds: brokenClouds, //구름 조금
+  clearSky: clearSky, // 맑은 날씨
+  fewClouds: fewClouds, // 흐린 날씨
+  mist: mist, // 구름 많음
+  rainyThunder: rainyThunder, // 천둥 번개
+  rainy: rainy, // 비 옴
   scatteredClouds: scatteredClouds,
-  showerRainy: showerRainy,
-  snow: snow,
+  showerRainy: showerRainy, // 소나기
+  snow: snow, // 눈 옴
 };
 
 export default smallWeatherIcons;

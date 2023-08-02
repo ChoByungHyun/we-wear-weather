@@ -1,67 +1,9 @@
 import React, { FC } from 'react';
 import WeeklyItem from 'Components/Weekly/WeeklyItem';
-import smallWeatherIcons from 'Components/common/smallWeatherIcons';
+import week from 'Mock/weather';
 import { styled } from 'styled-components';
 
 const WeeklyForecast: FC = () => {
-  // mock data
-  const week = [
-    {
-      dt: '오늘',
-      main: {
-        temp: '28°',
-        min: '21°',
-        max: '32°',
-        icon: smallWeatherIcons.clearSky,
-      },
-    },
-    {
-      dt: '수',
-      main: {
-        temp: '29°',
-        min: '22°',
-        max: '33°',
-        icon: smallWeatherIcons.brokenClouds,
-      },
-    },
-    {
-      dt: '목',
-      main: {
-        temp: '32°',
-        min: '24°',
-        max: '32°',
-        icon: smallWeatherIcons.fewClouds,
-      },
-    },
-    {
-      dt: '금',
-      main: {
-        temp: '27°',
-        min: '22°',
-        max: '30°',
-        icon: smallWeatherIcons.rainy,
-      },
-    },
-    {
-      dt: '토',
-      main: {
-        temp: '28°',
-        min: '25°',
-        max: '31°',
-        icon: smallWeatherIcons.showerRainy,
-      },
-    },
-    {
-      dt: '일',
-      main: {
-        temp: '28°',
-        min: '21°',
-        max: '32°',
-        icon: smallWeatherIcons.rainyThunder,
-      },
-    },
-  ];
-
   return (
     <>
       <STitle>주간 일기예보</STitle>
