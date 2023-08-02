@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import ButtonGender from 'Components/Login/ButtonGender';
+import { UserInfoProps } from 'Pages/Login';
 
-const ButtonGenderList = () => {
+const ButtonGenderList: FC<UserInfoProps> = ({ setUserInfo }) => {
   const [genderIndex, setGenderIndex] = useState<number | null>(null);
   const genderItem: string[] = ['남성', '여성'];
 
-  function handleActive(index: number): void {
+  function handleActive(index: number, el: string): void {
     setGenderIndex(index);
+    setUserInfo((prevUserInfo) => ({
+      ...prevUserInfo,
+      gender: el,
+    }));
   }
 
   return (
@@ -20,7 +25,7 @@ const ButtonGenderList = () => {
             gender={el}
             text={el}
             onClick={() => {
-              handleActive(index);
+              handleActive(index, el);
             }}
           />
         );
