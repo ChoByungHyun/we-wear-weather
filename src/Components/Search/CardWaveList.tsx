@@ -1,12 +1,33 @@
 import React, { FC } from 'react';
 import { styled } from 'styled-components';
-import week from 'Mock/weather';
+import { Link } from 'react-router-dom';
 import CardWeather from './CardWeather';
+import { useQuery } from 'react-query';
+import { getLatLonData } from 'API/weatherLatLonAPI';
+import { useRecoilValue } from 'recoil';
+import userLocationAtom from 'Atom/userLocationAtom';
 
 const CardWaveList: FC = () => {
+  const latLon = useRecoilValue(userLocationAtom);
+  const { data, isLoading, isError } = useQuery('weatherLatLon', () => getLatLonData(latLon.lat, latLon.lon));
+
+  console.log(data);
+
   return (
-    <CardWaveLayout>
-      {week?.map((el, index) => {
+    <CardWaveLayout to=''>
+      {isLoading ? (
+        <div>로딩중입니다</div>
+      ) : (
+        <CardWeather
+          key={data.coord.id}
+          temp={data.main.temp}
+          max={data.main.temp_max}
+          min={data.main.temp_min}
+          weather={data.weather[0].main}
+          name='현재 나의 위치'
+        />
+      )}
+      {/* {week?.map((el, index) => {
         return (
           <CardWeather
             key={index}
@@ -17,11 +38,11 @@ const CardWaveList: FC = () => {
             name={el.main.name}
           />
         );
-      })}
+      })} */}
     </CardWaveLayout>
   );
 };
 
-const CardWaveLayout = styled.article``;
+const CardWaveLayout = styled(Link)``;
 
 export default CardWaveList;
