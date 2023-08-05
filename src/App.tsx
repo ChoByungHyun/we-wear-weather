@@ -4,6 +4,7 @@ import { RecoilRoot } from 'recoil';
 import GlobalStyle from 'GlobalStyle';
 import SLayout from 'Components/style/SLayout';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={true} />
       <RecoilRoot>
         <SLayout>
           <GlobalStyle />
