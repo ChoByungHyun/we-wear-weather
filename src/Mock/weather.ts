@@ -37,7 +37,7 @@ const week = [
       temp: '27°',
       min: '22°',
       max: '30°',
-      icon: smallWeatherIcons.clearSky,
+      icon: smallWeatherIcons.clear,
       name: '맑은날씨',
     },
   },
