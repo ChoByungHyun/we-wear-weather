@@ -6,8 +6,11 @@ import ParticulateMatter from 'Components/Home/ParticulateMatter';
 
 import HourlyForcast from 'Components/Home/HourlyForecast';
 import SpeechBubble from 'Components/Home/SpeechBubble';
+import { useNavigate, useLocation } from 'react-router';
 
 const Home = () => {
+  const location = useLocation();
+  console.log(location.state);
   return (
     <>
       <Header />

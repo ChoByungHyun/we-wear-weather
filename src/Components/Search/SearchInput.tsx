@@ -3,6 +3,8 @@ import SearchIcon from 'Assets/search-icon.svg';
 import SearchIcon_Fill from 'Assets/search-fill-icon.svg';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import useOpenWeatherAPI from 'API/useOpenWeatherAPI';
+import { useQuery } from 'react-query';
 
 // Dummy JSON data
 const dummyData: string[] = ['서울', '경기도', '강원도', '경상남도', '경상북도', '전라남도', '전라북도', '제주도'];
@@ -16,7 +18,18 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
   const [searchValue, setSearchValue] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const filteredData = dummyData.filter((item) => item.toLowerCase().includes(searchValue.toLowerCase()));
+  const { getCityWeather } = useOpenWeatherAPI();
+
   const navigate = useNavigate();
+
+  // Use the useQuery hook to fetch and manage the data
+  const { data, isLoading, isError } = useQuery(
+    ['weatherCity', searchValue], // Provide a query key based on searchValue
+    () => getCityWeather(searchValue),
+    {
+      enabled: searchValue !== '', // Only enable the query if searchValue is not empty
+    },
+  );
 
   function handleInputFocus() {
     setIsFocused(true);
@@ -50,7 +63,15 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
     }
   }
   function handleSearchValueCheck() {
-    alert(searchValue);
+    // API 요청확인
+    if (isLoading) {
+      console.log('Loading...');
+    } else if (isError) {
+      console.error('Error fetching weather data');
+    } else {
+      console.log('Fetched data:', data);
+      navigate('/', { state: { cityWeather: { data: data, cityName: searchValue } } });
+    }
   }
 
   function highlightMatchedText(text: string): JSX.Element {
@@ -111,10 +132,10 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
               isFocused={isFocused}
               onFocus={handleInputFocus}
               onBlur={handleInputBlur}
-              autoFocus
               value={searchValue}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
+              autoFocus
             />
             {isFocused && searchValue.length > 0 && (
               <>
