@@ -3,6 +3,10 @@ import { Outlet } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import GlobalStyle from 'GlobalStyle';
 import SLayout from 'Components/style/SLayout';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+
+const queryClient = new QueryClient();
 
 function App() {
   const setScreenSize = () => {
@@ -14,12 +18,15 @@ function App() {
   }, []);
 
   return (
-    <RecoilRoot>
-      <SLayout>
-        <GlobalStyle />
-        <Outlet />
-      </SLayout>
-    </RecoilRoot>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={true} />
+      <RecoilRoot>
+        <SLayout>
+          <GlobalStyle />
+          <Outlet />
+        </SLayout>
+      </RecoilRoot>
+    </QueryClientProvider>
   );
 }
 
