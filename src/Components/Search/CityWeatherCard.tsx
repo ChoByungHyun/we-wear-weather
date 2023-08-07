@@ -6,13 +6,17 @@ import useSearchedCities from 'Hooks/useSearchedCites';
 
 interface CityWeatherCardProps {
   cityName: string;
+  latLonData: {
+    longitude: number;
+    latitude: number;
+  };
 }
 
-const CityWeatherCard: FC<CityWeatherCardProps> = ({ cityName }) => {
+const CityWeatherCard: FC<CityWeatherCardProps> = ({ cityName, latLonData }) => {
   const { getCityWeather } = useOpenWeatherAPI();
   const { data, isLoading, isError } = useQuery(
-    ['weatherCity', cityName], // Query key
-    () => getCityWeather(cityName), // API 요청 함수
+    ['weatherCity', latLonData], // Query key
+    () => getCityWeather(latLonData), // API 요청 함수
     {
       enabled: cityName !== '',
     },

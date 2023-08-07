@@ -30,8 +30,8 @@ const CardWaveList: FC = () => {
             weather={data.weather[0].main}
             name='현재 나의 위치'
           />
-          {searchedCities.map((cityName: string, index: string) => (
-            <CityWeatherCard key={index} cityName={cityName} />
+          {searchedCities.map((cityInfo, index) => (
+            <CityWeatherCard key={index} cityName={cityInfo.cityName} latLonData={cityInfo.latLonData} />
           ))}
         </>
       )}
