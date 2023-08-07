@@ -9,7 +9,7 @@ const useOpenWeatherAPI = () => {
   });
 
   async function getCityWeather(city: string) {
-    const requestURL = `?q=${city}&appid=${API_ID}`;
+    const requestURL = `?q=${city}&appid=${API_ID}&units=metric`;
     try {
       const response = await openWeatherAxios.get(requestURL).then((response) => response.data);
       return response;
