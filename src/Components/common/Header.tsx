@@ -19,8 +19,8 @@ const Header: React.FC = () => {
   }, [location.pathname]);
 
   return (
-    <SLayout onClick={handleBack}>
-      <button>{headerBtn && <img src={headerBtn} alt='' />}</button>
+    <SLayout>
+      <button onClick={handleBack}>{headerBtn && <img src={headerBtn} alt='' />}</button>
     </SLayout>
   );
 };
@@ -33,7 +33,6 @@ const SLayout = styled.div`
   width: 100%;
   height: 50px;
   margin: 0 auto;
-  border-bottom: 1px solid black;
   box-sizing: border-box;
   align-items: center;
   margin-bottom: 15px;

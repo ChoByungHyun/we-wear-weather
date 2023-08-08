@@ -5,9 +5,9 @@ import CardRain from './CardRain';
 import { useWeatherIcon, useWeatherKr } from 'Components/common/useWeatherIcon';
 
 interface CardWeatherProps {
-  min: string | number | undefined;
-  max: string | number | undefined;
-  temp: string | number | undefined;
+  min: number;
+  max: number;
+  temp: number;
   weather: string | undefined;
   name: string | undefined;
 }
@@ -41,12 +41,12 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name }) =>
 
   return (
     <SCardWeatherWrap isNight={isNight}>
-      <STemp>{String(temp).slice(0, 2) + '°'}</STemp>
+      <STemp>{temp.toFixed(1) + '°'}</STemp>
       <SCardContents>
         <SMinMaxWrap>
-          <span>최고: {String(max).slice(0, 2) + '°'}</span>
+          <span>최고: {max.toFixed(1) + '°'}</span>
           <div />
-          <span>최저: {String(min).slice(0, 2) + '°'}</span>
+          <span>최저: {min.toFixed(1) + '°'}</span>
         </SMinMaxWrap>
         <STempWrap>
           <img src={useWeatherIcon(weather)} alt='날씨 아이콘' />

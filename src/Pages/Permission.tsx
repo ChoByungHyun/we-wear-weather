@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { useRecoilState } from 'recoil';
-import userLocationAtom from 'Atom/userLocationAtom';
+import { userLocationAtom } from 'Atom/userLocationAtom';
 import Button from 'Components/common/Button';
 import RejectionModal from 'Components/Permission/RejectionModal';
 import location from 'Assets/location.svg';

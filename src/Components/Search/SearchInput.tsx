@@ -1,23 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import SearchIcon from 'Assets/search-icon.svg';
 import SearchIcon_Fill from 'Assets/search-fill-icon.svg';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-
-// Dummy JSON data
-const dummyData: string[] = ['서울', '경기도', '강원도', '경상남도', '경상북도', '전라남도', '전라북도', '제주도'];
-
+import useOpenWeatherAPI from 'API/useOpenWeatherAPI';
+import useSearchedCities from 'Hooks/useSearchedCites';
+import { useQuery } from 'react-query';
+import korea_location_lon_lan from 'Assets/korea-location/korea_location_lon_lan.json';
+import LocationConfirmModal from './LocationConfirmModal';
+import { getLatLonData } from 'API/weatherLatLonAPI';
 interface SearchInputProps {
   type: string;
+}
+interface CityInfo {
+  docity: string;
+  do: string;
+  city: string;
+  longitude: number;
+  latitude: number;
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  const filteredData = dummyData.filter((item) => item.toLowerCase().includes(searchValue.toLowerCase()));
+  const filteredData = filterCityResults(searchValue);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [latLonData, setLatLonData] = useState({
+    longitude: 0,
+    latitude: 0,
+  });
+
+  const { getCityWeather } = useOpenWeatherAPI();
+  const { searchedCities, addSearchedCity } = useSearchedCities();
+
+  function filterCityResults(value: string): CityInfo[] {
+    const lowerValue = value.toLowerCase();
+    return korea_location_lon_lan.filter((item) => item.docity.toLowerCase().includes(lowerValue));
+  }
   const navigate = useNavigate();
 
+  // Use the useQuery hook to fetch and manage the data
+  const { data, isLoading, isError } = useQuery(
+    ['weatherCity', searchValue], // Provide a query key based on searchValue
+    () => getCityWeather(latLonData),
+    {
+      enabled: searchValue !== '', // Only enable the query if searchValue is not empty
+    },
+  );
   function handleInputFocus() {
     setIsFocused(true);
   }
@@ -36,7 +67,20 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
   }
 
   function handleSelectOption(option: string) {
-    setSearchValue(option);
+    const selectedCityInfo = filteredData.find((cityInfo) => cityInfo.docity === option);
+
+    if (selectedCityInfo) {
+      const { longitude, latitude } = selectedCityInfo;
+      setSelectedIndex(filteredData.indexOf(selectedCityInfo));
+      setSearchValue(option);
+      setShowModal(true);
+
+      setLatLonData({
+        longitude: longitude,
+        latitude: latitude,
+      });
+    } else {
+    }
   }
 
   function handleSearchIconClick(event: React.MouseEvent<HTMLImageElement>) {
@@ -50,7 +94,30 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
     }
   }
   function handleSearchValueCheck() {
-    alert(searchValue);
+    // API 요청확인
+    if (isLoading) {
+      console.log('Loading...');
+    } else if (isError) {
+      console.error('Error fetching weather data');
+    } else {
+      console.log('Fetched data:', data);
+      setShowModal(true);
+      // navigate('/', { state: { cityWeather: { data: data, cityName: searchValue } } });
+      // addSearchedCity(searchValue);
+    }
+  }
+
+  function handleModal(confirm: boolean) {
+    if (confirm) {
+      console.log('성공');
+      addSearchedCity(searchValue, latLonData);
+      navigate('/', { state: { cityWeather: { data: data, cityName: searchValue, latLonData: latLonData } } });
+      setShowModal(false);
+    } else {
+      console.log('실패');
+
+      setShowModal(false);
+    }
   }
 
   function highlightMatchedText(text: string): JSX.Element {
@@ -64,9 +131,8 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
       </>
     );
   }
-
   useEffect(() => {
-    // 방향키랑 엔터로 드롭박스 이동가능하도록 하는 함수
+    // 방향키와 엔터로 드롭박스 이동 및 선택 가능하도록 하는 함수
     function handleKeyDown(event: KeyboardEvent) {
       if (isFocused && filteredData.length > 0) {
         switch (event.key) {
@@ -78,7 +144,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
             break;
           case 'Enter':
             if (selectedIndex !== -1) {
-              handleSelectOption(filteredData[selectedIndex]);
+              handleSelectOption(filteredData[selectedIndex].docity);
             }
             break;
           default:
@@ -87,6 +153,11 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
       }
     }
 
+    // 스크롤 조정
+    const activeOption = dropdownRef.current?.querySelector('.active-option');
+    if (activeOption) {
+      activeOption.scrollIntoView({ block: 'nearest' });
+    }
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
@@ -111,21 +182,25 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
               isFocused={isFocused}
               onFocus={handleInputFocus}
               onBlur={handleInputBlur}
-              autoFocus
               value={searchValue}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
+              autoFocus
             />
+
             {isFocused && searchValue.length > 0 && (
               <>
-                <SDropdown>
-                  {filteredData.map((option, index) => (
+                <SDropdown ref={dropdownRef}>
+                  {filterCityResults(searchValue).map((cityInfo, index) => (
                     <SDropdownOption
-                      key={option}
-                      onClick={() => handleSelectOption(option)}
+                      key={cityInfo.docity}
+                      onClick={() => {
+                        handleSelectOption(cityInfo.docity);
+                      }}
                       isSelected={index === selectedIndex}
+                      className={index === selectedIndex ? 'dropdown-option active-option' : 'dropdown-option'}
                     >
-                      {highlightMatchedText(option)}
+                      {highlightMatchedText(cityInfo.docity)}
                     </SDropdownOption>
                   ))}
                 </SDropdown>
@@ -136,6 +211,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
             ) : (
               <SSearchIcon src={SearchIcon} alt='검색아이콘' onClick={handleSearchIconClick} />
             )}
+            {showModal && <LocationConfirmModal handleModal={handleModal} searchValue={searchValue} />}
           </SLayout>
         </>
       )}
