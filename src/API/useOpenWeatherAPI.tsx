@@ -6,10 +6,13 @@ const useOpenWeatherAPI = () => {
   const openWeatherAxios = axios.create({
     baseURL: config.BaseURL,
   });
+  const forecastAxios = axios.create({
+    baseURL: config.ForeCastURL,
+  });
 
-  async function getCityWeather(latLonData: { longitude: number; latitude: number }) {
-    const lat = latLonData.latitude;
-    const lon = latLonData.longitude;
+  async function getCityWeather(latLonData: { longitude: number; latitude: number; lat?: number; lon?: number }) {
+    const lat = latLonData.latitude || latLonData.lat;
+    const lon = latLonData.longitude || latLonData.lon;
     const requestURL = `?lat=${lat}&lon=${lon}&appid=${API_ID}&units=metric`;
     try {
       const response = await openWeatherAxios.get(requestURL).then((response) => response.data);
@@ -19,7 +22,20 @@ const useOpenWeatherAPI = () => {
     }
   }
 
-  return { getCityWeather };
+  async function getForecast(latLonData: { lat: number; lon: number }) {
+    const lat = latLonData.lat;
+    const lon = latLonData.lon;
+    const reqURL = `?lat=${lat}&lon=${lon}&appid=${API_ID}&units=metric`;
+
+    try {
+      const response = await forecastAxios.get(reqURL).then((res) => res.data);
+      return response;
+    } catch (error) {
+      console.error('Forecast API 문제가 있습니다.', error);
+    }
+  }
+
+  return { getCityWeather, getForecast };
 };
 
 export default useOpenWeatherAPI;
