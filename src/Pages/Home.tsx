@@ -4,7 +4,7 @@ import BottomNav from 'Components/common/BottomNav';
 import Character from 'Components/Home/Character';
 import ParticulateMatter from 'Components/Home/ParticulateMatter';
 
-import HourlyForcast from 'Components/Home/HourlyForecast';
+import HourlyForecast from 'Components/Home/HourlyForecast';
 import SpeechBubble from 'Components/Home/SpeechBubble';
 import { useNavigate, useLocation } from 'react-router';
 
@@ -20,7 +20,7 @@ const Home = () => {
         <Character />
         <SPMHourlySection>
           <ParticulateMatter />
-          <HourlyForcast />
+          <HourlyForecast />
         </SPMHourlySection>
       </main>
       <BottomNav />
