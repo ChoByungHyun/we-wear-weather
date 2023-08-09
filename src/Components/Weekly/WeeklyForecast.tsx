@@ -7,6 +7,7 @@ import useOpenWeatherAPI from 'API/useOpenWeatherAPI';
 import { userLocationAtom } from 'Atom/userLocationAtom';
 import formatDateTime from 'Utils/formatDateTime';
 import filterMinMax from 'Utils/filterMinMax';
+import { useWeatherIcon } from 'Components/common/useWeatherIcon';
 
 import { ItemType } from 'types/weeklyType';
 
@@ -19,6 +20,7 @@ const WeeklyForecast: FC = () => {
   const weeklyRes = useQuery('weeklyForecast', () => getForecast(latLonData));
 
   const today = cityRes?.data;
+  const todayIcon = useWeatherIcon(today?.weather.main);
 
   // 주간예보 필터링 effect
   useEffect(() => {
@@ -40,8 +42,6 @@ const WeeklyForecast: FC = () => {
     }
   }, [weeklyRes.data]);
 
-  console.log(days);
-
   if (weeklyRes.isLoading) {
     return <p>로딩중...</p>;
   }
@@ -59,6 +59,7 @@ const WeeklyForecast: FC = () => {
           min={Math.ceil(today?.main.temp_min) + '°'}
           max={Math.ceil(today?.main.temp_max) + '°'}
           temp={Math.ceil(today?.main.temp) + '°'}
+          icon={todayIcon}
         />
         {days.map((day, idx) => (
           <WeeklyItem
@@ -67,7 +68,8 @@ const WeeklyForecast: FC = () => {
             min={Math.ceil(day.main.temp_min) + '°'}
             max={Math.ceil(day.main.temp_max) + '°'}
             temp={Math.ceil(day.main.temp) + '°'}
-            // icon={day.main.icon}
+            // eslint-disable-next-line
+            icon={useWeatherIcon(day.weather[0].main)}
           />
         ))}
       </SLayout>
