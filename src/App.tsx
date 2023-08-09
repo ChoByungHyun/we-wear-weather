@@ -5,6 +5,7 @@ import GlobalStyle from 'GlobalStyle';
 import SLayout from 'Components/style/SLayout';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { StyleSheetManager } from 'styled-components';
 
 const queryClient = new QueryClient();
 
@@ -21,10 +22,12 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={true} />
       <RecoilRoot>
-        <SLayout>
-          <GlobalStyle />
-          <Outlet />
-        </SLayout>
+        <StyleSheetManager shouldForwardProp={(prop) => prop !== 'active'}>
+          <SLayout>
+            <GlobalStyle />
+            <Outlet />
+          </SLayout>
+        </StyleSheetManager>
       </RecoilRoot>
     </QueryClientProvider>
   );
