@@ -6,9 +6,10 @@ import Button from 'Components/common/Button';
 interface RejectionModalProps {
   handleGeo?: (() => void) | undefined;
   setShowModal?: Dispatch<SetStateAction<boolean>> | undefined;
+  showModal?: boolean;
 }
 
-const RejectionModal: FC<RejectionModalProps> = ({ handleGeo, setShowModal }) => {
+const RejectionModal: FC<RejectionModalProps> = ({ handleGeo, setShowModal, showModal }) => {
   // NOTE: 권한 재요청
   // 모바일이 아닌 브라우저에서 권한 재요청 방법을 찾아봐야함. 현재 재요청을 해도 브라우저에서 요청권한 창이 나오지 않음. 현재로서는 권한을 허용하는 방법을 안내하는 쪽으로 먼저 해보기.
   function handleRetryPermission() {

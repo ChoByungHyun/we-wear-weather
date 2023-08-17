@@ -2,40 +2,85 @@ import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { userLocationAtom } from 'Atom/userLocationAtom';
+import { userCityAtom } from 'Atom/userLocationAtom';
 import Button from 'Components/common/Button';
 import RejectionModal from 'Components/Permission/RejectionModal';
 import location from 'Assets/location.svg';
+import cityNameAPI from 'API/cityNameAPI';
 
-const Permission: FC = () => {
+interface CityWeatherType {
+  cityName?: string;
+  latLonData?: {
+    longitude: number;
+    latitude: number;
+  };
+}
+
+const Permission: FC<CityWeatherType> = () => {
+  const [isLocation, setIsLocation] = useState({
+    cityName: '',
+    latLonData: { latitude: 0, longitude: 0 },
+  });
   const navigate = useNavigate();
-  const [userLocation, setUserLocation] = useRecoilState(userLocationAtom);
+  const [userLocation, setUserLocation] = useRecoilState(userCityAtom);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [showLoading, setShowLoading] = useState<boolean>(true);
 
-  function handleGeo() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        setUserLocation({ lat, lon });
-      },
-      (error) => {
-        setShowModal(true);
-      },
-    );
+  async function handleCityName() {
+    const res = await cityNameAPI(isLocation.latLonData);
+    try {
+      setIsLocation((prev) => ({
+        ...prev,
+        cityName: res.region_1depth_name + ' ' + res.region_2depth_name,
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+
+    setShowLoading(false);
+  }
+
+  async function handleGeo(): Promise<void> {
+    const getUserLocation = (): Promise<GeolocationPosition> => {
+      return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
+    };
+
+    try {
+      const position: GeolocationPosition = await getUserLocation();
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      setIsLocation((prev) => ({
+        ...prev,
+        latLonData: {
+          latitude: lat,
+          longitude: lon,
+        },
+      }));
+    } catch (error) {
+      setShowModal(true);
+    }
   }
 
   useEffect(() => {
-    handleGeo();
-  }, []);
+    if (!isLocation.latLonData.latitude) {
+      handleGeo();
+    } else {
+      handleCityName();
+    }
+  }, [isLocation.latLonData]);
 
   function handleNextBtn() {
-    if (userLocation) {
+    if (userLocation && !showModal) {
       navigate('/login');
+      setUserLocation((prev: CityWeatherType[]) => [isLocation, ...prev]);
     } else {
       alert('필수 위치 권한에 동의 하지 않으셨습니다.');
     }
   }
+  console.log(isLocation);
+  console.log(userLocation);
 
   return (
     <SLayout>
@@ -52,8 +97,10 @@ const Permission: FC = () => {
           </div>
         </SPermissionInfoWrap>
       </STitleWrap>
-      <Button onClick={handleNextBtn}>다음</Button>
-      {showModal && <RejectionModal handleGeo={handleGeo} setShowModal={setShowModal} />}
+      <Button onClick={handleNextBtn} showLoading={showLoading}>
+        다음
+      </Button>
+      {showModal && <RejectionModal handleGeo={handleGeo} setShowModal={setShowModal} showModal={showModal} />}
     </SLayout>
   );
 };
