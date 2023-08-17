@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import CardWeather from './CardWeather';
 import { useQuery } from 'react-query';
 import useOpenWeatherAPI from 'API/useOpenWeatherAPI';
+import { CityWeatherType } from 'types/cityWeatherType';
 import useSearchedCities from 'Hooks/useSearchedCites';
 
 interface CityWeatherCardProps {
