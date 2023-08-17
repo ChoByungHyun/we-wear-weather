@@ -2,17 +2,10 @@ import React, { FC } from 'react';
 import CardWeather from './CardWeather';
 import { useQuery } from 'react-query';
 import useOpenWeatherAPI from 'API/useOpenWeatherAPI';
+import { CityWeatherType } from 'types/cityWeatherType';
 import useSearchedCities from 'Hooks/useSearchedCites';
 
-interface CityWeatherCardProps {
-  cityName: string;
-  latLonData: {
-    longitude: number;
-    latitude: number;
-  };
-}
-
-const CityWeatherCard: FC<CityWeatherCardProps> = ({ cityName, latLonData }) => {
+const CityWeatherCard: FC<CityWeatherType> = ({ cityName, latLonData }) => {
   const { getCityWeather } = useOpenWeatherAPI();
   const { data, isLoading, isError } = useQuery(
     ['weatherCity', latLonData], // Query key
