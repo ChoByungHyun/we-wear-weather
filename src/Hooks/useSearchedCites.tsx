@@ -14,13 +14,15 @@ interface CityInfo {
 const useSearchedCities = () => {
   const [searchedCities, setSearchedCities] = useRecoilState<CityInfo[]>(userCityAtom);
 
-  const addSearchedCity = (cityName: string, latLonData: { lon: number; lat: number }) => {
-    if (!searchedCities.some((city) => city.cityName === cityName)) {
-      if (searchedCities.length >= 4) {
-        setSearchedCities((prevCities) => [...prevCities.slice(1), { cityName: cityName, latLonData: latLonData }]);
-      } else {
-        setSearchedCities((prevCities) => [...prevCities, { cityName: cityName, latLonData: latLonData }]);
-      }
+  const addSearchedCity = (cityName: string, latLonData: { lon: number; lat: number }, isZerothIndex: boolean) => {
+    if (isZerothIndex) {
+      setSearchedCities((prevCities) => [{ cityName: cityName, latLonData: latLonData }, ...prevCities.slice(1)]);
+    } else {
+      setSearchedCities((prevCities) => [
+        prevCities[0],
+        ...prevCities.slice(1),
+        { cityName: cityName, latLonData: latLonData },
+      ]);
     }
   };
 

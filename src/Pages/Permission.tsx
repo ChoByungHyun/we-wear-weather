@@ -6,17 +6,23 @@ import { userLocationAtom } from 'Atom/userLocationAtom';
 import Button from 'Components/common/Button';
 import RejectionModal from 'Components/Permission/RejectionModal';
 import location from 'Assets/location.svg';
+import useSearchedCities from 'Hooks/useSearchedCites';
 
 const Permission: FC = () => {
   const navigate = useNavigate();
   const [userLocation, setUserLocation] = useRecoilState(userLocationAtom);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const { addSearchedCity } = useSearchedCities(); // Use the custom hook
 
   function handleGeo() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
+
+        // Use addSearchedCity to add lon and lat to the 0th index
+        addSearchedCity('FixedCity', { lon, lat }, true);
+
         setUserLocation({ lat, lon });
       },
       (error) => {
