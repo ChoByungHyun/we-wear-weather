@@ -12,3 +12,8 @@ export const userCityAtom = atom({
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
+export const currentUserCityAtom = atom({
+  key: 'currentUserCityAtom',
+  default: 0,
+  effects_UNSTABLE: [persistAtom],
+});
