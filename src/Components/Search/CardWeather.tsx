@@ -4,6 +4,7 @@ import CardWave from './CardWave';
 import CardRain from './CardRain';
 import { useWeatherIcon, useWeatherKr } from 'Components/common/useWeatherIcon';
 import useSearchedCities from 'Hooks/useSearchedCites';
+import { useNavigate } from 'react-router-dom';
 
 interface CardWeatherProps {
   min: number;
@@ -19,6 +20,7 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name }) =>
   const currentDate = new Date();
   const currentTime: number = Number(currentDate.toTimeString().slice(0, 2));
   const { findCityIndexByName, setUserCityChange } = useSearchedCities();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (15 < currentTime) {
@@ -47,6 +49,7 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name }) =>
     } else {
       setUserCityChange(findCityIndexByName(name));
     }
+    navigate('/');
   }
 
   return (
