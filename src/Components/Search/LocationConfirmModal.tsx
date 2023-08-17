@@ -48,5 +48,12 @@ const SLocationConfirmModal = styled.div`
   div {
     display: flex;
     gap: 20px;
+    button {
+      padding: 10px 20px;
+      background-color: var(--green);
+      &:nth-child(2) {
+        background-color: var(--gray-400);
+      }
+    }
   }
 `;
