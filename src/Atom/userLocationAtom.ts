@@ -9,6 +9,6 @@ export const userLocationAtom = atom({
 });
 export const userCityAtom = atom({
   key: 'userCityAtom',
-  default: '',
+  default: [],
   effects_UNSTABLE: [persistAtom],
 });
