@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import CardWave from './CardWave';
 import CardRain from './CardRain';
 import { useWeatherIcon, useWeatherKr } from 'Components/common/useWeatherIcon';
+import useSearchedCities from 'Hooks/useSearchedCites';
 
 interface CardWeatherProps {
   min: number;
   max: number;
   temp: number;
-  weather: string | undefined;
-  name: string | undefined;
+  weather: string;
+  name: string;
 }
 
 const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name }) => {
@@ -17,6 +18,7 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name }) =>
   const [isRain, setIsRain] = useState<boolean>(false);
   const currentDate = new Date();
   const currentTime: number = Number(currentDate.toTimeString().slice(0, 2));
+  const { findCityIndexByName, setUserCityChange } = useSearchedCities();
 
   useEffect(() => {
     if (15 < currentTime) {
@@ -39,8 +41,16 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name }) =>
     }
   }, [currentDate, weather]);
 
+  function handleWeatherCard() {
+    if (name === '현재 위치') {
+      setUserCityChange(0);
+    } else {
+      setUserCityChange(findCityIndexByName(name));
+    }
+  }
+
   return (
-    <SCardWeatherWrap isNight={isNight}>
+    <SCardWeatherWrap isNight={isNight} onClick={handleWeatherCard}>
       <STemp>{temp.toFixed(1) + '°'}</STemp>
       <SCardContents>
         <SMinMaxWrap>

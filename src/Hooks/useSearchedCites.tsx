@@ -46,7 +46,7 @@ const useSearchedCities = () => {
     }
   };
 
-  return { searchedCities, addSearchedCity };
+  return { searchedCities, addSearchedCity, findCityIndexByName, setUserCityChange };
 };
 
 export default useSearchedCities;
