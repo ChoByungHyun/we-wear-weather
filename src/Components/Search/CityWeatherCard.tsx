@@ -7,8 +7,8 @@ import useSearchedCities from 'Hooks/useSearchedCites';
 interface CityWeatherCardProps {
   cityName: string;
   latLonData: {
-    longitude: number;
-    latitude: number;
+    lon: number;
+    lat: number;
   };
 }
 

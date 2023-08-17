@@ -5,8 +5,8 @@ import { userCityAtom } from 'Atom/userLocationAtom';
 interface CityInfo {
   cityName: string;
   latLonData: {
-    longitude: number;
-    latitude: number;
+    lon: number;
+    lat: number;
   };
 }
 
@@ -14,7 +14,7 @@ interface CityInfo {
 const useSearchedCities = () => {
   const [searchedCities, setSearchedCities] = useRecoilState<CityInfo[]>(userCityAtom);
 
-  const addSearchedCity = (cityName: string, latLonData: { longitude: number; latitude: number }) => {
+  const addSearchedCity = (cityName: string, latLonData: { lon: number; lat: number }) => {
     if (!searchedCities.some((city) => city.cityName === cityName)) {
       if (searchedCities.length >= 4) {
         setSearchedCities((prevCities) => [...prevCities.slice(1), { cityName: cityName, latLonData: latLonData }]);

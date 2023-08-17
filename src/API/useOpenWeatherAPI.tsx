@@ -10,12 +10,13 @@ const useOpenWeatherAPI = () => {
     baseURL: config.ForeCastURL,
   });
 
-  async function getCityWeather(latLonData: { longitude: number; latitude: number; lat?: number; lon?: number }) {
-    const lat = latLonData.latitude || latLonData.lat;
-    const lon = latLonData.longitude || latLonData.lon;
+  async function getCityWeather(latLonData: { lon: number; lat: number }) {
+    const lat = latLonData.lat;
+    const lon = latLonData.lon;
     const requestURL = `?lat=${lat}&lon=${lon}&appid=${API_ID}&units=metric`;
     try {
       const response = await openWeatherAxios.get(requestURL).then((response) => response.data);
+
       return response;
     } catch (error) {
       console.error('Error fetching weather data:', error);
