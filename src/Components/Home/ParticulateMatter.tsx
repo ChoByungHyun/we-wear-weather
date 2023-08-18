@@ -1,11 +1,11 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
+import { useQuery } from 'react-query';
+import { useRecoilValue } from 'recoil';
+import useOpenWeatherAPI from 'API/useOpenWeatherAPI';
+import { userCityAtom, currentUserIndexAtom } from 'Atom/userLocationAtom';
 
-import pmGood from 'Assets/particulate-matter-good.svg';
-import pmSoso from 'Assets/particulate-matter-soso.svg';
-import pmBad from 'Assets/particulate-matter-bad.svg';
-
-interface ParticulateMatterProps {}
+import { useParticulateImg } from 'Components/common/useWeatherIcon';
 
 // NOTE : 미세먼지 관련정보
 // PM10은 좋음(0~30㎍/㎥), 보통(31~80㎍/㎥), 약간나쁨(81~120㎍/㎥), 나쁨(121~200㎍/㎥) 등으로 구분
@@ -13,15 +13,33 @@ interface ParticulateMatterProps {}
 // 초미세먼지를 제외하고 일단 PM10 미세먼지로만 진행.
 // https://openweathermap.org/api/air-pollution
 
-const ParticulateMatter: FC<ParticulateMatterProps> = ({}) => {
-  const [pmState, setPMState] = useState<string>('좋음');
+const ParticulateMatter: FC = () => {
+  const latLonData = useRecoilValue(userCityAtom);
+  const locationIndex = useRecoilValue(currentUserIndexAtom);
+  const { getAirPollution } = useOpenWeatherAPI();
+  const airRes = useQuery('airPollution', () => getAirPollution(latLonData[locationIndex].latLonData));
+
+  const airInfo = airRes?.data;
+  const pmTen = useParticulateImg(airInfo?.list[0].components.pm2_5);
+
+  if (airRes.isLoading) {
+    return (
+      <SPMLayout>
+        <p>로딩중...</p>
+      </SPMLayout>
+    );
+  }
+
+  if (airRes.error) {
+    return <p>Error: {cityRes.error.message}</p>;
+  }
 
   return (
     <SPMLayout>
-      <img src={pmGood} alt={`미세먼지 ${pmState} 아이콘`} />
+      <img src={pmTen.icon} alt={`미세먼지 ${pmTen.label} 아이콘`} />
       <div>
         <p>미세먼지</p>
-        <SPMState>{pmState}</SPMState>
+        <SPMState $status={pmTen.label}>{pmTen.label}</SPMState>
       </div>
     </SPMLayout>
   );
@@ -50,12 +68,18 @@ const SPMLayout = styled.article`
 `;
 
 interface PMStateProps {
-  $bad?: boolean;
-  $soso?: boolean;
+  $status?: string;
 }
 
 const SPMState = styled.p<PMStateProps>`
   font-size: 14px;
   font-weight: 700;
-  color: ${(props) => (props.$bad ? 'var(--red)' : props.$soso ? 'var(--yellow)' : 'var(--green)')};
+  color: ${(props) =>
+    props.$status === '매우 나쁨'
+      ? 'var(--red)'
+      : props.$status === '나쁨'
+      ? 'var(--orange)'
+      : props.$status === '보통'
+      ? 'var(--yellow)'
+      : 'var(--green)'};
 `;
