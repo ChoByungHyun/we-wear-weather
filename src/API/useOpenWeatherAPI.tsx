@@ -9,6 +9,9 @@ const useOpenWeatherAPI = () => {
   const forecastAxios = axios.create({
     baseURL: config.ForeCastURL,
   });
+  const airPollutionAxios = axios.create({
+    baseURL: config.AirPollutionURL,
+  });
 
   async function getCityWeather(latLonData: { lon: number; lat: number }) {
     console.log(latLonData);
@@ -37,7 +40,30 @@ const useOpenWeatherAPI = () => {
     }
   }
 
-  return { getCityWeather, getForecast };
+  async function getAirPollution(latLonData: { lat: number; lon: number }) {
+    const lat = latLonData.lat;
+    const lon = latLonData.lon;
+    // const reqURL = `?lat=${lat}&lon=${lon}&appid=${API_ID}&units=metric`;
+
+    try {
+      const response = await airPollutionAxios
+        .get('', {
+          params: {
+            lat,
+            lon,
+            appid: API_ID,
+            units: 'metric',
+          },
+        })
+        .then((res) => res.data);
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.error('AirPollution API 문제가 있습니다.', error);
+    }
+  }
+
+  return { getCityWeather, getForecast, getAirPollution };
 };
 
 export default useOpenWeatherAPI;

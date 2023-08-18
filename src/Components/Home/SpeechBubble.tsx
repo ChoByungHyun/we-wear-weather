@@ -1,20 +1,49 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
+import { useQuery } from 'react-query';
+import { useRecoilValue } from 'recoil';
+import { userCityAtom, currentUserIndexAtom } from 'Atom/userLocationAtom';
+import useOpenWeatherAPI from 'API/useOpenWeatherAPI';
 
 import SpeechBubbleWeatherInfo from 'Components/Home/SpeechBubbleWeatherInfo';
 import speechBubbleTail from 'Assets/speech-bubble-tail.svg';
-import weatherFewClouds from 'Assets/weather-few-clouds.svg';
+import { useMainWeatherInfo } from 'Components/common/useWeatherIcon';
 
-interface SpeechBubbleProps {}
+const SpeechBubble: FC = () => {
+  const latLonData = useRecoilValue(userCityAtom);
+  const locationIndex = useRecoilValue(currentUserIndexAtom);
+  const { getCityWeather } = useOpenWeatherAPI();
+  const cityRes = useQuery('currentWeather', () => getCityWeather(latLonData[locationIndex].latLonData));
 
-const SpeechBubble: FC<SpeechBubbleProps> = ({}) => {
+  const todayInfo = cityRes?.data;
+  const mainWeatherInfo = useMainWeatherInfo(todayInfo?.weather.main);
+
+  if (cityRes.isLoading) {
+    return (
+      <SSpeechBubble>
+        <img src={speechBubbleTail} alt=' ' />
+        <p>로딩중...</p>
+      </SSpeechBubble>
+    );
+  }
+  if (cityRes.error) {
+    return <p>Error: {cityRes.error.message}</p>;
+  }
+
   return (
     <SSpeechBubble>
       {/* NOTE 화면 가로 크기가 변경되면 말풍선 가로 공백이 유동적이어서, 말풍선 꼬리를 따로 아래에 붙이는 방식으로 해결 */}
       <img src={speechBubbleTail} alt=' ' />
       {/* TODO 날씨 이미지마다 말풍선을 덮는 정도가 달라 이미지 파일 수정 필요 */}
-      <img src={weatherFewClouds} alt='today-weather' />
-      <SpeechBubbleWeatherInfo />
+      <img src={mainWeatherInfo.icon} alt='today-weather' />
+      <SpeechBubbleWeatherInfo
+        cityName={latLonData[locationIndex].cityName}
+        min={Math.ceil(todayInfo?.main.temp_min) + '°'}
+        max={Math.ceil(todayInfo?.main.temp_max) + '°'}
+        temp={Math.ceil(todayInfo?.main.temp) + '°'}
+        humidity={Math.ceil(todayInfo?.main.humidity) + '%'}
+        label={mainWeatherInfo.label}
+      />
       <SSpeechBubbleComment>
         날씨가 흐리고 일교차가 심하네요 <br />
         가벼운 겉옷 하나 챙기는건 어떨까요?
@@ -27,6 +56,7 @@ export default SpeechBubble;
 
 const SSpeechBubble = styled.article`
   width: calc(100% - 32px);
+  height: 250px;
   margin-bottom: 100px;
   background-color: white;
   border-radius: 10px;
