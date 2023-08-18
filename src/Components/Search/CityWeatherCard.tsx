@@ -5,7 +5,15 @@ import useOpenWeatherAPI from 'API/useOpenWeatherAPI';
 import { CityWeatherType } from 'types/cityWeatherType';
 import useSearchedCities from 'Hooks/useSearchedCites';
 
-const CityWeatherCard: FC<CityWeatherType> = ({ cityName, latLonData }) => {
+interface CityWeatherCardProps {
+  cityName: string;
+  latLonData: {
+    lon: number;
+    lat: number;
+  };
+}
+
+const CityWeatherCard: FC<CityWeatherCardProps> = ({ cityName, latLonData }) => {
   const { getCityWeather } = useOpenWeatherAPI();
   const { data, isLoading, isError } = useQuery(
     ['weatherCity', latLonData], // Query key
