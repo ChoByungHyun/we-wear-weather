@@ -27,10 +27,13 @@ const Character: FC<CharacterProps> = ({}) => {
 export default Character;
 
 const SCharacter = styled.section`
-  margin-bottom: -15px;
+  margin-bottom: -105px;
+  margin-top: -150px;
   text-align: center;
   /* TODO random으로 해주면 좋겠지만 캐릭터에 가려짐 img 태그로 할까? 고민, 아니면 보여지는 위치 값을 배열로 저장하고 보여줄까? */
   background: url(${touchPointer}) no-repeat 230px 60px;
+  z-index: 10;
+  position: relative;
 
   img {
     width: 200px;

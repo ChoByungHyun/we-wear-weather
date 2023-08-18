@@ -2,32 +2,39 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import locationIcn from 'Assets/icon-location.svg';
 
-interface SpeechBubbleWeatherInfoProps {}
+interface SpeechBubbleWeatherInfoProps {
+  cityName: string;
+  min: string | number | undefined;
+  max: string | number | undefined;
+  temp: string | number | undefined;
+  humidity: string | number | undefined;
+  label: string | undefined;
+}
 
-const SpeechBubbleWeatherInfo: FC<SpeechBubbleWeatherInfoProps> = ({}) => {
+const SpeechBubbleWeatherInfo: FC<SpeechBubbleWeatherInfoProps> = ({ min, max, temp, humidity, label, cityName }) => {
   return (
     <SSpeechBubbleWeatherInfoLayout>
       <SAreaWeatherWrap>
         <img src={locationIcn} alt='icon-location' />
         <span>
-          경기도 김포시 <strong>흐린 날씨</strong>
+          {cityName} <strong>{label}</strong>
         </span>
       </SAreaWeatherWrap>
       <STemperatureWrap>
         <li>
-          <p>24&#186;</p>
+          <p>{temp}</p>
         </li>
         <li>
           <p>최저 온도</p>
-          <p>24&#186;</p>
+          <p>{min}</p>
         </li>
         <li>
           <p>최고 온도</p>
-          <p>34&#186;</p>
+          <p>{max}</p>
         </li>
         <li>
           <p>습도</p>
-          <p>84%</p>
+          <p>{humidity}</p>
         </li>
       </STemperatureWrap>
     </SSpeechBubbleWeatherInfoLayout>
