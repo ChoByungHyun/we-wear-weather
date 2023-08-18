@@ -20,7 +20,7 @@ const ParticulateMatter: FC = () => {
   const airRes = useQuery('airPollution', () => getAirPollution(latLonData[locationIndex].latLonData));
 
   const airInfo = airRes?.data;
-  const pmTen = useParticulateImg(airInfo?.list[0].components.pm2_5);
+  const pmTen = useParticulateImg(airInfo?.list[0].components.pm10);
 
   if (airRes.isLoading) {
     return (
