@@ -10,10 +10,11 @@ interface CityInfo {
     lat: number;
   };
 }
+import { CityWeatherType } from 'types/cityWeatherType';
 
 // 검색된 도시명과 좌표 정보를 Recoil을 사용하여 저장하고 삭제하는 훅
 const useSearchedCities = () => {
-  const [searchedCities, setSearchedCities] = useRecoilState<CityInfo[]>(userCityAtom);
+  const [searchedCities, setSearchedCities] = useRecoilState<CityWeatherType[]>(userCityAtom);
   const [userCityChange, setUserCityChange] = useRecoilState(currentUserIndexAtom);
   const findCityIndexByName = (cityName: string) => {
     return searchedCities.findIndex((city) => city.cityName === cityName);
