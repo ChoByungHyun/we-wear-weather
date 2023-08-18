@@ -16,8 +16,8 @@ interface CityInfo {
   docity: string;
   do: string;
   city: string;
-  longitude: number;
-  latitude: number;
+  lon: number;
+  lat: number;
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
@@ -28,8 +28,8 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [latLonData, setLatLonData] = useState({
-    longitude: 0,
-    latitude: 0,
+    lon: 0,
+    lat: 0,
   });
 
   const { getCityWeather } = useOpenWeatherAPI();
@@ -70,14 +70,14 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
     const selectedCityInfo = filteredData.find((cityInfo) => cityInfo.docity === option);
 
     if (selectedCityInfo) {
-      const { longitude, latitude } = selectedCityInfo;
+      const { lon, lat } = selectedCityInfo;
       setSelectedIndex(filteredData.indexOf(selectedCityInfo));
       setSearchValue(option);
       setShowModal(true);
 
       setLatLonData({
-        longitude: longitude,
-        latitude: latitude,
+        lon: lon,
+        lat: lat,
       });
     } else {
     }
@@ -110,7 +110,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
   function handleModal(confirm: boolean) {
     if (confirm) {
       console.log('성공');
-      addSearchedCity(searchValue, latLonData);
+      addSearchedCity(searchValue, latLonData, false);
       navigate('/', { state: { cityWeather: { data: data, cityName: searchValue, latLonData: latLonData } } });
       setShowModal(false);
     } else {

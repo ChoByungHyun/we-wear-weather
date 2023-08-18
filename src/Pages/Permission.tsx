@@ -7,32 +7,30 @@ import Button from 'Components/common/Button';
 import RejectionModal from 'Components/Permission/RejectionModal';
 import location from 'Assets/location.svg';
 import cityNameAPI from 'API/cityNameAPI';
+import useSearchedCities from 'Hooks/useSearchedCites';
+import { CityWeatherType } from 'types/cityWeatherType';
 
-interface CityWeatherType {
-  cityName?: string;
-  latLonData?: {
-    longitude: number;
-    latitude: number;
-  };
-}
-
-const Permission: FC<CityWeatherType> = () => {
+const Permission: FC = () => {
   const [isLocation, setIsLocation] = useState({
     cityName: '',
-    latLonData: { latitude: 0, longitude: 0 },
+    latLonData: { lat: 0, lon: 0 },
   });
   const navigate = useNavigate();
   const [userLocation, setUserLocation] = useRecoilState(userCityAtom);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showLoading, setShowLoading] = useState<boolean>(true);
+  const { addSearchedCity } = useSearchedCities();
+  const [geoCompleted, setGeoCompleted] = useState(false);
 
   async function handleCityName() {
     const res = await cityNameAPI(isLocation.latLonData);
+    const resCityName = res.region_1depth_name + ' ' + res.region_2depth_name;
     try {
       setIsLocation((prev) => ({
         ...prev,
-        cityName: res.region_1depth_name + ' ' + res.region_2depth_name,
+        cityName: resCityName,
       }));
+      addSearchedCity(resCityName, isLocation.latLonData, true);
     } catch (error) {
       console.log(error);
     }
@@ -51,11 +49,12 @@ const Permission: FC<CityWeatherType> = () => {
       const position: GeolocationPosition = await getUserLocation();
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
+
       setIsLocation((prev) => ({
         ...prev,
         latLonData: {
-          latitude: lat,
-          longitude: lon,
+          lat: lat,
+          lon: lon,
         },
       }));
     } catch (error) {
@@ -64,23 +63,28 @@ const Permission: FC<CityWeatherType> = () => {
   }
 
   useEffect(() => {
-    if (!isLocation.latLonData.latitude) {
-      handleGeo();
-    } else {
+    async function fetchData() {
+      await handleGeo();
+      setGeoCompleted(true);
+    }
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (geoCompleted && !userLocation.cityName) {
       handleCityName();
     }
-  }, [isLocation.latLonData]);
+  }, [geoCompleted]);
 
   function handleNextBtn() {
     if (userLocation && !showModal) {
       navigate('/login');
-      setUserLocation((prev: CityWeatherType[]) => [isLocation, ...prev]);
+      // setUserLocation((prev: CityWeatherType[]) => [isLocation, ...prev]);
     } else {
       alert('필수 위치 권한에 동의 하지 않으셨습니다.');
     }
   }
-  console.log(isLocation);
-  console.log(userLocation);
 
   return (
     <SLayout>
