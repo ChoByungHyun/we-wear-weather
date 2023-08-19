@@ -12,10 +12,6 @@ const SetAlarmLocation: FC<SetAlarmLocationProps> = ({}) => {
         <p>알림설정</p>
         <Toggle />
       </SSetAlarm>
-      <SSetLocation>
-        <p>위치</p>
-        <Toggle />
-      </SSetLocation>
     </SSetAlarmLocation>
   );
 };
@@ -41,8 +37,4 @@ const SSetAlarmLocation = styled.div`
   }
 `;
 
-const SSetAlarm = styled.div`
-  border-bottom: 1px solid var(--gray-200);
-`;
-
-const SSetLocation = styled.div``;
+const SSetAlarm = styled.div``;
