@@ -10,7 +10,7 @@ const CardWaveList: FC = () => {
   const searchData = useRecoilValue(userCityAtom);
 
   return (
-    <CardWaveLayout to=''>
+    <CardWaveLayout>
       {searchData.map((el: CityWeatherType, index: number) => {
         return (
           <CityWeatherCard key={index} cityName={index === 0 ? '현재 위치' : el.cityName} latLonData={el.latLonData} />
@@ -20,6 +20,6 @@ const CardWaveList: FC = () => {
   );
 };
 
-const CardWaveLayout = styled(Link)``;
+const CardWaveLayout = styled.div``;
 
 export default CardWaveList;
