@@ -101,7 +101,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
       console.error('Error fetching weather data');
     } else {
       console.log('Fetched data:', data);
-      setShowModal(true);
+      // setShowModal(true);
       // navigate('/', { state: { cityWeather: { data: data, cityName: searchValue } } });
       // addSearchedCity(searchValue);
     }
@@ -194,6 +194,9 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
                   {filterCityResults(searchValue).map((cityInfo, index) => (
                     <SDropdownOption
                       key={cityInfo.docity}
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                      }}
                       onClick={() => {
                         handleSelectOption(cityInfo.docity);
                       }}
