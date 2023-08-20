@@ -34,7 +34,7 @@ const useSearchedCities = () => {
             ...prevCities.slice(2),
             { cityName: cityName, latLonData: latLonData },
           ]);
-          setUserCityChange(findCityIndexByName(cityName));
+          setUserCityChange(searchedCities.length - 1);
         } else {
           setSearchedCities((prevCities) => [
             prevCities[0],
