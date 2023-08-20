@@ -40,7 +40,12 @@ export function useWeatherKr(weather: string | undefined): string | undefined {
   }
 }
 
-export function useMainWeatherInfo(weather: string | undefined): object {
+interface Info {
+  icon: string;
+  label: string;
+}
+
+export function useMainWeatherInfo(weather: string | undefined): Info {
   switch (weather) {
     case 'Thunderstorm':
       return mainWeatherInfo.rainyThunder;
@@ -59,7 +64,7 @@ export function useMainWeatherInfo(weather: string | undefined): object {
   }
 }
 
-export function useParticulateImg(status: number) {
+export function useParticulateImg(status: number): Info {
   if (status <= 15) {
     return particulateStatus.good;
   } else if (status <= 35) {

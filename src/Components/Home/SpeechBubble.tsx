@@ -27,7 +27,7 @@ const SpeechBubble: FC = () => {
     );
   }
   if (cityRes.error) {
-    return <p>Error: {cityRes.error.message}</p>;
+    return <p>로딩중 문제가 발생했습니다.</p>;
   }
 
   return (
