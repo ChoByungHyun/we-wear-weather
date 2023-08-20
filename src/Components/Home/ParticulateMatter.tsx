@@ -31,7 +31,7 @@ const ParticulateMatter: FC = () => {
   }
 
   if (airRes.error) {
-    return <p>Error: {cityRes.error.message}</p>;
+    return <p>미세먼지 로딩중 문제가 발생했습니다.</p>;
   }
 
   return (

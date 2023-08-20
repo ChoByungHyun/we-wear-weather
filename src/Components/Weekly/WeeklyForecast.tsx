@@ -1,58 +1,59 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import WeeklyItem from 'Components/Weekly/WeeklyItem';
 import useOpenWeatherAPI from 'API/useOpenWeatherAPI';
-import { userLocationAtom } from 'Atom/userLocationAtom';
-import formatDateTime from 'Utils/formatDateTime';
+import { userCityAtom } from 'Atom/userLocationAtom';
+import { currentUserIndexAtom } from 'Atom/userLocationAtom';
 import filterMinMax from 'Utils/filterMinMax';
-import { useWeatherIcon } from 'Components/common/useWeatherIcon';
-
+import { useWeatherSmallIcon } from 'Components/common/useWeatherIcon';
+import { changeDate } from 'Utils/changeDate';
 import { ItemType } from 'types/weeklyType';
 
 const WeeklyForecast: FC = () => {
-  const latLonData = useRecoilValue(userLocationAtom);
+  const currentCityIndex = useRecoilValue(currentUserIndexAtom);
+  const latLonData = useRecoilValue(userCityAtom);
   const { getCityWeather, getForecast } = useOpenWeatherAPI();
   const [days, setDays] = useState<ItemType[]>([]);
 
-  const cityRes = useQuery('cityWeather', () => getCityWeather(latLonData));
-  const weeklyRes = useQuery('weeklyForecast', () => getForecast(latLonData));
+  const {
+    data: today,
+    isLoading: todayLoading,
+    isError: todayError,
+  } = useQuery('cityWeather', () => getCityWeather(latLonData[currentCityIndex].latLonData));
 
-  const today = cityRes?.data;
-  const todayIcon = useWeatherIcon(today?.weather.main);
+  const {
+    data: forecastData,
+    isLoading: forecastLoading,
+    isError: forecastError,
+  } = useQuery('weeklyForecast', () => getForecast(latLonData[currentCityIndex].latLonData));
+
+  const todayIcon = useWeatherSmallIcon(today?.weather[0].description);
 
   // 주간예보 필터링 effect
   useEffect(() => {
-    if (weeklyRes.data) {
-      const objectData = weeklyRes.data?.list;
-      const dataArray: ItemType[] = Object.values(objectData);
-      const changedDtArr = dataArray.map((item) => {
-        const formattedDate = formatDateTime(item.dt_txt); // 새로운 날짜 포맷
-
-        return {
-          ...item,
-          dt: formattedDate,
-        };
-      });
-
+    if (today && forecastData) {
+      const changedDtArr = changeDate(forecastData);
       const filteredData = filterMinMax(changedDtArr);
 
       setDays(filteredData);
     }
-  }, [weeklyRes.data]);
+  }, [today, forecastData]);
 
-  if (weeklyRes.isLoading) {
+  if (todayLoading && forecastLoading) {
     return <p>로딩중...</p>;
   }
 
-  if (weeklyRes.isError) {
+  if (todayError && forecastError) {
     return <p>주간예보 날씨가 존재하지 않습니다.</p>;
   }
 
   return (
     <>
-      <STitle>{weeklyRes.data?.city.name} 주간 일기예보</STitle>
+      <STitle>
+        <strong>{latLonData[currentCityIndex].cityName}</strong> 주간 예보
+      </STitle>
       <SLayout>
         <WeeklyItem
           day='오늘'
@@ -67,9 +68,8 @@ const WeeklyForecast: FC = () => {
             day={day.dt}
             min={Math.ceil(day.main.temp_min) + '°'}
             max={Math.ceil(day.main.temp_max) + '°'}
-            temp={Math.ceil(day.main.temp) + '°'}
             // eslint-disable-next-line
-            icon={useWeatherIcon(day.weather[0].main)}
+            icon={useWeatherSmallIcon(day.weather[0].description)}
           />
         ))}
       </SLayout>
@@ -83,6 +83,10 @@ const STitle = styled.h1`
   margin-bottom: 40px;
   font-size: 24px;
   font-weight: 600;
+
+  strong {
+    color: var(--orange);
+  }
 `;
 
 const SLayout = styled.main`
