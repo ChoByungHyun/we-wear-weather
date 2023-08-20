@@ -2,6 +2,8 @@ import smallWeatherIcons from 'Components/common/smallWeatherIcons';
 import mainWeatherInfo from 'Components/common/bigWeatherIcons';
 import particulateStatus from './particulate';
 
+import { thunderstorm, drizzle, rain, snow, atmosphere, brokenClouds } from 'Utils/iconDesc';
+
 export function useWeatherIcon(weather: string | undefined): string | undefined {
   switch (weather) {
     case 'Thunderstorm':
@@ -19,6 +21,18 @@ export function useWeatherIcon(weather: string | undefined): string | undefined 
     default:
       return smallWeatherIcons.mist;
   }
+}
+
+export function useWeatherSmallIcon(weather: string) {
+  if (thunderstorm.includes(weather)) return smallWeatherIcons.rainyThunder;
+  else if (rain.includes(weather)) return smallWeatherIcons.rainy;
+  else if (drizzle.includes(weather)) return smallWeatherIcons.showerRainy;
+  else if (snow.includes(weather)) return smallWeatherIcons.snow;
+  else if (atmosphere.includes(weather)) return smallWeatherIcons.mist;
+  else if (weather === 'clear sky') return smallWeatherIcons.clear;
+  else if (weather === 'few clouds') return smallWeatherIcons.fewClouds;
+  else if (weather === 'scattered clouds') return smallWeatherIcons.scatteredClouds;
+  else if (brokenClouds.includes(weather)) return smallWeatherIcons.brokenClouds;
 }
 
 export function useWeatherKr(weather: string | undefined): string | undefined {
