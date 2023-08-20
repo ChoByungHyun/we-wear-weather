@@ -5,7 +5,7 @@ interface WeeklyItemProps {
   day: string | number | undefined;
   min: string | number | undefined;
   max: string | number | undefined;
-  temp: string | number | undefined;
+  temp?: string | number | undefined;
   icon?: string | undefined;
 }
 
@@ -19,7 +19,7 @@ const WeeklyItem: FC<WeeklyItemProps> = ({ day, min, max, temp, icon }) => {
       </SMinMaxWrap>
       <STempWrap>
         <img src={icon} alt='이날의 날씨 아이콘' />
-        <span>{temp}</span>
+        <span>{temp ? temp : max}</span>
       </STempWrap>
     </SLayout>
   );
