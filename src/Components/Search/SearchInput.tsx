@@ -168,18 +168,18 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
     <>
       {type === 'button' ? (
         <>
-          <SLayout isFocused={isFocused} onClick={handleSearchDetail}>
-            <SSearch type='text' placeholder='원하는 지역을 검색하세요' isFocused={isFocused} readOnly />
+          <SLayout $isFocused={isFocused} onClick={handleSearchDetail}>
+            <SSearch type='text' placeholder='원하는 지역을 검색하세요' $isFocused={isFocused} readOnly />
             <SSearchIcon src={SearchIcon} alt='검색아이콘' />
           </SLayout>
         </>
       ) : (
         <>
-          <SLayout isFocused={isFocused}>
+          <SLayout $isFocused={isFocused}>
             <SSearch
               type='text'
               placeholder='원하는 지역을 검색하세요'
-              isFocused={isFocused}
+              $isFocused={isFocused}
               onFocus={handleInputFocus}
               onBlur={handleInputBlur}
               value={searchValue}
@@ -200,7 +200,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
                       onClick={() => {
                         handleSelectOption(cityInfo.docity);
                       }}
-                      isSelected={index === selectedIndex}
+                      $isSelected={index === selectedIndex}
                       className={index === selectedIndex ? 'dropdown-option active-option' : 'dropdown-option'}
                     >
                       {highlightMatchedText(cityInfo.docity)}
@@ -224,14 +224,14 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
 
 export default SearchInput;
 
-const SLayout = styled.div<{ isFocused: boolean }>`
+const SLayout = styled.div<{ $isFocused: boolean }>`
   display: flex;
   width: 100%;
   height: 56px;
   position: relative;
 `;
 
-const SSearch = styled.input<{ isFocused: boolean }>`
+const SSearch = styled.input<{ $isFocused: boolean }>`
   display: flex;
   flex: 1;
   width: 100%;
@@ -241,11 +241,11 @@ const SSearch = styled.input<{ isFocused: boolean }>`
   padding: 6px 20px;
   padding-right: 35px;
   box-sizing: border-box;
-  border: 1px solid ${(props) => (props.isFocused ? '#F68E1D' : '#e6e6e6')};
+  border: 1px solid ${(props) => (props.$isFocused ? '#F68E1D' : '#e6e6e6')};
   border-radius: 6px;
   outline: none;
   transition: border-color 0.3s ease-in-out;
-  box-shadow: ${(props) => (props.isFocused ? '0px 0px 0px 0px' : '0px 4px 4px 0px rgba(0, 0, 0, 0.25)')};
+  box-shadow: ${(props) => (props.$isFocused ? '0px 0px 0px 0px' : '0px 4px 4px 0px rgba(0, 0, 0, 0.25)')};
   color: #000;
   position: relative;
 `;
@@ -273,7 +273,7 @@ const SHighlight = styled.span`
   color: #f68e1d;
 `;
 interface SDropdownOptionProps {
-  isSelected: boolean;
+  $isSelected: boolean;
 }
 
 const SDropdownOption = styled.div<SDropdownOptionProps>`
@@ -285,7 +285,7 @@ const SDropdownOption = styled.div<SDropdownOptionProps>`
   }
 
   ${(props) =>
-    props.isSelected &&
+    props.$isSelected &&
     `
     background-color: #f9f9f9;
     font-weight: bold;
