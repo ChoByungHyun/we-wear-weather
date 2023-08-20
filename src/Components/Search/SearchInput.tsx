@@ -99,6 +99,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
       setShowModal(true);
     } else {
       alert('검색 형식에 맞게 지역을 입력해주세요!');
+
     }
   }
 
