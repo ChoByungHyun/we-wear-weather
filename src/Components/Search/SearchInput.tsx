@@ -94,16 +94,11 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
     }
   }
   function handleSearchValueCheck() {
-    // API 요청확인
-    if (isLoading) {
-      console.log('Loading...');
-    } else if (isError) {
-      console.error('Error fetching weather data');
+    const selectedCityInfo = filteredData.find((cityInfo) => cityInfo.docity === searchValue);
+    if (selectedCityInfo) {
+      setShowModal(true);
     } else {
-      console.log('Fetched data:', data);
-      // setShowModal(true);
-      // navigate('/', { state: { cityWeather: { data: data, cityName: searchValue } } });
-      // addSearchedCity(searchValue);
+      alert('검색 형식에 맞게 지역을 입력해주세요!');
     }
   }
 
