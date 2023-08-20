@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
@@ -6,10 +6,9 @@ import WeeklyItem from 'Components/Weekly/WeeklyItem';
 import useOpenWeatherAPI from 'API/useOpenWeatherAPI';
 import { userCityAtom } from 'Atom/userLocationAtom';
 import { currentUserIndexAtom } from 'Atom/userLocationAtom';
-import formatDateTime from 'Utils/formatDateTime';
 import filterMinMax from 'Utils/filterMinMax';
-import { useWeatherIcon } from 'Components/common/useWeatherIcon';
-
+import { useWeatherSmallIcon } from 'Components/common/useWeatherIcon';
+import { changeDate } from 'Utils/changeDate';
 import { ItemType } from 'types/weeklyType';
 
 const WeeklyForecast: FC = () => {
@@ -17,7 +16,6 @@ const WeeklyForecast: FC = () => {
   const latLonData = useRecoilValue(userCityAtom);
   const { getCityWeather, getForecast } = useOpenWeatherAPI();
   const [days, setDays] = useState<ItemType[]>([]);
-  console.log('🚀  days:', days);
 
   const {
     data: today,
@@ -25,30 +23,18 @@ const WeeklyForecast: FC = () => {
     isError: todayError,
   } = useQuery('cityWeather', () => getCityWeather(latLonData[currentCityIndex].latLonData));
 
-  console.log(today);
-
   const {
     data: forecastData,
     isLoading: forecastLoading,
     isError: forecastError,
   } = useQuery('weeklyForecast', () => getForecast(latLonData[currentCityIndex].latLonData));
 
-  const todayIcon = useWeatherIcon(today?.weather.main);
+  const todayIcon = useWeatherSmallIcon(today?.weather[0].description);
 
   // 주간예보 필터링 effect
   useEffect(() => {
     if (today && forecastData) {
-      const objectData = forecastData?.list;
-      const dataArray: ItemType[] = Object.values(objectData);
-      const changedDtArr = dataArray.map((item) => {
-        const formattedDate = formatDateTime(item.dt_txt); // 새로운 날짜 포맷
-
-        return {
-          ...item,
-          dt: formattedDate,
-        };
-      });
-
+      const changedDtArr = changeDate(forecastData);
       const filteredData = filterMinMax(changedDtArr);
 
       setDays(filteredData);
@@ -83,7 +69,7 @@ const WeeklyForecast: FC = () => {
             min={Math.ceil(day.main.temp_min) + '°'}
             max={Math.ceil(day.main.temp_max) + '°'}
             // eslint-disable-next-line
-            icon={useWeatherIcon(day.weather[0].main)}
+            icon={useWeatherSmallIcon(day.weather[0].description)}
           />
         ))}
       </SLayout>
