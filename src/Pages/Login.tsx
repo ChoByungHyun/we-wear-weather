@@ -6,7 +6,7 @@ import Button from 'Components/common/Button';
 import LoginCheckModal from 'Components/Login/LoginCheckModal';
 import { useRecoilState } from 'recoil';
 import userInfoAtom from 'Atom/userInfo';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export interface UserInfo {
   gender: string | undefined;
@@ -19,6 +19,7 @@ export interface UserInfoProps {
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [userInfo, setUserInfo] = useState<UserInfo>({
@@ -26,6 +27,8 @@ const Login = () => {
     age: '',
   });
   const [isUserInfo, setIsUserInfo] = useRecoilState(userInfoAtom);
+  const title = location ? location.state.title : '날씨 뿡뿡에 오신걸 환영해요.';
+  const buttonLabel = location ? location.state.button : '시작하기';
 
   const handledError = () => {
     if (userInfo.gender === '') {
@@ -43,16 +46,16 @@ const Login = () => {
   return (
     <SLoginLayout>
       {showModal && <LoginCheckModal setShowModal={setShowModal}>{errorMessage}</LoginCheckModal>}
-      <h1>날씨 뿡뿡에 오신걸 환영해요</h1>
+      <h1>{title}</h1>
       <p>
         날씨에 맞는 옷차림을 추천해드릴게요!
         <br />
-        당신의 성별과 나이를 알려주세요
+        당신의 성별과 나이를 알려주세요.
       </p>
 
       <ButtonGenderList setUserInfo={setUserInfo} />
       <ButtonAgeList setUserInfo={setUserInfo} />
-      <Button onClick={handledError}>시작하기</Button>
+      <Button onClick={handledError}>{buttonLabel}</Button>
     </SLoginLayout>
   );
 };

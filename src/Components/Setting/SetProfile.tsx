@@ -2,15 +2,25 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import moreInfoIcn from 'Assets/setting-moreinfo-icon.svg';
+import { useNavigate } from 'react-router-dom';
 
 interface SetProfileProps {}
 
 const SetProfile: FC<SetProfileProps> = ({}) => {
+  const navigate = useNavigate();
+  const updateProfile = () => {
+    navigate('/login', {
+      state: {
+        title: '프로필은 언제든 수정할 수 있어요.',
+        button: '설정하기',
+      },
+    });
+  };
   return (
     <>
       <SSetProfile>
         <p>성별 및 나이 설정</p>
-        <button>
+        <button onClick={updateProfile}>
           <img src={moreInfoIcn} alt='more-info-icon' />
         </button>
       </SSetProfile>
