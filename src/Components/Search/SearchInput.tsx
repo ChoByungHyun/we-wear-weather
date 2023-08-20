@@ -90,7 +90,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter') {
-      handleSearchValueCheck();
+      // handleSearchValueCheck();
     }
   }
   function handleSearchValueCheck() {
