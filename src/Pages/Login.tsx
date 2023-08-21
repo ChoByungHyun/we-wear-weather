@@ -27,8 +27,8 @@ const Login = () => {
     age: '',
   });
   const [isUserInfo, setIsUserInfo] = useRecoilState(userInfoAtom);
-  const title = location ? location.state.title : '날씨 뿡뿡에 오신걸 환영해요.';
-  const buttonLabel = location ? location.state.button : '시작하기';
+  const title = location.state ? location.state.title : '날씨 뿡뿡에 오신걸 환영해요.';
+  const buttonLabel = location.state ? location.state.button : '시작하기';
 
   const handledError = () => {
     if (userInfo.gender === '') {
