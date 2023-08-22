@@ -10,7 +10,6 @@ interface HourlyForecastProps {
 
 const HourlyForecast: FC<HourlyForecastProps> = () => {
   const { hourlyWeather } = useForecastData();
-  console.log('🚀  hourlyWeather:', hourlyWeather);
 
   return (
     <SHourlyForecastLayout>
