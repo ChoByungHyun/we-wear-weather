@@ -41,6 +41,7 @@ export type ItemType = {
   visibility: number;
   weather: WeatherType[];
   wind: WindType;
+  hour?: string;
 };
 
 // forecast 전체 타입
