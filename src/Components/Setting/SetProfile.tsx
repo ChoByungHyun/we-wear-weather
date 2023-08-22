@@ -4,12 +4,10 @@ import styled from 'styled-components';
 import moreInfoIcn from 'Assets/setting-moreinfo-icon.svg';
 import { useNavigate } from 'react-router-dom';
 
-interface SetProfileProps {}
-
-const SetProfile: FC<SetProfileProps> = ({}) => {
+const SetProfile: FC = () => {
   const navigate = useNavigate();
   const updateProfile = () => {
-    navigate('/login', {
+    navigate('/profile', {
       state: {
         title: '프로필은 언제든 수정할 수 있어요.',
         button: '설정하기',

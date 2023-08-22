@@ -56,7 +56,6 @@ const useOpenWeatherAPI = () => {
           },
         })
         .then((res) => res.data);
-      console.log(response);
       return response;
     } catch (error) {
       console.error('AirPollution API 문제가 있습니다.', error);
