@@ -1,45 +1,21 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { styled } from 'styled-components';
-import { useQuery } from 'react-query';
-import { useRecoilValue } from 'recoil';
 import WeeklyItem from 'Components/Weekly/WeeklyItem';
-import useOpenWeatherAPI from 'API/useOpenWeatherAPI';
-import { userCityAtom } from 'Atom/userLocationAtom';
-import { currentUserIndexAtom } from 'Atom/userLocationAtom';
-import filterMinMax from 'Utils/filterMinMax';
 import { useWeatherSmallIcon } from 'Components/common/useWeatherIcon';
-import { changeDate } from 'Utils/changeDate';
-import { ItemType } from 'types/weeklyType';
+import useForecastData from 'Hooks/useForecastData';
 
 const WeeklyForecast: FC = () => {
-  const currentCityIndex = useRecoilValue(currentUserIndexAtom);
-  const latLonData = useRecoilValue(userCityAtom);
-  const { getCityWeather, getForecast } = useOpenWeatherAPI();
-  const [days, setDays] = useState<ItemType[]>([]);
-
   const {
-    data: today,
-    isLoading: todayLoading,
-    isError: todayError,
-  } = useQuery('cityWeather', () => getCityWeather(latLonData[currentCityIndex].latLonData));
-
-  const {
-    data: forecastData,
-    isLoading: forecastLoading,
-    isError: forecastError,
-  } = useQuery('weeklyForecast', () => getForecast(latLonData[currentCityIndex].latLonData));
-
-  const todayIcon = useWeatherSmallIcon(today?.weather[0].description);
-
-  // 주간예보 필터링 effect
-  useEffect(() => {
-    if (today && forecastData) {
-      const changedDtArr = changeDate(forecastData);
-      const filteredData = filterMinMax(changedDtArr);
-
-      setDays(filteredData);
-    }
-  }, [today, forecastData]);
+    days,
+    today,
+    todayLoading,
+    todayError,
+    todayIcon,
+    forecastLoading,
+    forecastError,
+    latLonData,
+    currentCityIndex,
+  } = useForecastData();
 
   if (todayLoading && forecastLoading) {
     return <p>로딩중...</p>;

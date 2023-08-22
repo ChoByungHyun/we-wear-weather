@@ -1,66 +1,30 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
+import useForecastData from 'Hooks/useForecastData';
+import { useWeatherSmallIcon } from 'Components/common/useWeatherIcon';
+import { ItemType } from 'types/weeklyType';
 
-import brokenClouds from 'Assets/icons-sm-weather/icon-broken-clouds.svg';
-import clearSky from 'Assets/icons-sm-weather/icon-clear-sky.svg';
-import fewClouds from 'Assets/icons-sm-weather/icon-few-clouds.svg';
-import mist from 'Assets/icons-sm-weather/icon-mist.svg';
-import rainyThunder from 'Assets/icons-sm-weather/icon-rainy-thunder.svg';
-import rainy from 'Assets/icons-sm-weather/icon-rainy.svg';
-import scatteredClouds from 'Assets/icons-sm-weather/icon-scattered-clouds.svg';
-import showerRainy from 'Assets/icons-sm-weather/icon-shower-rainy.svg';
-import snow from 'Assets/icons-sm-weather/icon-snow.svg';
+interface HourlyForecastProps {
+  hourlyWeather: Array<ItemType[]>; // ItemType에 대한 이차원 배열 타입을 지정합니다.
+}
 
-interface HourlyForecastProps {}
+const HourlyForecast: FC<HourlyForecastProps> = () => {
+  const { hourlyWeather } = useForecastData();
+  console.log('🚀  hourlyWeather:', hourlyWeather);
 
-const HourlyForecast: FC<HourlyForecastProps> = ({}) => {
   return (
     <SHourlyForecastLayout>
-      <SforecastWrap>
-        <img src={rainy} alt='' />
-        <p>22&#186;</p>
-        <p>오후 12시</p>
-      </SforecastWrap>
-      <SforecastWrap>
-        <img src={rainyThunder} alt='' />
-        <p>26&#186;</p>
-        <p>오후 3시</p>
-      </SforecastWrap>
-      <SforecastWrap>
-        <img src={snow} alt='' />
-        <p>26&#186;</p>
-        <p>오후 3시</p>
-      </SforecastWrap>
-      <SforecastWrap>
-        <img src={brokenClouds} alt='' />
-        <p>26&#186;</p>
-        <p>오후 3시</p>
-      </SforecastWrap>
-      <SforecastWrap>
-        <img src={clearSky} alt='' />
-        <p>26&#186;</p>
-        <p>오후 3시</p>
-      </SforecastWrap>
-      <SforecastWrap>
-        <img src={fewClouds} alt='' />
-        <p>26&#186;</p>
-        <p>오후 3시</p>
-      </SforecastWrap>
-      <SforecastWrap>
-        <img src={mist} alt='' />
-        <p>26&#186;</p>
-        <p>오후 3시</p>
-      </SforecastWrap>
-      <SforecastWrap>
-        <img src={scatteredClouds} alt='' />
-        <p>26&#186;</p>
-        <p>오후 3시</p>
-      </SforecastWrap>
-      <SforecastWrap>
-        <img src={showerRainy} alt='' />
-        <p>26&#186;</p>
-        <p>오후 3시</p>
-      </SforecastWrap>
+      {hourlyWeather.map((weather, index) => {
+        //eslint-disable-next-line
+        const icon = useWeatherSmallIcon(weather.weather[0].description);
+        return (
+          <SforecastWrap key={index}>
+            <img src={icon} alt='시간대별 날씨 아이콘' />
+            <p>{Math.ceil(weather.main.temp)}&#186;</p>
+            <p>{weather.hour}</p>
+          </SforecastWrap>
+        );
+      })}
     </SHourlyForecastLayout>
   );
 };
