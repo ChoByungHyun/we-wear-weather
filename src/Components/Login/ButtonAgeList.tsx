@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import ButtonAge from 'Components/Login/ButtonAge';
 import { UserInfoProps } from 'Pages/Login';
 
-const ButtonAgeList: FC<UserInfoProps> = ({ setUserInfo }) => {
-  const [ageIndex, setAgeIndex] = useState<number | null>(null);
+const ButtonAgeList: FC<UserInfoProps> = ({ setUserInfo, age }) => {
   const ageList: string[] = ['10대', '20대', '30대', '40대', '50대'];
+  const [ageIndex, setAgeIndex] = useState<number>(ageList.indexOf(age));
 
   function handleActive(index: number, el: string): void {
     setAgeIndex(index);

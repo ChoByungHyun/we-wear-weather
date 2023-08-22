@@ -15,6 +15,8 @@ export interface UserInfo {
 
 export interface UserInfoProps {
   setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
+  gender: string;
+  age: string;
 }
 
 const Login = () => {
@@ -22,11 +24,11 @@ const Login = () => {
   const location = useLocation();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [userInfo, setUserInfo] = useState<UserInfo>({
-    gender: '',
-    age: '',
-  });
   const [isUserInfo, setIsUserInfo] = useRecoilState(userInfoAtom);
+  const [userInfo, setUserInfo] = useState<UserInfo>({
+    gender: isUserInfo.gender,
+    age: isUserInfo.age,
+  });
   const title = location.state ? location.state.title : '날씨 뿡뿡에 오신걸 환영해요.';
   const buttonLabel = location.state ? location.state.button : '시작하기';
 
@@ -53,8 +55,8 @@ const Login = () => {
         당신의 성별과 나이를 알려주세요.
       </p>
 
-      <ButtonGenderList setUserInfo={setUserInfo} />
-      <ButtonAgeList setUserInfo={setUserInfo} />
+      <ButtonGenderList setUserInfo={setUserInfo} gender={isUserInfo.gender} age='' />
+      <ButtonAgeList setUserInfo={setUserInfo} age={isUserInfo.age} gender='' />
       <Button onClick={handledError}>{buttonLabel}</Button>
     </SLoginLayout>
   );

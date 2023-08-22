@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import ButtonGender from 'Components/Login/ButtonGender';
 import { UserInfoProps } from 'Pages/Login';
 
-const ButtonGenderList: FC<UserInfoProps> = ({ setUserInfo }) => {
-  const [genderIndex, setGenderIndex] = useState<number | null>(null);
+const ButtonGenderList: FC<UserInfoProps> = ({ setUserInfo, gender }) => {
   const genderItem: string[] = ['남성', '여성'];
+  const [genderIndex, setGenderIndex] = useState<number>(genderItem.indexOf(gender));
 
   function handleActive(index: number, el: string): void {
     setGenderIndex(index);
