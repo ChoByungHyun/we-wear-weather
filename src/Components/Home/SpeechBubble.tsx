@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
@@ -16,7 +16,7 @@ const SpeechBubble: FC = () => {
   const cityRes = useQuery('currentWeather', () => getCityWeather(latLonData[locationIndex].latLonData));
 
   const todayInfo = cityRes?.data;
-  const mainWeatherInfo = useMainWeatherInfo(todayInfo?.weather.main);
+  const mainWeatherInfo = useMainWeatherInfo(todayInfo?.weather[0].description);
 
   if (cityRes.isLoading) {
     return (
@@ -35,14 +35,14 @@ const SpeechBubble: FC = () => {
       {/* NOTE 화면 가로 크기가 변경되면 말풍선 가로 공백이 유동적이어서, 말풍선 꼬리를 따로 아래에 붙이는 방식으로 해결 */}
       <img src={speechBubbleTail} alt=' ' />
       {/* TODO 날씨 이미지마다 말풍선을 덮는 정도가 달라 이미지 파일 수정 필요 */}
-      <img src={mainWeatherInfo.icon} alt='today-weather' />
+      <img src={mainWeatherInfo?.icon} alt='today-weather' />
       <SpeechBubbleWeatherInfo
         cityName={latLonData[locationIndex].cityName}
         min={Math.ceil(todayInfo?.main.temp_min) + '°'}
         max={Math.ceil(todayInfo?.main.temp_max) + '°'}
         temp={Math.ceil(todayInfo?.main.temp) + '°'}
         humidity={Math.ceil(todayInfo?.main.humidity) + '%'}
-        label={mainWeatherInfo.label}
+        label={mainWeatherInfo?.label}
       />
       <SSpeechBubbleComment>
         날씨가 흐리고 일교차가 심하네요 <br />

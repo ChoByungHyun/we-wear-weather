@@ -79,7 +79,7 @@ const Permission: FC = () => {
 
   function handleNextBtn() {
     if (userLocation && !showModal) {
-      navigate('/login');
+      navigate('/profile');
       // setUserLocation((prev: CityWeatherType[]) => [isLocation, ...prev]);
     } else {
       alert('필수 위치 권한에 동의 하지 않으셨습니다.');

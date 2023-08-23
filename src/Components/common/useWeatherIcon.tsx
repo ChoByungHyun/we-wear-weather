@@ -59,23 +59,16 @@ interface Info {
   label: string;
 }
 
-export function useMainWeatherInfo(weather: string | undefined): Info {
-  switch (weather) {
-    case 'Thunderstorm':
-      return mainWeatherInfo.rainyThunder;
-    case 'Drizzle':
-      return mainWeatherInfo.showerRainy;
-    case 'Rain':
-      return mainWeatherInfo.rainy;
-    case 'Snow':
-      return mainWeatherInfo.snow;
-    case 'Clouds':
-      return mainWeatherInfo.fewClouds;
-    case 'Clear':
-      return mainWeatherInfo.clear;
-    default:
-      return mainWeatherInfo.mist;
-  }
+export function useMainWeatherInfo(weather: string): Info {
+  if (thunderstorm.includes(weather)) return mainWeatherInfo.rainyThunder;
+  else if (rain.includes(weather)) return mainWeatherInfo.rainy;
+  else if (drizzle.includes(weather)) return mainWeatherInfo.showerRainy;
+  else if (snow.includes(weather)) return mainWeatherInfo.snow;
+  else if (atmosphere.includes(weather)) return mainWeatherInfo.mist;
+  else if (weather === 'few clouds') return mainWeatherInfo.fewClouds;
+  else if (weather === 'scattered clouds') return mainWeatherInfo.scatteredClouds;
+  else if (brokenClouds.includes(weather)) return mainWeatherInfo.brokenClouds;
+  else return mainWeatherInfo.clear;
 }
 
 export function useParticulateImg(status: number): Info {
