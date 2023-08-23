@@ -45,6 +45,7 @@ const SCharModalBG = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.6);
+  z-index: 10;
 `;
 
 const SCharModalLayout = styled.div`
