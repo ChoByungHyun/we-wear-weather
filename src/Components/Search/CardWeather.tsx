@@ -54,7 +54,7 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name }) =>
 
   return (
     <SCardWeatherWrap isNight={isNight} onClick={handleWeatherCard}>
-      <STemp>{temp.toFixed(1) + '°'}</STemp>
+      <STemp>{Math.ceil(temp) + '°'}</STemp>
       <SCardContents>
         <SMinMaxWrap>
           <span>최고: {max.toFixed(1) + '°'}</span>
@@ -88,6 +88,7 @@ const SCardWeatherWrap = styled.section<SCardWeatherWrapProps>`
   color: white;
   overflow: hidden;
   position: relative;
+  cursor: pointer;
 `;
 
 const STemp = styled.p`
