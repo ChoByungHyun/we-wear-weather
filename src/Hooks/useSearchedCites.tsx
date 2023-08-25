@@ -19,6 +19,10 @@ const useSearchedCities = () => {
   const findCityIndexByName = (cityName: string) => {
     return searchedCities.findIndex((city) => city.cityName === cityName);
   };
+  const deleteSearchCity = () => {
+    setSearchedCities((prevCities) => [prevCities[0]]);
+    setUserCityChange(0);
+  };
   const addSearchedCity = (cityName: string, latLonData: { lon: number; lat: number }, isZerothIndex: boolean) => {
     if (isZerothIndex) {
       setSearchedCities((prevCities) => [{ cityName: cityName, latLonData: latLonData }, ...prevCities.slice(1)]);
@@ -47,7 +51,7 @@ const useSearchedCities = () => {
     }
   };
 
-  return { searchedCities, addSearchedCity, findCityIndexByName, setUserCityChange };
+  return { searchedCities, addSearchedCity, findCityIndexByName, setUserCityChange, deleteSearchCity };
 };
 
 export default useSearchedCities;
