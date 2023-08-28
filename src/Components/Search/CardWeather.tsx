@@ -45,6 +45,7 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name }) =>
     }
     navigate('/');
   }
+  console.log(weather);
 
   return (
     <SCardWeatherWrap isNight={isNight} onClick={handleWeatherCard}>
