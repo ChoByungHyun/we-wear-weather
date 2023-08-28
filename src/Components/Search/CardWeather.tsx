@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import CardWave from './CardWave';
 import CardRain from './CardRain';
 import { useWeatherIcon, useWeatherKr } from 'Components/common/useWeatherIcon';
+import { useRecoilValue } from 'recoil';
+import { userNight } from 'Atom/updateDate';
 import useSearchedCities from 'Hooks/useSearchedCites';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +17,7 @@ interface CardWeatherProps {
 }
 
 const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name }) => {
-  const [isNight, setIsNight] = useState<boolean>(false);
+  const isNight = useRecoilValue(userNight);
   const [isRain, setIsRain] = useState<boolean>(false);
   const currentDate = new Date();
   const currentTime: number = Number(currentDate.toTimeString().slice(0, 2));
@@ -23,14 +25,6 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name }) =>
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (15 < currentTime) {
-      setIsNight(true);
-    } else if (0 <= currentTime && currentTime < 5) {
-      setIsNight(true);
-    } else {
-      setIsNight(false);
-    }
-
     switch (weather) {
       case 'Thunderstorm':
         setIsRain(true);
