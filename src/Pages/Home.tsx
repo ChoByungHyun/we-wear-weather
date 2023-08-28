@@ -3,10 +3,8 @@ import Header from 'Components/common/Header';
 import BottomNav from 'Components/common/BottomNav';
 import Character from 'Components/Home/Character';
 import ParticulateMatter from 'Components/Home/ParticulateMatter';
-
 import HourlyForecast from 'Components/Home/HourlyForecast';
 import SpeechBubble from 'Components/Home/SpeechBubble';
-import { useNavigate, useLocation } from 'react-router';
 
 const Home = () => {
   return (
@@ -38,4 +36,5 @@ const SPMHourlySection = styled.section`
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 80px;
 `;
