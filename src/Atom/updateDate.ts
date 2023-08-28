@@ -1,4 +1,6 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
+const { persistAtom } = recoilPersist();
 
 export const updateDate = atom({
   key: 'updateDate',
@@ -7,5 +9,6 @@ export const updateDate = atom({
 
 export const userNight = atom({
   key: 'userNight',
-  default: true,
+  default: false,
+  effects_UNSTABLE: [persistAtom],
 });
