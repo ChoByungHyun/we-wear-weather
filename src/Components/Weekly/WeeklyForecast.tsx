@@ -37,6 +37,7 @@ const WeeklyForecast: FC = () => {
           max={Math.ceil(today?.main.temp_max) + '°'}
           temp={Math.ceil(today?.main.temp) + '°'}
           icon={todayIcon}
+          $today={true}
         />
         {days.map((day, idx) => (
           <WeeklyItem
@@ -46,6 +47,7 @@ const WeeklyForecast: FC = () => {
             max={Math.ceil(day.main.temp_max) + '°'}
             // eslint-disable-next-line
             icon={useWeatherSmallIcon(day.weather[0].description)}
+            $today={false}
           />
         ))}
       </SLayout>
