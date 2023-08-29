@@ -7,7 +7,6 @@ import { useRecoilValue } from 'recoil';
 import { updateDate } from 'Atom/updateDate';
 import HourlyForecast from 'Components/Home/HourlyForecast';
 import SpeechBubble from 'Components/Home/SpeechBubble';
-import { useNavigate, useLocation } from 'react-router';
 
 const Home = () => {
   const date = useRecoilValue(updateDate);
@@ -40,4 +39,5 @@ const SPMHourlySection = styled.section`
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 80px;
 `;

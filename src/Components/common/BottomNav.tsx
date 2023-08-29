@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
@@ -96,6 +96,7 @@ const SNavLayout = styled.nav`
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 20;
 
   background-color: white;
 `;

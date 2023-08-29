@@ -9,6 +9,7 @@ const SLayout = styled.div`
   padding: 0 24px;
   box-sizing: border-box;
   background-color: var(--bg);
+  overflow: auto;
 `;
 
 export default SLayout;
