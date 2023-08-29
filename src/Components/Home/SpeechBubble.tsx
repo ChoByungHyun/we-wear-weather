@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
@@ -17,6 +17,7 @@ const SpeechBubble: FC = () => {
 
   const todayInfo = cityRes?.data;
   const mainWeatherInfo = useMainWeatherInfo(todayInfo?.weather[0].description);
+  // console.log(todayInfo); //NOTE 말풍선에 나타나는 날씨 정보 확인
 
   if (cityRes.isLoading) {
     return (
@@ -43,6 +44,7 @@ const SpeechBubble: FC = () => {
         temp={Math.ceil(todayInfo?.main.temp) + '°'}
         humidity={Math.ceil(todayInfo?.main.humidity) + '%'}
         label={mainWeatherInfo?.label}
+        feels_like={Math.ceil(todayInfo?.main.feels_like) + '°'}
       />
       <SSpeechBubbleComment>
         날씨가 흐리고 일교차가 심하네요 <br />
