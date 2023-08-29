@@ -31,6 +31,8 @@ const CityWeatherCard: FC<CityWeatherCardProps> = ({ cityName, latLonData }) => 
     return <div>날씨 데이터를 불러올 수 없습니다</div>;
   }
 
+  console.log(data);
+
   return (
     <CardWeather
       temp={data.main.temp}
