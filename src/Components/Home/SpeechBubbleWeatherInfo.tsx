@@ -9,9 +9,18 @@ interface SpeechBubbleWeatherInfoProps {
   temp: string | number | undefined;
   humidity: string | number | undefined;
   label: string | undefined;
+  feels_like: string | undefined;
 }
 
-const SpeechBubbleWeatherInfo: FC<SpeechBubbleWeatherInfoProps> = ({ min, max, temp, humidity, label, cityName }) => {
+const SpeechBubbleWeatherInfo: FC<SpeechBubbleWeatherInfoProps> = ({
+  min,
+  max,
+  feels_like,
+  temp,
+  humidity,
+  label,
+  cityName,
+}) => {
   return (
     <SSpeechBubbleWeatherInfoLayout>
       <SAreaWeatherWrap>
@@ -31,6 +40,10 @@ const SpeechBubbleWeatherInfo: FC<SpeechBubbleWeatherInfoProps> = ({ min, max, t
         <li>
           <p>최고 온도</p>
           <p>{max}</p>
+        </li>
+        <li>
+          <p>체감 온도</p>
+          <p>{feels_like}</p>
         </li>
         <li>
           <p>습도</p>
@@ -74,17 +87,17 @@ const STemperatureWrap = styled.ul`
   justify-content: space-around;
 
   li:first-child {
-    font-size: 70px;
+    font-size: 54px;
     font-weight: 300;
   }
 
   li:not(:first-child) {
-    font-size: 12px;
+    font-size: 10px;
     color: var(--gray-800);
 
     p:nth-of-type(2) {
       padding-top: 12px;
-      font-size: 20px;
+      font-size: 16px;
       color: black;
     }
   }
