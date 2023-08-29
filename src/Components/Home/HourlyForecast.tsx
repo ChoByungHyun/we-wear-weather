@@ -4,13 +4,8 @@ import useForecastData from 'Hooks/useForecastData';
 import { useWeatherSmallIcon } from 'Components/common/useWeatherIcon';
 import { ItemType } from 'types/weeklyType';
 
-interface HourlyForecastProps {
-  hourlyWeather: Array<ItemType[]>; // ItemType에 대한 이차원 배열 타입을 지정합니다.
-}
-
-const HourlyForecast: FC<HourlyForecastProps> = () => {
+const HourlyForecast = () => {
   const { hourlyWeather } = useForecastData();
-
   return (
     <SHourlyForecastLayout>
       {hourlyWeather.map((weather, index) => {

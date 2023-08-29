@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface WeeklyItemProps {
   day: string | number | undefined;
@@ -7,13 +7,14 @@ interface WeeklyItemProps {
   max: string | number | undefined;
   temp?: string | number | undefined;
   icon?: string | undefined;
+  $today?: boolean;
 }
 
-const WeeklyItem: FC<WeeklyItemProps> = ({ day, min, max, temp, icon }) => {
+const WeeklyItem: FC<WeeklyItemProps> = ({ day, min, max, temp, icon, $today = false }) => {
   return (
     <SLayout>
       <h2>{day}</h2>
-      <SMinMaxWrap>
+      <SMinMaxWrap $today={$today}>
         <span>최저: {min}</span>
         <span>최고: {max}</span>
       </SMinMaxWrap>
@@ -42,7 +43,7 @@ const SLayout = styled.div`
   }
 `;
 
-const SMinMaxWrap = styled.div`
+const SMinMaxWrap = styled.div<{ $today: boolean }>`
   font-size: 12px;
   color: var(--gray-800);
 
@@ -54,6 +55,14 @@ const SMinMaxWrap = styled.div`
     margin: 0 7px;
     vertical-align: top;
     background-color: var(--gray-400);
+  }
+
+  span:nth-of-type(2) {
+    ${(props) =>
+      props.$today &&
+      css`
+        padding-right: 20px;
+      `}
   }
 `;
 
