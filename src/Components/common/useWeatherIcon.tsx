@@ -92,13 +92,13 @@ export function useWeatherKr(weather: string | undefined): string | undefined {
     return '맑은 날씨입니다';
   } else if (weather?.includes('clouds')) {
     switch (weather) {
-      case 'few clouds: 11-25%':
+      case 'few clouds':
         return '적은 구름이 꼈습니다';
-      case 'scattered clouds: 25-50%':
+      case 'scattered clouds':
         return '약간의 구름이 꼈습니다';
-      case 'broken clouds: 51-84%':
+      case 'broken clouds':
         return '많은 양의 구름이 꼈습니다';
-      case 'overcast clouds: 85-100%':
+      case 'overcast clouds':
         return '흐린 날씨 입니다';
     }
   } else {
