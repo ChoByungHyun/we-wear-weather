@@ -36,21 +36,73 @@ export function useWeatherSmallIcon(weather: string) {
 }
 
 export function useWeatherKr(weather: string | undefined): string | undefined {
-  switch (weather) {
-    case 'Thunderstorm':
-      return '천둥 번개';
-    case 'Drizzle':
-      return '비 조금';
-    case 'Rain':
-      return '비 옴';
-    case 'Snow':
-      return '눈 옴';
-    case 'Clouds':
-      return '구름 조금';
-    case 'Clear':
-      return '맑은 날씨';
-    default:
-      return '흐린 날씨';
+  if (weather?.includes('thunderstorm')) {
+    return '비와 천둥번개가 칩니다';
+  } else if (weather?.includes('drizzle')) {
+    return '이슬비가 옵니다';
+  } else if (weather?.includes('rain')) {
+    switch (weather) {
+      case 'light rain':
+        return '약간의 비가 옵니다';
+      case 'moderate rain':
+        return '비가 옵니다';
+      case 'heavy intensity rain':
+        return '많은 비가 옵니다';
+      case 'very heavy rain':
+        return '많은 비가 옵니다';
+      case 'extreme rain':
+        return '폭우가 옵니다';
+      case 'freezing rain':
+        return '비가 옵니다';
+      case 'light intensity shower rain':
+        return '많은 양의 소나기가 옵니다';
+      case 'heavy intensity shower rain':
+        return '많은 양의 소나기가 옵니다';
+      case 'shower rain':
+        return '소나기가 옵니다';
+      case 'ragged shower rain':
+        return '소나기가 옵니다';
+      case 'light rain and snow':
+        return '눈 또는 비가 옵니다';
+      case 'rain and snow':
+        return '눈 또는 비가 옵니다';
+    }
+  } else if (weather?.includes('snow')) {
+    switch (weather) {
+      case 'light snow':
+        return '약간의 눈이 내립니다';
+      case 'snow':
+        return '눈이 내립니다';
+      case 'heavy snow':
+        return '많은 눈이 내립니다';
+      case 'sleet':
+        return '진눈깨비';
+      case 'light shower sleet':
+        return '진눈깨비';
+      case 'shower sleet':
+        return '잠깐의 진눈깨비';
+      case 'light shower snow':
+        return '약간의 눈이 내립니다';
+      case 'shower snown':
+        return '약간의 눈이 내립니다';
+      case 'heavy shower snow':
+        return '약간의 눈이 내립니다';
+    }
+  } else if (weather?.includes('clear')) {
+    return '맑은 날씨입니다';
+  } else if (weather?.includes('clouds')) {
+    switch (weather) {
+      case 'few clouds: 11-25%':
+        return '적은 구름이 꼈습니다';
+      case 'scattered clouds: 25-50%':
+        return '약간의 구름이 꼈습니다';
+      case 'broken clouds: 51-84%':
+        return '많은 양의 구름이 꼈습니다';
+      case 'overcast clouds: 85-100%':
+        return '흐린 날씨 입니다';
+    }
+  } else {
+    return '안개가 꼈습니다';
   }
 }
 
