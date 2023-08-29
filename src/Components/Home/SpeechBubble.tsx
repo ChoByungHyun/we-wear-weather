@@ -1,17 +1,19 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { userCityAtom, currentUserIndexAtom } from 'Atom/userLocationAtom';
 import useOpenWeatherAPI from 'API/useOpenWeatherAPI';
-
 import SpeechBubbleWeatherInfo from 'Components/Home/SpeechBubbleWeatherInfo';
 import speechBubbleTail from 'Assets/speech-bubble-tail.svg';
 import { useMainWeatherInfo } from 'Components/common/useWeatherIcon';
+import { updateDate, userNight } from 'Atom/updateDate';
 
 const SpeechBubble: FC = () => {
   const latLonData = useRecoilValue(userCityAtom);
   const locationIndex = useRecoilValue(currentUserIndexAtom);
+  const [isUpdateDate, setIsUpdateDate] = useRecoilState(updateDate);
+  const [updateNight, setUpdateNight] = useRecoilState(userNight);
   const { getCityWeather } = useOpenWeatherAPI();
   const cityRes = useQuery('currentWeather', () => getCityWeather(latLonData[locationIndex].latLonData));
 
@@ -29,6 +31,22 @@ const SpeechBubble: FC = () => {
   }
   if (cityRes.error) {
     return <p>로딩중 문제가 발생했습니다.</p>;
+  }
+
+  if (cityRes.dataUpdatedAt) {
+    const date = new Date(cityRes.dataUpdatedAt);
+    date.setHours(date.getHours() + 9);
+    const formattedDate = date.toISOString().slice(0, 16).replace('T', ' ');
+    setIsUpdateDate(formattedDate);
+
+    const isNight: number | string = parseInt(formattedDate.slice(10, 13));
+    if (formattedDate && isNight > 15) {
+      setUpdateNight(true);
+    } else if (0 <= isNight && isNight < 5) {
+      setUpdateNight(true);
+    } else {
+      setUpdateNight(false);
+    }
   }
 
   return (

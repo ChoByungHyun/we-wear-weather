@@ -24,9 +24,9 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const filteredData = filterCityResults(searchValue);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const [showModal, setShowModal] = useState<boolean>(false);
   const [latLonData, setLatLonData] = useState({
     lon: 0,
     lat: 0,
@@ -37,6 +37,13 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
 
   function filterCityResults(value: string): CityInfo[] {
     const lowerValue = value.toLowerCase();
+
+    if (showModal) {
+      const matchedCity = korea_location_lon_lan.filter((item) => item.docity.toLowerCase() === lowerValue);
+      if (matchedCity.length > 0) {
+        return [matchedCity[0]]; // 배열 형태로 반환
+      }
+    }
     return korea_location_lon_lan.filter((item) => item.docity.toLowerCase().includes(lowerValue));
   }
   const navigate = useNavigate();
@@ -99,7 +106,6 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
       setShowModal(true);
     } else {
       alert('검색 형식에 맞게 지역을 입력해주세요!');
-
     }
   }
 
