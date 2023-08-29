@@ -14,7 +14,6 @@ const useOpenWeatherAPI = () => {
   });
 
   async function getCityWeather(latLonData: { lon: number; lat: number }) {
-    console.log(latLonData);
     const lat = latLonData.lat;
     const lon = latLonData.lon;
     const requestURL = `?lat=${lat}&lon=${lon}&appid=${API_ID}&units=metric`;
