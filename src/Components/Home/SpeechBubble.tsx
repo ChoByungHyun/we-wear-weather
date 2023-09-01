@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import { useRecoilValue, useRecoilState } from 'recoil';
@@ -22,8 +22,15 @@ const SpeechBubble: FC = () => {
 
   const todayInfo = cityRes?.data;
   const mainWeatherInfo = useMainWeatherInfo(todayInfo?.weather[0].description);
-  // setTodayWeather([todayInfo?.weather[0].description, Math.round(todayInfo?.main.feels_like)]);
   // console.log(todayInfo); //NOTE 말풍선에 나타나는 날씨 정보 확인
+
+  useEffect(() => {
+    setTodayWeather({
+      temp: Math.ceil(todayInfo?.main.temp) + '°',
+      weather: todayInfo?.weather[0].description,
+      feelsLike: Math.round(todayInfo?.main.feels_like),
+    });
+  }, [todayInfo]);
 
   if (cityRes.isLoading) {
     return (

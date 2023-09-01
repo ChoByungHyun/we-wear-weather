@@ -4,6 +4,10 @@ const { persistAtom } = recoilPersist();
 
 export const dailyWeather = atom({
   key: 'dailyWeather',
-  default: ['clear', 0],
+  default: {
+    temp: '',
+    weather: '',
+    feelsLike: 0,
+  },
   effects_UNSTABLE: [persistAtom],
 });
