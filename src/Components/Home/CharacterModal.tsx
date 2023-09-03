@@ -1,6 +1,10 @@
 import React, { FC } from 'react';
 import { styled } from 'styled-components';
 import Button from 'Components/common/Button';
+import { useRecoilState } from 'recoil';
+import { dailyWeather } from 'Atom/mainWeatherAtom';
+import { useMainWeatherInfo } from 'Components/common/useWeatherIcon';
+import useDailyComments from 'Components/common/useDailyComments';
 
 interface CharacterModalProps {
   img?: string;
@@ -8,22 +12,32 @@ interface CharacterModalProps {
 }
 
 const CharacterModal: FC<CharacterModalProps> = ({ img, handleCharModal }) => {
+  const [todayWeather, setTodayWeather] = useRecoilState(dailyWeather);
+  const { commentClothes } = useDailyComments(todayWeather.weather, todayWeather.feelsLike);
+  const mainWeatherInfo = useMainWeatherInfo(todayWeather.weather);
+
   return (
     <SCharModalBG>
       <SCharModalLayout>
         <h1 className='a11y-hidden'>옷차림 상세정보</h1>
         <SCharImgWrap>
-          {/* TODO 현재 캐릭터 img src를 가져와야함 */}
           <img src={img} alt='' />
         </SCharImgWrap>
-        {/* TODO 현재 날씨 값과 설명을 가져와야함 */}
         <p>
-          24&#186; <strong>흐린 날씨</strong>
+          {todayWeather.temp} <strong>{mainWeatherInfo.label}</strong>
         </p>
+        <h2>{commentClothes()}</h2>
         {/* TODO 옷차림 별 안내 내용 데이터 */}
         <p>
-          날씨가 흐리고 일교차가 심하네요. 가벼운 겉옷 하나 챙기는 건 어떨까요? 날씨가 흐리고 일교차가 심하네요 가벼운
-          겉옷 하나 챙기는 건 어떨까요? 날씨가 흐리고 일교차가 심하네요 가벼운 겉옷 하나 챙기는 건 어떨까요?
+          {commentClothes()}
+          {commentClothes()}
+          {commentClothes()}
+          {commentClothes()}
+          {commentClothes()}
+          {commentClothes()}
+          {commentClothes()}
+          {commentClothes()}
+          {commentClothes()}
         </p>
         <Button onClick={handleCharModal} $fontSize='16px'>
           확인했어요
@@ -60,6 +74,12 @@ const SCharModalLayout = styled.div`
   border-radius: 10px;
   text-align: center;
 
+  h2 {
+    margin-top: 12px;
+    font-size: 17px;
+    font-weight: 700;
+  }
+
   p:nth-of-type(1) {
     color: var(--gray-800);
     font-weight: 700;
@@ -70,7 +90,7 @@ const SCharModalLayout = styled.div`
   }
 
   p:nth-of-type(2) {
-    margin: 24px 0;
+    margin-bottom: 24px;
     line-height: 1.6;
     text-align: start;
     font-size: 15px;

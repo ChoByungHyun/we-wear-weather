@@ -2,13 +2,14 @@ import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import CharacterModal from 'Components/Home/CharacterModal';
 
-import charMale from 'Assets/char-male.png';
 import touchPointer from 'Assets/touch-pointer.svg';
+import useCharacters from 'Components/common/useCharacters';
 
 interface CharacterProps {}
 
 const Character: FC<CharacterProps> = ({}) => {
   const [onModal, setOnModal] = useState<boolean>(false);
+  const character = useCharacters(26);
 
   function handleCharModal() {
     setOnModal(!onModal);
@@ -17,9 +18,9 @@ const Character: FC<CharacterProps> = ({}) => {
   return (
     <>
       <SCharacter onClick={handleCharModal}>
-        <img src={charMale} alt='' />
+        <img src={character} alt='' />
       </SCharacter>
-      {onModal && <CharacterModal img={charMale} handleCharModal={handleCharModal} />}
+      {onModal && <CharacterModal img={character} handleCharModal={handleCharModal} />}
     </>
   );
 };
@@ -35,7 +36,7 @@ const SCharacter = styled.section`
   position: relative;
 
   img {
-    width: 200px;
+    width: 400px;
     cursor: pointer;
   }
 `;

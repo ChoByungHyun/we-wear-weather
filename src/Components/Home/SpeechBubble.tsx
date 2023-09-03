@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import { useRecoilValue, useRecoilState } from 'recoil';
@@ -8,18 +8,29 @@ import SpeechBubbleWeatherInfo from 'Components/Home/SpeechBubbleWeatherInfo';
 import speechBubbleTail from 'Assets/speech-bubble-tail.svg';
 import { useMainWeatherInfo } from 'Components/common/useWeatherIcon';
 import { updateDate, userNight } from 'Atom/updateDate';
+import { dailyWeather } from 'Atom/mainWeatherAtom';
+import SpeechBubbleComment from './SpeechBubbleComment';
 
 const SpeechBubble: FC = () => {
   const latLonData = useRecoilValue(userCityAtom);
   const locationIndex = useRecoilValue(currentUserIndexAtom);
   const [isUpdateDate, setIsUpdateDate] = useRecoilState(updateDate);
   const [updateNight, setUpdateNight] = useRecoilState(userNight);
+  const [todayWeather, setTodayWeather] = useRecoilState(dailyWeather);
   const { getCityWeather } = useOpenWeatherAPI();
   const cityRes = useQuery('currentWeather', () => getCityWeather(latLonData[locationIndex].latLonData));
 
   const todayInfo = cityRes?.data;
   const mainWeatherInfo = useMainWeatherInfo(todayInfo?.weather[0].description);
   // console.log(todayInfo); //NOTE 말풍선에 나타나는 날씨 정보 확인
+
+  useEffect(() => {
+    setTodayWeather({
+      temp: Math.ceil(todayInfo?.main.temp) + '°',
+      weather: todayInfo?.weather[0].description,
+      feelsLike: Math.round(todayInfo?.main.feels_like),
+    });
+  }, [todayInfo]);
 
   if (cityRes.isLoading) {
     return (
@@ -64,10 +75,10 @@ const SpeechBubble: FC = () => {
         label={mainWeatherInfo?.label}
         feels_like={Math.ceil(todayInfo?.main.feels_like) + '°'}
       />
-      <SSpeechBubbleComment>
-        날씨가 흐리고 일교차가 심하네요 <br />
-        가벼운 겉옷 하나 챙기는건 어떨까요?
-      </SSpeechBubbleComment>
+      <SpeechBubbleComment
+        todayWeather={todayInfo?.weather[0].description}
+        feels_like={Math.round(todayInfo?.main.feels_like)}
+      />
     </SSpeechBubble>
   );
 };
@@ -76,7 +87,7 @@ export default SpeechBubble;
 
 const SSpeechBubble = styled.article`
   width: calc(100% - 32px);
-  height: 250px;
+  height: 260px;
   margin-bottom: -20px;
   background-color: white;
   border-radius: 10px;
@@ -95,13 +106,4 @@ const SSpeechBubble = styled.article`
     top: -80px;
     right: 0;
   }
-`;
-
-const SSpeechBubbleComment = styled.p`
-  padding: 24px 0 36px 0;
-  font-size: 16px;
-  color: var(--gray-800);
-  font-weight: 500;
-  border-top: 1px solid var(--gray-200);
-  line-height: 150%;
 `;

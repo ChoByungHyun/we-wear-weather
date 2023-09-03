@@ -82,7 +82,7 @@ const STemperatureWrap = styled.ul`
   display: flex;
   height: 80px;
   width: 100%;
-  padding-bottom: 16px;
+  padding-bottom: 8px;
   align-items: center;
   justify-content: space-around;
 
