@@ -15,7 +15,7 @@ export const commentBasedWeather = {
   heavyCloud: '많은 양의 구름이 있는',
   cloud: '흐리고',
   mist: '안개가 가득한',
-};
+} as Record<string, string>;
 
 export const commentBasedTemp = {
   summer: '한여름 날씨예요',
@@ -26,7 +26,7 @@ export const commentBasedTemp = {
   cold: '추운 날씨예요',
   superCold: '매우 추운 날씨예요',
   winterCold: '한겨울 날씨예요',
-};
+} as Record<string, string>;
 
 export const commentAboutClothes = {
   summer: '시원한 반바지에 민소매 옷을 추천해요',
@@ -37,7 +37,7 @@ export const commentAboutClothes = {
   cold: '옷을 여러 겹 껴입으세요',
   superCold: '코트나 야상 같은 외투를 입으셔야 해요',
   winterCold: '패딩과 목도리로 꽁꽁!',
-};
+} as Record<string, string>;
 
 export const commentAboutCaution = {
   hot: '더위를 피할 손풍기가 있나요?',
@@ -45,4 +45,15 @@ export const commentAboutCaution = {
   chilly: '그리고 얇은 겉옷 하나 챙기는 건 어떨까요?',
   cold: '따뜻하게 입으시고 감기 조심하세요!',
   normal: '즐거운 하루 보내세요!',
+} as Record<string, string>;
+
+export const commentAboutClothesDetail = {
+  summer: '시원한 반바지에 민소매 옷을 추천하고',
+  hot: '반소매나 얇은 셔츠면 좋겠어요',
+  warm: '가디건 혹은 적당한 두께의 긴팔 티를 추천해요',
+  cool: '맨투맨이나 후드티를 입을 때가 됐어요',
+  chilly: '셔츠나 재킷을 꼭 걸쳐야겠는걸요',
+  cold: '옷을 여러 겹 껴입으세요',
+  superCold: '코트나 야상 같은 외투를 입으셔야 해요',
+  winterCold: '패딩과 목도리로 꽁꽁!',
 };

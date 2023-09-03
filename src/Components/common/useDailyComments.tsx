@@ -1,15 +1,33 @@
+import { useEffect, useState } from 'react';
 import { commentBasedTemp } from './dailyComments';
 import { commentAboutClothes } from './dailyComments';
 import { commentAboutCaution } from './dailyComments';
+import { useRecoilState } from 'recoil';
+import { dailyWeather } from 'Atom/mainWeatherAtom';
+import { clothesList } from 'Constants/clothesArray';
 
-const useDailyComments = (weather: string, feelsLike: number) => {
+const useDailyComments = () => {
+  const [feelsWeather, setFeelsWeather] = useState<string>('');
+  const [todayWeather, setTodayWeather] = useRecoilState(dailyWeather);
+
+  useEffect(() => {
+    if (todayWeather.feelsLike >= 27) setFeelsWeather('summer');
+    else if (todayWeather.feelsLike >= 24) setFeelsWeather('hot');
+    else if (todayWeather.feelsLike >= 20) setFeelsWeather('warm');
+    else if (todayWeather.feelsLike >= 17) setFeelsWeather('cool');
+    else if (todayWeather.feelsLike >= 12) setFeelsWeather('chilly');
+    else if (todayWeather.feelsLike >= 10) setFeelsWeather('cold');
+    else if (todayWeather.feelsLike >= 6) setFeelsWeather('superCold');
+    else setFeelsWeather('winterCold');
+  }, [todayWeather.feelsLike]);
+
   function commentWeather() {
-    if (weather?.includes('thunderstorm')) {
+    if (todayWeather.weather?.includes('thunderstorm')) {
       return '비와 천둥번개가 치고';
-    } else if (weather?.includes('drizzle')) {
+    } else if (todayWeather.weather?.includes('drizzle')) {
       return '이슬비가 내리고';
-    } else if (weather?.includes('rain')) {
-      switch (weather) {
+    } else if (todayWeather.weather?.includes('rain')) {
+      switch (todayWeather.weather) {
         case 'light rain':
           return '약간의 비가 내리고';
         case 'moderate rain':
@@ -35,8 +53,8 @@ const useDailyComments = (weather: string, feelsLike: number) => {
         case 'rain and snow':
           return '눈 또는 비가 내리고';
       }
-    } else if (weather?.includes('snow')) {
-      switch (weather) {
+    } else if (todayWeather.weather?.includes('snow')) {
+      switch (todayWeather.weather) {
         case 'light snow':
           return '약간의 눈이 내리고';
         case 'snow':
@@ -56,17 +74,17 @@ const useDailyComments = (weather: string, feelsLike: number) => {
         case 'heavy shower snow':
           return '약간의 눈이 내리고';
       }
-    } else if (weather?.includes('clear')) {
+    } else if (todayWeather.weather?.includes('clear')) {
       return '맑은';
-    } else if (weather?.includes('clouds')) {
-      switch (weather) {
-        case 'few clouds: 11-25%':
+    } else if (todayWeather.weather?.includes('clouds')) {
+      switch (todayWeather.weather) {
+        case 'few clouds':
           return '적은 구름이 있는';
-        case 'scattered clouds: 25-50%':
+        case 'scattered clouds':
           return '약간의 구름이 있는';
-        case 'broken clouds: 51-84%':
+        case 'broken clouds':
           return '많은 양의 구름이 있는';
-        case 'overcast clouds: 85-100%':
+        case 'overcast clouds':
           return '흐린';
       }
     } else {
@@ -75,36 +93,31 @@ const useDailyComments = (weather: string, feelsLike: number) => {
   }
 
   function commentCaution(): string {
-    if (weather.includes('thunderstorm') || weather.includes('rain')) return commentAboutCaution.rain;
-    if (feelsLike <= 10) return commentAboutCaution.cold;
-    if (feelsLike <= 15) return commentAboutCaution.chilly;
-    if (feelsLike >= 30) return commentAboutCaution.hot;
+    if (todayWeather.weather?.includes('thunderstorm') || todayWeather.weather?.includes('rain'))
+      return commentAboutCaution.rain;
+    if (todayWeather.feelsLike <= 10) return commentAboutCaution.cold;
+    if (todayWeather.feelsLike <= 15) return commentAboutCaution.chilly;
+    if (todayWeather.feelsLike >= 30) return commentAboutCaution.hot;
     return commentAboutCaution.normal;
   }
 
   function commentTemp(): string {
-    if (feelsLike >= 27) return commentBasedTemp.summer;
-    if (feelsLike >= 23) return commentBasedTemp.hot;
-    if (feelsLike >= 20) return commentBasedTemp.warm;
-    if (feelsLike >= 17) return commentBasedTemp.cool;
-    if (feelsLike >= 12) return commentBasedTemp.chilly;
-    if (feelsLike >= 10) return commentBasedTemp.cold;
-    if (feelsLike >= 6) return commentBasedTemp.superCold;
-    return commentBasedTemp.winterCold;
+    return commentBasedTemp[feelsWeather];
   }
 
   function commentClothes(): string {
-    if (feelsLike >= 27) return commentAboutClothes.summer;
-    if (feelsLike >= 23) return commentAboutClothes.hot;
-    if (feelsLike >= 20) return commentAboutClothes.warm;
-    if (feelsLike >= 17) return commentAboutClothes.cool;
-    if (feelsLike >= 12) return commentAboutClothes.chilly;
-    if (feelsLike >= 10) return commentAboutClothes.cold;
-    if (feelsLike >= 6) return commentAboutClothes.superCold;
-    return commentAboutClothes.winterCold;
+    return commentAboutClothes[feelsWeather];
+  }
+  function commentFilteredClothes(): string[] {
+    if (!feelsWeather) {
+      return [];
+    } else {
+      const filteredClothes = clothesList.filter((item) => commentAboutClothes[feelsWeather].includes(item));
+      return filteredClothes;
+    }
   }
 
-  return { commentTemp, commentClothes, commentWeather, commentCaution };
+  return { commentFilteredClothes, commentTemp, commentClothes, commentWeather, commentCaution };
 };
 
 export default useDailyComments;

@@ -2,13 +2,8 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import useDailyComments from 'Components/common/useDailyComments';
 
-interface SpeechBubbleCommentProps {
-  todayWeather: string;
-  feels_like: number;
-}
-
-const SpeechBubbleComment: FC<SpeechBubbleCommentProps> = ({ todayWeather, feels_like }) => {
-  const { commentWeather, commentTemp, commentClothes, commentCaution } = useDailyComments(todayWeather, feels_like);
+const SpeechBubbleComment: FC = () => {
+  const { commentWeather, commentTemp, commentClothes, commentCaution } = useDailyComments();
 
   return (
     <SSpeechBubbleCommentLayout>

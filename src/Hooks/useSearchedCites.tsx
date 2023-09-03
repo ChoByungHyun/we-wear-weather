@@ -4,14 +4,6 @@ import { userCityAtom } from 'Atom/userLocationAtom';
 import { currentUserIndexAtom } from 'Atom/userLocationAtom';
 import { CityWeatherType } from 'types/cityWeatherType';
 
-interface CityInfo {
-  cityName: string;
-  latLonData: {
-    lon: number;
-    lat: number;
-  };
-}
-
 // 검색된 도시명과 좌표 정보를 Recoil을 사용하여 저장하고 삭제하는 훅
 const useSearchedCities = () => {
   const [searchedCities, setSearchedCities] = useRecoilState<CityWeatherType[]>(userCityAtom);
