@@ -1,6 +1,8 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 import locationIcn from 'Assets/icon-location.svg';
+import pcScreen from 'Atom/pcScreen';
 
 interface SpeechBubbleWeatherInfoProps {
   cityName: string;
@@ -21,15 +23,16 @@ const SpeechBubbleWeatherInfo: FC<SpeechBubbleWeatherInfoProps> = ({
   label,
   cityName,
 }) => {
+  const isPC = useRecoilValue(pcScreen);
   return (
     <SSpeechBubbleWeatherInfoLayout>
-      <SAreaWeatherWrap>
+      <SAreaWeatherWrap $isPC={isPC}>
         <img src={locationIcn} alt='icon-location' />
         <span>
           {cityName} <strong>{label}</strong>
         </span>
       </SAreaWeatherWrap>
-      <STemperatureWrap>
+      <STemperatureWrap $isPC={isPC}>
         <li>
           <p>{temp}</p>
         </li>
@@ -59,7 +62,7 @@ export default SpeechBubbleWeatherInfo;
 const SSpeechBubbleWeatherInfoLayout = styled.section`
   padding-top: 25px;
 `;
-const SAreaWeatherWrap = styled.div`
+const SAreaWeatherWrap = styled.div<{ $isPC: boolean }>`
   text-align: left;
   display: flex;
   align-items: center;
@@ -70,7 +73,7 @@ const SAreaWeatherWrap = styled.div`
 
   span {
     color: var(--gray-800);
-    font-size: 14px;
+    font-size: ${(props) => (props.$isPC ? '16px' : '14px')};
 
     strong {
       color: var(--orange);
@@ -78,7 +81,7 @@ const SAreaWeatherWrap = styled.div`
   }
 `;
 
-const STemperatureWrap = styled.ul`
+const STemperatureWrap = styled.ul<{ $isPC: boolean }>`
   display: flex;
   height: 80px;
   width: 100%;
@@ -92,12 +95,12 @@ const STemperatureWrap = styled.ul`
   }
 
   li:not(:first-child) {
-    font-size: 10px;
+    font-size: ${(props) => (props.$isPC ? '16px' : '10px')};
     color: var(--gray-800);
 
     p:nth-of-type(2) {
       padding-top: 12px;
-      font-size: 16px;
+      font-size: ${(props) => (props.$isPC ? '20px' : '16px')};
       color: black;
     }
   }
