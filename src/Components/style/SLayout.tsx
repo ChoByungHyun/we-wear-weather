@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const SLayout = styled.div`
+const SLayout = styled.div<{ $isPC: boolean }>`
   position: relative;
-  max-width: 430px;
+  max-width: ${(props) => (props.$isPC ? '768px' : '430px')};
   min-width: 375px;
   height: calc(var(--vh, 1vh) * 100);
   margin: 0 auto;

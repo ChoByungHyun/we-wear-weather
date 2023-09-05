@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userCityAtom, currentUserIndexAtom } from 'Atom/userLocationAtom';
 import useOpenWeatherAPI from 'API/useOpenWeatherAPI';
 import SpeechBubbleWeatherInfo from 'Components/Home/SpeechBubbleWeatherInfo';
@@ -14,9 +14,9 @@ import SpeechBubbleComment from './SpeechBubbleComment';
 const SpeechBubble: FC = () => {
   const latLonData = useRecoilValue(userCityAtom);
   const locationIndex = useRecoilValue(currentUserIndexAtom);
-  const [isUpdateDate, setIsUpdateDate] = useRecoilState(updateDate);
-  const [updateNight, setUpdateNight] = useRecoilState(userNight);
-  const [todayWeather, setTodayWeather] = useRecoilState(dailyWeather);
+  const setIsUpdateDate = useSetRecoilState(updateDate);
+  const setUpdateNight = useSetRecoilState(userNight);
+  const setTodayWeather = useSetRecoilState(dailyWeather);
   const { getCityWeather } = useOpenWeatherAPI();
   const cityRes = useQuery('currentWeather', () => getCityWeather(latLonData[locationIndex].latLonData));
 

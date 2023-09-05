@@ -1,10 +1,13 @@
 import { FC } from 'react';
 import { styled } from 'styled-components';
+import { useRecoilValue } from 'recoil';
 import WeeklyItem from 'Components/Weekly/WeeklyItem';
 import { useWeatherSmallIcon } from 'Components/common/useWeatherIcon';
 import useForecastData from 'Hooks/useForecastData';
+import pcScreen from 'Atom/pcScreen';
 
 const WeeklyForecast: FC = () => {
+  const isPC = useRecoilValue(pcScreen);
   const {
     days,
     today,
@@ -27,7 +30,7 @@ const WeeklyForecast: FC = () => {
 
   return (
     <>
-      <STitle>
+      <STitle $isPC={isPC}>
         <strong>{latLonData[currentCityIndex].cityName}</strong> 주간 예보
       </STitle>
       <SLayout>
@@ -57,9 +60,9 @@ const WeeklyForecast: FC = () => {
 
 export default WeeklyForecast;
 
-const STitle = styled.h1`
+const STitle = styled.h1<{ $isPC: boolean }>`
   margin-bottom: 40px;
-  font-size: 24px;
+  font-size: ${({ $isPC }) => ($isPC ? '28px' : '24px')};
   font-weight: 600;
 
   strong {
