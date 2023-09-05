@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 import { dailyWeather } from 'Atom/mainWeatherAtom';
 import { useMainWeatherInfo } from 'Components/common/useWeatherIcon';
 import useDailyComments from 'Components/common/useDailyComments';
+import { CLOTHES_CATEGORY } from 'Constants/weatherConfig';
 
 interface CharacterModalProps {
   img?: string;
@@ -13,7 +14,7 @@ interface CharacterModalProps {
 
 const CharacterModal: FC<CharacterModalProps> = ({ img, handleCharModal }) => {
   const [todayWeather, setTodayWeather] = useRecoilState(dailyWeather);
-  const { commentFilteredClothes, commentTemp, commentClothes, commentWeather } = useDailyComments();
+  const { commentFilteredClothes, commentTemp, commentWeather, commentModalDetail } = useDailyComments();
   const mainWeatherInfo = useMainWeatherInfo(todayWeather.weather);
   const clothesList = commentFilteredClothes();
   return (
@@ -41,9 +42,13 @@ const CharacterModal: FC<CharacterModalProps> = ({ img, handleCharModal }) => {
         </p>
         {/* TODO 옷차림 별 안내 내용 데이터 */}
         <p>
-          {commentWeather()}
-          {commentClothes()}
-          {commentClothes()}
+          {commentModalDetail(CLOTHES_CATEGORY.TOP)}
+          <br />
+          {commentModalDetail(CLOTHES_CATEGORY.BOTTOM)}
+          <br />
+          {commentModalDetail(CLOTHES_CATEGORY.FOOTWEAR)}
+          <br />
+          {commentModalDetail(CLOTHES_CATEGORY.ACCESSORIES)}
         </p>
         <Button onClick={handleCharModal} $fontSize='16px'>
           확인했어요

@@ -1,23 +1,24 @@
 import { useEffect, useState } from 'react';
-import { commentBasedTemp } from './dailyComments';
+import { commentBasedTemp, commentAboutClothesDetail } from './dailyComments';
 import { commentAboutClothes } from './dailyComments';
 import { commentAboutCaution } from './dailyComments';
 import { useRecoilState } from 'recoil';
 import { dailyWeather } from 'Atom/mainWeatherAtom';
-import { clothesList } from 'Constants/clothesArray';
+import { CLOTHESLIST, FILLLIKE_WEATHER, FILLLIKE_CAUTION } from 'Constants/weatherConfig';
 
 const useDailyComments = () => {
   const [feelsWeather, setFeelsWeather] = useState<string>('');
+  const [caution, setCaution] = useState<string>('');
   const [todayWeather, setTodayWeather] = useRecoilState(dailyWeather);
 
   useEffect(() => {
-    if (todayWeather.feelsLike >= 27) setFeelsWeather('summer');
-    else if (todayWeather.feelsLike >= 24) setFeelsWeather('hot');
-    else if (todayWeather.feelsLike >= 20) setFeelsWeather('warm');
-    else if (todayWeather.feelsLike >= 17) setFeelsWeather('cool');
-    else if (todayWeather.feelsLike >= 12) setFeelsWeather('chilly');
-    else if (todayWeather.feelsLike >= 10) setFeelsWeather('cold');
-    else if (todayWeather.feelsLike >= 6) setFeelsWeather('superCold');
+    if (todayWeather.feelsLike >= FILLLIKE_WEATHER.SUMMER) setFeelsWeather('summer');
+    else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.HOT) setFeelsWeather('hot');
+    else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.WARM) setFeelsWeather('warm');
+    else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.COOL) setFeelsWeather('cool');
+    else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.CHILLY) setFeelsWeather('chilly');
+    else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.COLD) setFeelsWeather('cold');
+    else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.SUPERCOLD) setFeelsWeather('superCold');
     else setFeelsWeather('winterCold');
   }, [todayWeather.feelsLike]);
 
@@ -95,9 +96,9 @@ const useDailyComments = () => {
   function commentCaution(): string {
     if (todayWeather.weather?.includes('thunderstorm') || todayWeather.weather?.includes('rain'))
       return commentAboutCaution.rain;
-    if (todayWeather.feelsLike <= 10) return commentAboutCaution.cold;
-    if (todayWeather.feelsLike <= 15) return commentAboutCaution.chilly;
-    if (todayWeather.feelsLike >= 30) return commentAboutCaution.hot;
+    if (todayWeather.feelsLike <= FILLLIKE_CAUTION.COLD) return commentAboutCaution.cold;
+    if (todayWeather.feelsLike <= FILLLIKE_CAUTION.CHILLY) return commentAboutCaution.chilly;
+    if (todayWeather.feelsLike >= FILLLIKE_CAUTION.HOT) return commentAboutCaution.hot;
     return commentAboutCaution.normal;
   }
 
@@ -109,15 +110,31 @@ const useDailyComments = () => {
     return commentAboutClothes[feelsWeather];
   }
   function commentFilteredClothes(): string[] {
-    if (!feelsWeather) {
-      return [];
-    } else {
-      const filteredClothes = clothesList.filter((item) => commentAboutClothes[feelsWeather].includes(item));
-      return filteredClothes;
+    return feelsWeather ? CLOTHESLIST.filter((item) => commentAboutClothes[feelsWeather].includes(item)) : [];
+  }
+  function commentModalDetail(type: string): string {
+    switch (type) {
+      case 'tops':
+        return feelsWeather && commentAboutClothesDetail[feelsWeather].tops;
+      case 'bottoms':
+        return feelsWeather && commentAboutClothesDetail[feelsWeather].bottoms;
+      case 'footwear':
+        return feelsWeather && commentAboutClothesDetail[feelsWeather].footwear;
+      case 'accessories':
+        return feelsWeather && commentAboutClothesDetail[feelsWeather].accessories;
+      default:
+        return '';
     }
   }
 
-  return { commentFilteredClothes, commentTemp, commentClothes, commentWeather, commentCaution };
+  return {
+    commentFilteredClothes,
+    commentTemp,
+    commentClothes,
+    commentWeather,
+    commentCaution,
+    commentModalDetail,
+  };
 };
 
 export default useDailyComments;
