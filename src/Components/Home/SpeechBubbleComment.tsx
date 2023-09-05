@@ -1,12 +1,15 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 import useDailyComments from 'Components/common/useDailyComments';
+import pcScreen from 'Atom/pcScreen';
 
 const SpeechBubbleComment: FC = () => {
+  const isPC = useRecoilValue(pcScreen);
   const { commentWeather, commentTemp, commentClothes, commentCaution } = useDailyComments();
 
   return (
-    <SSpeechBubbleCommentLayout>
+    <SSpeechBubbleCommentLayout $isPC={isPC}>
       {commentWeather()} {commentTemp()}
       <br />
       {commentClothes()}
@@ -18,9 +21,9 @@ const SpeechBubbleComment: FC = () => {
 
 export default SpeechBubbleComment;
 
-const SSpeechBubbleCommentLayout = styled.section`
+const SSpeechBubbleCommentLayout = styled.section<{ $isPC: boolean }>`
   padding-top: 24px;
-  font-size: 16px;
+  font-size: ${(props) => (props.$isPC ? '18px' : '16px')};
   color: var(--gray-800);
   font-weight: 500;
   border-top: 1px solid var(--gray-200);

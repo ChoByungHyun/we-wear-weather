@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { bottomNavAtom } from 'Atom/BottomNavStore';
 import HomeIcon from 'Assets/home-icon.svg';
 import SearchIcon from 'Assets/search-icon.svg';
@@ -11,8 +11,10 @@ import HomeIcon_Fill from 'Assets/home-fill-icon.svg';
 import SearchIcon_Fill from 'Assets/search-fill-icon.svg';
 import WeeklyIcon_Fill from 'Assets/weekly-fill-icon.svg';
 import SettingIcon_Fill from 'Assets/setting-fill-icon.svg';
+import pcScreen from 'Atom/pcScreen';
 
 const BottomNav: React.FC = () => {
+  const isPC = useRecoilValue(pcScreen);
   const [bottomNavIndexState, setBottomNavIndexState] = useRecoilState<number>(bottomNavAtom);
   const navItems: string[] = ['home', 'search', 'weekly', 'setting'];
   const iconArr: { active: string; inactive: string }[] = [
@@ -54,7 +56,7 @@ const BottomNav: React.FC = () => {
     setBottomNavIndexState(index);
   }
   return (
-    <SNavLayout>
+    <SNavLayout $isPC={isPC}>
       <SListStyle>
         {navItems.map((item, index) => (
           <SItemStyle key={index} active={index === bottomNavIndexState}>
@@ -89,8 +91,8 @@ const LinkBtn: React.FC<LinkBtnProps> = ({ src, text, active, onClick }) => {
 
 export default BottomNav;
 
-const SNavLayout = styled.nav`
-  max-width: 430px;
+const SNavLayout = styled.nav<{ $isPC: boolean }>`
+  max-width: ${(props) => (props.$isPC ? '768px' : '430px')};
   margin: 0 auto;
   position: fixed;
   bottom: 0;
