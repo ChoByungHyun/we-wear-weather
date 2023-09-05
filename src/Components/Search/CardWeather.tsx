@@ -13,10 +13,11 @@ interface CardWeatherProps {
   max: number;
   temp: number;
   weather: string;
+  main: string;
   name: string;
 }
 
-const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name }) => {
+const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name, main }) => {
   const isNight = useRecoilValue(userNight);
   const [isRain, setIsRain] = useState<boolean>(false);
   const currentDate = new Date();
@@ -25,7 +26,7 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name }) =>
   const navigate = useNavigate();
 
   useEffect(() => {
-    switch (weather) {
+    switch (main) {
       case 'Thunderstorm':
         setIsRain(true);
         break;
@@ -35,7 +36,7 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name }) =>
       default:
         setIsRain(false);
     }
-  }, [currentDate, weather]);
+  }, [currentDate, main]);
 
   function handleWeatherCard() {
     if (name === '현재 위치') {
@@ -56,7 +57,7 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name }) =>
           <span>최저: {min.toFixed(1) + '°'}</span>
         </SMinMaxWrap>
         <STempWrap>
-          <img src={useWeatherIcon(weather)} alt='날씨 아이콘' />
+          <img src={useWeatherIcon(main)} alt='날씨 아이콘' />
           <span>{useWeatherKr(weather)}</span>
         </STempWrap>
         <h3>{name}</h3>
