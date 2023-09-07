@@ -4,8 +4,8 @@ import particulateStatus from './particulate';
 
 import { thunderstorm, drizzle, rain, snow, atmosphere, brokenClouds } from 'Utils/iconDesc';
 
-export function useWeatherIcon(weather: string | undefined): string | undefined {
-  switch (weather) {
+export function useWeatherIcon(main: string | undefined): string | undefined {
+  switch (main) {
     case 'Thunderstorm':
       return smallWeatherIcons.rainyThunder;
     case 'Drizzle':
@@ -37,44 +37,44 @@ export function useWeatherSmallIcon(weather: string) {
 
 export function useWeatherKr(weather: string | undefined): string | undefined {
   if (weather?.includes('thunderstorm')) {
-    return '비와 천둥번개가 칩니다';
+    return '비와 천둥번개';
   } else if (weather?.includes('drizzle')) {
-    return '이슬비가 옵니다';
+    return '이슬비';
   } else if (weather?.includes('rain')) {
     switch (weather) {
       case 'light rain':
-        return '약간의 비가 옵니다';
+        return '약간의 비';
       case 'moderate rain':
-        return '비가 옵니다';
+        return '비';
       case 'heavy intensity rain':
-        return '많은 비가 옵니다';
+        return '많은 비';
       case 'very heavy rain':
-        return '많은 비가 옵니다';
+        return '많은 비';
       case 'extreme rain':
-        return '폭우가 옵니다';
+        return '폭우';
       case 'freezing rain':
-        return '비가 옵니다';
+        return '비가';
       case 'light intensity shower rain':
-        return '많은 양의 소나기가 옵니다';
+        return '많은 양의 소나기';
       case 'heavy intensity shower rain':
-        return '많은 양의 소나기가 옵니다';
+        return '많은 양의 소나기';
       case 'shower rain':
-        return '소나기가 옵니다';
+        return '소나기';
       case 'ragged shower rain':
-        return '소나기가 옵니다';
+        return '소나기';
       case 'light rain and snow':
-        return '눈 또는 비가 옵니다';
+        return '눈 또는 비';
       case 'rain and snow':
-        return '눈 또는 비가 옵니다';
+        return '눈 또는 비';
     }
   } else if (weather?.includes('snow')) {
     switch (weather) {
       case 'light snow':
-        return '약간의 눈이 내립니다';
+        return '약간의 눈';
       case 'snow':
-        return '눈이 내립니다';
+        return '눈';
       case 'heavy snow':
-        return '많은 눈이 내립니다';
+        return '많은 눈';
       case 'sleet':
         return '진눈깨비';
       case 'light shower sleet':
@@ -82,27 +82,27 @@ export function useWeatherKr(weather: string | undefined): string | undefined {
       case 'shower sleet':
         return '잠깐의 진눈깨비';
       case 'light shower snow':
-        return '약간의 눈이 내립니다';
+        return '약간의 눈';
       case 'shower snown':
-        return '약간의 눈이 내립니다';
+        return '약간의 눈';
       case 'heavy shower snow':
-        return '약간의 눈이 내립니다';
+        return '약간의 눈';
     }
   } else if (weather?.includes('clear')) {
-    return '맑은 날씨입니다';
+    return '맑은 날씨';
   } else if (weather?.includes('clouds')) {
     switch (weather) {
       case 'few clouds':
-        return '적은 구름이 꼈습니다';
+        return '적은 구름';
       case 'scattered clouds':
-        return '약간의 구름이 꼈습니다';
+        return '약간의 구름';
       case 'broken clouds':
-        return '많은 양의 구름이 꼈습니다';
+        return '많은 양의 구름';
       case 'overcast clouds':
-        return '흐린 날씨 입니다';
+        return '흐린 날씨';
     }
   } else {
-    return '안개가 꼈습니다';
+    return '안개';
   }
 }
 
