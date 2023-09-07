@@ -52,7 +52,7 @@ export const commentAboutClothesDetail: {
     description: string;
   };
 } = {
-  summer: {
+  superhot: {
     description: '너무 더운 날씨예요. 얇은 재질의 옷과 짧은 옷이 좋겠어요',
   },
   hot: {
@@ -74,7 +74,7 @@ export const commentAboutClothesDetail: {
   superCold: {
     description: '꽤 추워요. 두꺼운 패딩이나 코트, 털 모자와 부츠를 꼭 착용하세요.',
   },
-  winterCold: {
+  freeze: {
     description: '매우 추워요. 두꺼운 패딩이나 코트, 털 모자와 부츠를 꼭 착용하세요.',
   },
 };

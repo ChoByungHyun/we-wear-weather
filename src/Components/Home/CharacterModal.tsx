@@ -15,7 +15,6 @@ interface CharacterModalProps {
 const CharacterModal: FC<CharacterModalProps> = ({ img, handleCharModal }) => {
   const [todayWeather, setTodayWeather] = useRecoilState(dailyWeather);
   const { commentTemp, commentWeather, commentModalDetail } = useDailyComments();
-  const mainWeatherInfo = useMainWeatherInfo(todayWeather.weather);
   return (
     <SCharModalBG>
       <SCharModalLayout>
@@ -37,29 +36,6 @@ const CharacterModal: FC<CharacterModalProps> = ({ img, handleCharModal }) => {
 };
 
 export default CharacterModal;
-
-const SContent = styled.div`
-  p {
-    color: red;
-  }
-`;
-
-const SClothesList = styled.div`
-  display: flex;
-  gap: 5px;
-  font-weight: bold;
-  color: var(--orange);
-`;
-const SWeatherTitle = styled.p`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-`;
-const STodayWeather = styled.img`
-  width: 50px;
-  height: 50px;
-`;
 
 const SCharModalBG = styled.div`
   position: fixed;
