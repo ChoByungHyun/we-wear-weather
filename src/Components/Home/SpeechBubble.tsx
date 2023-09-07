@@ -75,10 +75,7 @@ const SpeechBubble: FC = () => {
         label={mainWeatherInfo?.label}
         feels_like={Math.ceil(todayInfo?.main.feels_like) + '°'}
       />
-      <SpeechBubbleComment
-        todayWeather={todayInfo?.weather[0].description}
-        feels_like={Math.round(todayInfo?.main.feels_like)}
-      />
+      <SpeechBubbleComment />
     </SSpeechBubble>
   );
 };

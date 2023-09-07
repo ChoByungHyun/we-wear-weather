@@ -4,14 +4,9 @@ import { useRecoilValue } from 'recoil';
 import useDailyComments from 'Components/common/useDailyComments';
 import pcScreen from 'Atom/pcScreen';
 
-interface SpeechBubbleCommentProps {
-  todayWeather: string;
-  feels_like: number;
-}
-
-const SpeechBubbleComment: FC<SpeechBubbleCommentProps> = ({ todayWeather, feels_like }) => {
+const SpeechBubbleComment: FC = () => {
   const isPC = useRecoilValue(pcScreen);
-  const { commentWeather, commentTemp, commentClothes, commentCaution } = useDailyComments(todayWeather, feels_like);
+  const { commentWeather, commentTemp, commentClothes, commentCaution } = useDailyComments();
 
   return (
     <SSpeechBubbleCommentLayout $isPC={isPC}>
