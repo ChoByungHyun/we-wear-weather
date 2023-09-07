@@ -1,10 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
+import { createRoot } from 'react-dom/client';
+import router from 'Router/Router';
+import { RouterProvider } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const container = document.getElementById('root') as Element | DocumentFragment;
+const root = createRoot(container);
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <RecoilRoot>
+    <RouterProvider router={router} />
+  </RecoilRoot>,
 );
