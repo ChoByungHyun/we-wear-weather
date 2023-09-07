@@ -5,7 +5,6 @@ import { useRecoilState } from 'recoil';
 import { dailyWeather } from 'Atom/mainWeatherAtom';
 import { useMainWeatherInfo } from 'Components/common/useWeatherIcon';
 import useDailyComments from 'Components/common/useDailyComments';
-import { CLOTHES_CATEGORY } from 'Constants/weatherConfig';
 
 interface CharacterModalProps {
   img?: string;
@@ -14,9 +13,10 @@ interface CharacterModalProps {
 
 const CharacterModal: FC<CharacterModalProps> = ({ img, handleCharModal }) => {
   const [todayWeather, setTodayWeather] = useRecoilState(dailyWeather);
-  const { commentFilteredClothes, commentTemp, commentWeather, commentModalDetail } = useDailyComments();
+  const { commentModalHighLight, commentFilteredClothes, commentTemp, commentWeather, commentModalDetail } =
+    useDailyComments();
   const mainWeatherInfo = useMainWeatherInfo(todayWeather.weather);
-  const clothesList = commentFilteredClothes();
+  const clothesDescription = commentModalHighLight();
   return (
     <SCharModalBG>
       <SCharModalLayout>
@@ -24,32 +24,13 @@ const CharacterModal: FC<CharacterModalProps> = ({ img, handleCharModal }) => {
         <SCharImgWrap>
           <img src={img} alt='' />
         </SCharImgWrap>
-        <SWeatherTitle>
-          <STodayWeather src={mainWeatherInfo?.icon} alt='today-weather' />
-          {todayWeather.temp} <strong>{mainWeatherInfo.label}</strong>
-        </SWeatherTitle>
         <h2>
           {commentWeather()} {commentTemp()}
         </h2>
-        <p>
-          추천 옷:
-          <SClothesList>
-            {clothesList &&
-              clothesList.map((item) => {
-                return <div>{item}</div>;
-              })}
-          </SClothesList>
-        </p>
         {/* TODO 옷차림 별 안내 내용 데이터 */}
-        <p>
-          {commentModalDetail(CLOTHES_CATEGORY.TOP)}
-          <br />
-          {commentModalDetail(CLOTHES_CATEGORY.BOTTOM)}
-          <br />
-          {commentModalDetail(CLOTHES_CATEGORY.FOOTWEAR)}
-          <br />
-          {commentModalDetail(CLOTHES_CATEGORY.ACCESSORIES)}
-        </p>
+        <p>{commentModalDetail()}</p>
+        {/* <div>{commentModalHighLight()}</div> */}
+        {/* <p>비가 올거예요 우산을 챙기세요</p> */}
         <Button onClick={handleCharModal} $fontSize='16px'>
           확인했어요
         </Button>
@@ -59,6 +40,12 @@ const CharacterModal: FC<CharacterModalProps> = ({ img, handleCharModal }) => {
 };
 
 export default CharacterModal;
+
+const SContent = styled.div`
+  p {
+    color: red;
+  }
+`;
 
 const SClothesList = styled.div`
   display: flex;
@@ -108,23 +95,26 @@ const SCharModalLayout = styled.div`
     font-weight: 700;
   }
 
-  p:nth-of-type(1) {
+  /* p:nth-of-type(1) {
     color: var(--gray-800);
     font-weight: 700;
 
     strong {
       color: var(--orange);
     }
+  } */
+  p {
+    text-align: center;
   }
 
-  p:nth-of-type(2) {
+  p:nth-of-type(1) {
     display: flex;
-    line-height: 1.6;
+    line-height: 1.2;
     text-align: start;
     font-size: 15px;
     color: var(--gray-800);
   }
-  p:nth-of-type(3) {
+  p:nth-of-type(2) {
     margin-bottom: 24px;
     line-height: 1.6;
     text-align: start;

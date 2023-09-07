@@ -247,7 +247,7 @@ const SSearch = styled.input<{ $isFocused: boolean }>`
   border-radius: 6px;
   outline: none;
   transition: border-color 0.3s ease-in-out;
-  box-shadow: ${(props) => (props.$isFocused ? '0px 0px 0px 0px' : '0px 4px 4px 0px rgba(0, 0, 0, 0.25)')};
+  /* box-shadow: ${(props) => (props.$isFocused ? '0px 0px 0px 0px' : '0px 4px 4px 0px rgba(0, 0, 0, 0.25)')}; */
   color: #000;
   position: relative;
 `;
