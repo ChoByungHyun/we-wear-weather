@@ -81,6 +81,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
       setSelectedIndex(filteredData.indexOf(selectedCityInfo));
       setSearchValue(option);
       setShowModal(true);
+      handleInputBlur();
 
       setLatLonData({
         lon: lon,
@@ -147,6 +148,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
           case 'Enter':
             if (selectedIndex !== -1) {
               handleSelectOption(filteredData[selectedIndex].docity);
+              handleInputBlur();
             }
             break;
           default:
