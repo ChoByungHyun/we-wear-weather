@@ -11,6 +11,11 @@ export const CLOTHESLIST = [
   '야상',
   '패딩',
   '목도리',
+  '긴팔 셔츠',
+  '얇는 니트',
+  '얇은 가디건',
+  '가디건',
+  '자켓',
 ];
 export const FILLLIKE_WEATHER = {
   //물 많이 드세요..

@@ -115,30 +115,6 @@ const useDailyComments = () => {
   function commentModalDetail(): string {
     return feelsWeather && commentAboutClothesDetail[feelsWeather].description;
   }
-  function commentModalHighLight(): React.ReactNode {
-    const description = feelsWeather && commentAboutClothesDetail[feelsWeather]?.description;
-
-    if (!description) {
-      return <p>No description available</p>;
-    }
-
-    // CLOTHESLIST에 있는 단어들을 강조 처리
-    const wordsToHighlight = CLOTHESLIST.join('|');
-    const regex = new RegExp(`\\b(${wordsToHighlight})\\b`, 'gi');
-    const parts = description.split(regex);
-
-    return (
-      <p>
-        {parts.map((part, index) => {
-          if (CLOTHESLIST.includes(part.toLowerCase())) {
-            return <strong key={index}>{part}</strong>;
-          }
-          console.log('🚀 ~ file: useDailyComments.tsx:138 ~ {parts.map ~ part:', part);
-          return part;
-        })}
-      </p>
-    );
-  }
 
   return {
     commentFilteredClothes,
@@ -147,7 +123,6 @@ const useDailyComments = () => {
     commentWeather,
     commentCaution,
     commentModalDetail,
-    commentModalHighLight,
   };
 };
 

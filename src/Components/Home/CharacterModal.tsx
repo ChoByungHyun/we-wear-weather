@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 import { dailyWeather } from 'Atom/mainWeatherAtom';
 import { useMainWeatherInfo } from 'Components/common/useWeatherIcon';
 import useDailyComments from 'Components/common/useDailyComments';
+import WeatherDescription from 'Components/common/ClothingDescription';
 
 interface CharacterModalProps {
   img?: string;
@@ -13,10 +14,8 @@ interface CharacterModalProps {
 
 const CharacterModal: FC<CharacterModalProps> = ({ img, handleCharModal }) => {
   const [todayWeather, setTodayWeather] = useRecoilState(dailyWeather);
-  const { commentModalHighLight, commentFilteredClothes, commentTemp, commentWeather, commentModalDetail } =
-    useDailyComments();
+  const { commentTemp, commentWeather, commentModalDetail } = useDailyComments();
   const mainWeatherInfo = useMainWeatherInfo(todayWeather.weather);
-  const clothesDescription = commentModalHighLight();
   return (
     <SCharModalBG>
       <SCharModalLayout>
@@ -27,9 +26,7 @@ const CharacterModal: FC<CharacterModalProps> = ({ img, handleCharModal }) => {
         <h2>
           {commentWeather()} {commentTemp()}
         </h2>
-        {/* TODO 옷차림 별 안내 내용 데이터 */}
-        <p>{commentModalDetail()}</p>
-        {/* <div>{commentModalHighLight()}</div> */}
+        <WeatherDescription description={commentModalDetail()}></WeatherDescription>
         {/* <p>비가 올거예요 우산을 챙기세요</p> */}
         <Button onClick={handleCharModal} $fontSize='16px'>
           확인했어요
