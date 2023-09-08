@@ -18,6 +18,8 @@ export const CLOTHESLIST = [
   '자켓',
   '린넨 바지',
   '트렌치 코드',
+  '반팔 티셔츠',
+  '쉬폰 원피스',
 ];
 export const FILLLIKE_WEATHER = {
   //물 많이 드세요..

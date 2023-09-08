@@ -53,7 +53,8 @@ export const commentAboutClothesDetail: {
   };
 } = {
   superhot: {
-    description: '너무 더운 날씨예요. 얇은 재질의 옷과 짧은 옷이 좋겠어요',
+    description:
+      '날씨가 많이 덥네요. 시원한 반팔 티셔츠와 반바지를 입는게 좋겠어요 어디 놀러가신다면 쉬폰 원피스로 휴양지 기분을 내는건 어떤가요?',
   },
   hot: {
     description: '더운 날씨예요. 반팔 티셔츠와 반바지가 좋겠어요.',

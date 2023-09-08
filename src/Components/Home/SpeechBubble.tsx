@@ -51,7 +51,7 @@ const SpeechBubble: FC = () => {
     setIsUpdateDate(formattedDate);
 
     const isNight: number | string = parseInt(formattedDate.slice(10, 13));
-    if (formattedDate && isNight > 15) {
+    if (formattedDate && isNight > 18) {
       setUpdateNight(true);
     } else if (0 <= isNight && isNight < 5) {
       setUpdateNight(true);

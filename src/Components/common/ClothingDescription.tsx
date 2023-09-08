@@ -38,8 +38,12 @@ interface WeatherDescriptionProps {
 const WeatherDescription: React.FC<WeatherDescriptionProps> = ({ description }) => {
   const highlightedDescription = highlightKeywords(description, CLOTHESLIST);
 
-  return <div>{highlightedDescription}</div>;
+  return <SDescription>{highlightedDescription}</SDescription>;
 };
+
+const SDescription = styled.div`
+  line-height: 1.6;
+`;
 const SSpan = styled.span`
   color: orange;
   font-weight: bold;
