@@ -50,66 +50,31 @@ export const commentAboutCaution = {
 export const commentAboutClothesDetail: {
   [key: string]: {
     description: string;
-    tops: string;
-    bottoms: string;
-    footwear: string;
-    accessories: string;
   };
 } = {
-  summer: {
+  superhot: {
     description: '너무 더운 날씨예요. 얇은 재질의 옷과 짧은 옷이 좋겠어요',
-    tops: '얇은 반팔 티셔츠나 나시 티',
-    bottoms: '짧은 반바지 또는 민소매 원피스',
-    footwear: '쾌적하고 통기성이 좋은 샌들 또는 슬리퍼',
-    accessories: '모자와 선글라스',
   },
   hot: {
     description: '더운 날씨예요. 반팔 티셔츠와 반바지가 좋겠어요.',
-    tops: '반팔 티셔츠 또는 얇은 셔츠',
-    bottoms: '반바지 또는 가벼운 면바지',
-    footwear: '슬리퍼 또는 캔버스 슈즈',
-    accessories: '모자와 선글라스',
   },
   warm: {
     description: '따뜻한 날씨에요. 가벼운 긴팔 셔츠나 얇은 가디건이 좋겠어요.',
-    tops: '가벼운 긴팔 셔츠 또는 얇은 가디건',
-    bottoms: '면바지 또는 슬랙스',
-    footwear: '캔버스 슈즈 또는 로퍼',
-    accessories: '시계와 손목에 팔찌',
   },
   cool: {
     description: '날씨가 시원해요. 가을 재킷이나 스웨터가 딱이겠죠.',
-    tops: '가을 재킷 또는 스웨터',
-    bottoms: '슬랙스 또는 청바지',
-    footwear: '구두나 스니커즈',
-    accessories: '스카프와 손목에 팔찌',
   },
   chilly: {
-    description: '으슬으슬한 날씨에요. 가벼운 자켓이나 스카프를 착용하면 좋겠어요.',
-    tops: '가벼운 자켓',
-    bottoms: '청바지 또는 면바지',
-    footwear: '부츠 또는 닫힌 슈즈',
-    accessories: '헤드밴드나 목도리',
+    description:
+      '약간 쌀쌀한 날씨네요. 감기에 걸릴 수 있으니 안에는 얇는 니트를 입으시고 겉옷으로 자켓을 입는게 좋겠어요. 하의는 긴바지를 입는 것이 어때요 ?',
   },
   cold: {
     description: '좀 추워요. 두꺼운 외투와 목도리, 장갑을 준비하세요.',
-    tops: '두꺼운 외투',
-    bottoms: '슬랙스나 두꺼운 청바지',
-    footwear: '따뜻한 부츠',
-    accessories: '털 모자와 목도리, 장갑',
   },
   superCold: {
     description: '꽤 추워요. 두꺼운 패딩이나 코트, 털 모자와 부츠를 꼭 착용하세요.',
-    tops: '두꺼운 패딩 또는 코트',
-    bottoms: '기모나 두꺼운 슬랙스',
-    footwear: '따뜻한 부츠',
-    accessories: '털 모자와 목도리, 장갑',
   },
-  winterCold: {
+  freeze: {
     description: '매우 추워요. 두꺼운 패딩이나 코트, 털 모자와 부츠를 꼭 착용하세요.',
-    tops: '두꺼운 패딩 또는 코트',
-    bottoms: '기모나 발열 속옷, 두꺼운 슬랙스 또는 기모 바지',
-    footwear: '따뜻한 부츠',
-    accessories: '털 모자와 목도리, 장갑',
   },
 };

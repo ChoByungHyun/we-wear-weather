@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { JSXElementConstructor, useEffect, useState } from 'react';
 import { commentBasedTemp, commentAboutClothesDetail } from './dailyComments';
 import { commentAboutClothes } from './dailyComments';
 import { commentAboutCaution } from './dailyComments';
@@ -12,14 +12,14 @@ const useDailyComments = () => {
   const [todayWeather, setTodayWeather] = useRecoilState(dailyWeather);
 
   useEffect(() => {
-    if (todayWeather.feelsLike >= FILLLIKE_WEATHER.SUMMER) setFeelsWeather('summer');
+    if (todayWeather.feelsLike >= FILLLIKE_WEATHER.SUPERHOT) setFeelsWeather('superhot');
     else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.HOT) setFeelsWeather('hot');
     else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.WARM) setFeelsWeather('warm');
     else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.COOL) setFeelsWeather('cool');
     else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.CHILLY) setFeelsWeather('chilly');
     else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.COLD) setFeelsWeather('cold');
     else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.SUPERCOLD) setFeelsWeather('superCold');
-    else setFeelsWeather('winterCold');
+    else setFeelsWeather('freeze');
   }, [todayWeather.feelsLike]);
 
   function commentWeather() {
@@ -112,19 +112,8 @@ const useDailyComments = () => {
   function commentFilteredClothes(): string[] {
     return feelsWeather ? CLOTHESLIST.filter((item) => commentAboutClothes[feelsWeather].includes(item)) : [];
   }
-  function commentModalDetail(type: string): string {
-    switch (type) {
-      case 'tops':
-        return feelsWeather && commentAboutClothesDetail[feelsWeather].tops;
-      case 'bottoms':
-        return feelsWeather && commentAboutClothesDetail[feelsWeather].bottoms;
-      case 'footwear':
-        return feelsWeather && commentAboutClothesDetail[feelsWeather].footwear;
-      case 'accessories':
-        return feelsWeather && commentAboutClothesDetail[feelsWeather].accessories;
-      default:
-        return '';
-    }
+  function commentModalDetail(): string {
+    return feelsWeather && commentAboutClothesDetail[feelsWeather].description;
   }
 
   return {
