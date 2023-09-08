@@ -59,10 +59,12 @@ export const commentAboutClothesDetail: {
     description: '더운 날씨예요. 반팔 티셔츠와 반바지가 좋겠어요.',
   },
   warm: {
-    description: '따뜻한 날씨에요. 가벼운 긴팔 셔츠나 얇은 가디건이 좋겠어요.',
+    description:
+      '따뜻한 날씨에요. 가벼운 긴팔 셔츠나 얇은 가디건이 좋겠어요. 하의는 바람이 잘 통하는 린넨 바지를 입어도 좋을거 같아요',
   },
   cool: {
-    description: '날씨가 시원해요. 가을 재킷이나 스웨터가 딱이겠죠.',
+    description:
+      '날씨가 시원해요. 안에 가벼운 긴팔 티나 얇은 셔츠를 입고 겉에 자켓을 걸치는게 좋겠어요! 가을분위기 물씬 나게 트렌치 코드를 걸쳐도 좋을거같아요!',
   },
   chilly: {
     description:
