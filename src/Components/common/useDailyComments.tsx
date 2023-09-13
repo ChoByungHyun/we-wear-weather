@@ -26,30 +26,30 @@ const useDailyComments = () => {
     else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.SUPERCOLD) setFeelsWeather('superCold');
     else setFeelsWeather('freeze');
 
-    const tempDifference = DailyRange.max - DailyRange.min;
-    if (tempDifference > DailyTempRange) {
-      // 일교차가 큰 경우
-      if (todayWeather.feelsLike >= FILLLIKE_WEATHER.HOT) {
-        setFeelsWeather('hot');
-      } else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.WARM) {
-        setFeelsWeather('warm');
-      } else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.COOL) {
-        setFeelsWeather('cool');
-      } else {
-        setFeelsWeather('chilly');
-      }
-    } else {
-      // 일교차가 크지 않은 경우
-      if (todayWeather.feelsLike >= FILLLIKE_WEATHER.CHILLY) {
-        setFeelsWeather('chilly');
-      } else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.COLD) {
-        setFeelsWeather('cold');
-      } else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.SUPERCOLD) {
-        setFeelsWeather('superCold');
-      } else {
-        setFeelsWeather('freeze');
-      }
-    }
+    // const tempDifference = DailyRange.max - DailyRange.min;
+    // if (tempDifference > DailyTempRange) {
+    //   // 일교차가 큰 경우
+    //   if (todayWeather.feelsLike >= FILLLIKE_WEATHER.HOT) {
+    //     setFeelsWeather('hot');
+    //   } else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.WARM) {
+    //     setFeelsWeather('warm');
+    //   } else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.COOL) {
+    //     setFeelsWeather('cool');
+    //   } else {
+    //     setFeelsWeather('chilly');
+    //   }
+    // } else {
+    //   // 일교차가 크지 않은 경우
+    //   if (todayWeather.feelsLike >= FILLLIKE_WEATHER.CHILLY) {
+    //     setFeelsWeather('chilly');
+    //   } else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.COLD) {
+    //     setFeelsWeather('cold');
+    //   } else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.SUPERCOLD) {
+    //     setFeelsWeather('superCold');
+    //   } else {
+    //     setFeelsWeather('freeze');
+    //   }
+    // }
   }, [todayWeather.feelsLike]);
 
   function commentWeather() {
