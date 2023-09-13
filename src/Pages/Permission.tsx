@@ -1,14 +1,13 @@
 import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { userCityAtom } from 'Atom/userLocationAtom';
 import Button from 'Components/common/Button';
 import RejectionModal from 'Components/Permission/RejectionModal';
 import location from 'Assets/location.svg';
 import cityNameAPI from 'API/cityNameAPI';
 import useSearchedCities from 'Hooks/useSearchedCites';
-import { CityWeatherType } from 'types/cityWeatherType';
 
 const Permission: FC = () => {
   const [isLocation, setIsLocation] = useState({
@@ -16,7 +15,7 @@ const Permission: FC = () => {
     latLonData: { lat: 0, lon: 0 },
   });
   const navigate = useNavigate();
-  const [userLocation, setUserLocation] = useRecoilState(userCityAtom);
+  const userLocation = useRecoilValue(userCityAtom);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showLoading, setShowLoading] = useState<boolean>(true);
   const { addSearchedCity } = useSearchedCities();
