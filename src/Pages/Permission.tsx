@@ -23,7 +23,7 @@ const Permission: FC = () => {
 
   async function handleCityName() {
     const res = await cityNameAPI(isLocation.latLonData);
-    const resCityName = res.region_1depth_name + ' ' + res.region_2depth_name;
+    const resCityName = res?.region_1depth_name + ' ' + res?.region_2depth_name;
     try {
       setIsLocation((prev) => ({
         ...prev,
