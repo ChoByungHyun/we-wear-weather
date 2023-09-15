@@ -6,7 +6,7 @@ import { useRecoilState } from 'recoil';
 import { dailyWeather, dailyWeatherMinMax } from 'Atom/mainWeatherAtom';
 import { CLOTHESLIST, FILLLIKE_WEATHER, FILLLIKE_CAUTION } from 'Constants/weatherConfig';
 
-const DailyTempRange = 1;
+const DailyTempRange = 9;
 
 const useDailyComments = () => {
   const [feelsWeather, setFeelsWeather] = useState<string>('');
