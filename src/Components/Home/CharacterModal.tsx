@@ -14,7 +14,7 @@ interface CharacterModalProps {
 }
 
 const CharacterModal: FC<CharacterModalProps> = ({ img, handleCharModal }) => {
-  const { commentTemp, commentWeather, commentModalDetail } = useDailyComments();
+  const { commentModalTempGap, commentTemp, commentWeather, commentModalDetail } = useDailyComments();
   return (
     <SCharModalBG>
       <SCharModalLayout>
@@ -27,6 +27,7 @@ const CharacterModal: FC<CharacterModalProps> = ({ img, handleCharModal }) => {
         </h2>
         <WeatherDescription description={commentModalDetail()}></WeatherDescription>
         <DailyForecast />
+        <p>{commentModalTempGap()}</p>
         <Button onClick={handleCharModal} $fontSize='16px'>
           확인했어요
         </Button>
