@@ -7,8 +7,8 @@ const DailyForecast = () => {
   const { hourlyWeather } = useForecastData();
 
   // 0~4번 인덱스에서 "rain","snow"를 확인
-  const hasRain = hourlyWeather.slice(0, HOUR_12).some((item) => item.weather[0].main.includes('rain'));
-  const hasSnow = hourlyWeather.slice(0, HOUR_12).some((item) => item.weather[0].main.includes('snow'));
+  const hasRain = hourlyWeather.slice(0, HOUR_12).some((item) => item.weather[0].main.includes('Rain'));
+  const hasSnow = hourlyWeather.slice(0, HOUR_12).some((item) => item.weather[0].main.includes('Snow'));
 
   let content = '';
 
