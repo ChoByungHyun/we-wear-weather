@@ -1,5 +1,5 @@
 import React, { JSXElementConstructor, useEffect, useState } from 'react';
-import { commentBasedTemp, commentAboutClothesDetail, commentAboutTempGap } from './dailyComments';
+import { commentBasedTemp, commentAboutClothesDetail, commentAboutTempGap, commentBasedWeather } from './dailyComments';
 import { commentAboutClothes } from './dailyComments';
 import { commentAboutCaution } from './dailyComments';
 import { useRecoilState } from 'recoil';
@@ -10,18 +10,20 @@ const DailyTempRange = 9;
 
 const useDailyComments = () => {
   const [feelsWeather, setFeelsWeather] = useState<string>('');
+  const [weather, setWeather] = useState<string>('');
   const [tempGap, setTempGap] = useState('');
   const [todayWeather, setTodayWeather] = useRecoilState(dailyWeather);
   const [DailyRange] = useRecoilState(dailyWeatherMinMax);
 
   useEffect(() => {
-    if (todayWeather.feelsLike >= FILLLIKE_WEATHER.SUPERHOT) setFeelsWeather('superhot');
-    else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.HOT) setFeelsWeather('hot');
-    else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.WARM) setFeelsWeather('warm');
-    else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.COOL) setFeelsWeather('cool');
-    else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.CHILLY) setFeelsWeather('chilly');
-    else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.COLD) setFeelsWeather('cold');
-    else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.SUPERCOLD) setFeelsWeather('superCold');
+    const feelsLike = todayWeather.feelsLike;
+    if (feelsLike >= FILLLIKE_WEATHER.SUPERHOT) setFeelsWeather('superhot');
+    else if (feelsLike >= FILLLIKE_WEATHER.HOT) setFeelsWeather('hot');
+    else if (feelsLike >= FILLLIKE_WEATHER.WARM) setFeelsWeather('warm');
+    else if (feelsLike >= FILLLIKE_WEATHER.COOL) setFeelsWeather('cool');
+    else if (feelsLike >= FILLLIKE_WEATHER.CHILLY) setFeelsWeather('chilly');
+    else if (feelsLike >= FILLLIKE_WEATHER.COLD) setFeelsWeather('cold');
+    else if (feelsLike >= FILLLIKE_WEATHER.SUPERCOLD) setFeelsWeather('superCold');
     else setFeelsWeather('freeze');
 
     const tempDifference = DailyRange.max - DailyRange.min;
@@ -34,75 +36,40 @@ const useDailyComments = () => {
     }
   }, [todayWeather.feelsLike]);
 
-  function commentWeather() {
-    if (todayWeather.weather?.includes('thunderstorm')) {
-      return '비와 천둥번개가 치고';
-    } else if (todayWeather.weather?.includes('drizzle')) {
-      return '이슬비가 내리고';
-    } else if (todayWeather.weather?.includes('rain')) {
-      switch (todayWeather.weather) {
-        case 'light rain':
-          return '약간의 비가 내리고';
-        case 'moderate rain':
-          return '비가 내리고';
-        case 'heavy intensity rain':
-          return '많은 비가 내리고';
-        case 'very heavy rain':
-          return '많은 비가 내리고';
-        case 'extreme rain':
-          return '폭우가 내리고';
-        case 'freezing rain':
-          return '비가 내리고';
-        case 'light intensity shower rain':
-          return '많은 양의 소나기가 내리고';
-        case 'heavy intensity shower rain':
-          return '많은 양의 소나기가 내리고';
-        case 'shower rain':
-          return '소나기가 내리고';
-        case 'ragged shower rain':
-          return '소나기가 내리고';
-        case 'light rain and snow':
-          return '눈 또는 비가 내리고';
-        case 'rain and snow':
-          return '눈 또는 비가 내리고';
-      }
-    } else if (todayWeather.weather?.includes('snow')) {
-      switch (todayWeather.weather) {
-        case 'light snow':
-          return '약간의 눈이 내리고';
-        case 'snow':
-          return '눈이 내리고';
-        case 'heavy snow':
-          return '많은 눈이 내리고';
-        case 'sleet':
-          return '진눈깨비가 내리고';
-        case 'light shower sleet':
-          return '진눈깨비가 내리고';
-        case 'shower sleet':
-          return '잠깐의 진눈깨비가 내리고';
-        case 'light shower snow':
-          return '약간의 눈이 내리고';
-        case 'shower snown':
-          return '약간의 눈이 내리고';
-        case 'heavy shower snow':
-          return '약간의 눈이 내리고';
-      }
-    } else if (todayWeather.weather?.includes('clear')) {
-      return '맑은';
-    } else if (todayWeather.weather?.includes('clouds')) {
-      switch (todayWeather.weather) {
-        case 'few clouds':
-          return '적은 구름이 있는';
-        case 'scattered clouds':
-          return '약간의 구름이 있는';
-        case 'broken clouds':
-          return '많은 양의 구름이 있는';
-        case 'overcast clouds':
-          return '흐린';
-      }
-    } else {
-      return '안개가 자욱한';
-    }
+  useEffect(() => {
+    if (!todayWeather.weather) return;
+    const weather = todayWeather.weather;
+    setWeather(extractWeather(weather));
+  }, [todayWeather.weather]);
+
+  function extractWeather(weather: string): string {
+    if (weather.includes('thunderstorm')) return 'thunderstorm';
+    else if (weather.includes('drizzle')) return 'drizzle';
+    else if (weather.includes('clouds')) {
+      if (weather.includes('broken')) return 'heavyCloud';
+      else if (weather.includes('few') || weather.includes('scattered')) return 'lightCloud';
+      else return 'cloud';
+    } else if (weather.includes('rain')) {
+      if (weather.includes('snow')) return 'snowRain';
+      else if (weather.includes('shower') && weather.includes('heavy')) return 'heavyShower';
+      else if (weather.includes('shower')) return 'shower';
+      else if (weather.includes('heavy') || weather.includes('extreme')) return 'heavyRain';
+      else if (weather.includes('light')) return 'lightRain';
+      else return 'rain';
+    } else if (weather.includes('snow')) {
+      if (weather.includes('sleet')) return 'sleet';
+      else if (weather.includes('light') || weather.includes('shower')) return 'lightSnow';
+      else if (weather.includes('heavy')) return 'heavySnow';
+      else return 'snow';
+    } else return 'mist';
+  }
+
+  function commentWeather(): string {
+    return weather && commentBasedWeather[weather][0] + commentBasedWeather[weather][1];
+  }
+
+  function commentWeatherSummary(weather: string): string {
+    return weather && commentBasedWeather[weather][0];
   }
 
   function commentCaution(): string {
@@ -138,6 +105,8 @@ const useDailyComments = () => {
     commentWeather,
     commentCaution,
     commentModalDetail,
+    commentWeatherSummary,
+    extractWeather,
     commentModalTempGap,
   };
 };
