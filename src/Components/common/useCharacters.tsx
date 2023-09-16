@@ -6,6 +6,10 @@ export default function useCharacters(feelsLike: number): string {
   const userInfo = useRecoilValue(userInfoAtom);
   const gender = userInfo.gender === '남성' ? 0 : 1;
 
+  if (!feelsLike) {
+    return '';
+  }
+
   if (feelsLike >= 27) return characterImgs[gender].summer;
   else if (feelsLike >= 23) return characterImgs[gender].springSummer;
   else if (feelsLike >= 20) return characterImgs[gender].spring;
