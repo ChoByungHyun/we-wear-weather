@@ -10,10 +10,7 @@ import cityNameAPI from 'API/cityNameAPI';
 import useSearchedCities from 'Hooks/useSearchedCites';
 
 const Permission: FC = () => {
-  const [isLocation, setIsLocation] = useState({
-    cityName: '',
-    latLonData: { lat: 0, lon: 0 },
-  });
+  const [latLon, setLatLon] = useState({ lat: 0, lon: 0 });
   const navigate = useNavigate();
   const userLocation = useRecoilValue(userCityAtom);
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -22,17 +19,11 @@ const Permission: FC = () => {
   const [geoCompleted, setGeoCompleted] = useState(false);
 
   async function handleCityName() {
-    const res = await cityNameAPI(isLocation.latLonData);
+    const res = await cityNameAPI(latLon);
     const resCityName = res?.region_1depth_name + ' ' + res?.region_2depth_name;
     try {
-      setIsLocation((prev) => ({
-        ...prev,
-        cityName: resCityName,
-      }));
-      addSearchedCity(resCityName, isLocation.latLonData, true);
-    } catch (error) {
-      console.log(error);
-    }
+      addSearchedCity(resCityName, latLon, true);
+    } catch (error) {}
 
     setShowLoading(false);
   }
@@ -48,14 +39,7 @@ const Permission: FC = () => {
       const position: GeolocationPosition = await getUserLocation();
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
-
-      setIsLocation((prev) => ({
-        ...prev,
-        latLonData: {
-          lat: lat,
-          lon: lon,
-        },
-      }));
+      setLatLon({ lat: lat, lon: lon });
     } catch (error) {
       setShowModal(true);
     }
@@ -71,10 +55,10 @@ const Permission: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (geoCompleted && !userLocation.cityName) {
+    if (geoCompleted) {
       handleCityName();
     }
-  }, [geoCompleted]);
+  }, [geoCompleted, latLon]);
 
   function handleNextBtn() {
     if (userLocation && !showModal) {
