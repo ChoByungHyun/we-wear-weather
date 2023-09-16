@@ -5,6 +5,7 @@ import WeeklyItem from 'Components/Weekly/WeeklyItem';
 import { useWeatherSmallIcon } from 'Components/common/useWeatherImg';
 import useForecastData from 'Hooks/useForecastData';
 import pcScreen from 'Atom/pcScreen';
+import WeeklySkeleton from 'Components/Skeleton/WeeklySkeleton';
 
 const WeeklyForecast: FC = () => {
   const isPC = useRecoilValue(pcScreen);
@@ -21,7 +22,7 @@ const WeeklyForecast: FC = () => {
   } = useForecastData();
 
   if (todayLoading && forecastLoading) {
-    return <p>로딩중...</p>;
+    return <WeeklySkeleton />;
   }
 
   if (todayError && forecastError) {
