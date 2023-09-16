@@ -50,7 +50,7 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name, main
   }
 
   return (
-    <SCardWeatherWrap isNight={isNight} onClick={handleWeatherCard}>
+    <SCardWeatherWrap $isNight={isNight} onClick={handleWeatherCard}>
       <STemp>{Math.ceil(temp) + '°'}</STemp>
       <SCardContents>
         <SMinMaxWrap>
@@ -71,12 +71,12 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name, main
 };
 
 interface SCardWeatherWrapProps {
-  isNight: boolean;
+  $isNight: boolean;
 }
 
 const SCardWeatherWrap = styled.section<SCardWeatherWrapProps>`
   margin-top: 32px;
-  background-color: ${(props) => (props.isNight ? '#30406B' : '#fdaa56;')};
+  background-color: ${(props) => (props.$isNight ? '#30406B' : '#fdaa56;')};
   padding: 16px 24px;
   border-radius: 10px;
   display: flex;
