@@ -31,7 +31,7 @@ const SLayout = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 50px;
+  height: 40px;
   margin: 0 auto;
   box-sizing: border-box;
   align-items: center;

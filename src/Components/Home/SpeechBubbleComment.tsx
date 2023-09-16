@@ -22,8 +22,8 @@ const SpeechBubbleComment: FC = () => {
 export default SpeechBubbleComment;
 
 const SSpeechBubbleCommentLayout = styled.section<{ $isPC: boolean }>`
-  padding-top: 24px;
-  font-size: ${(props) => (props.$isPC ? '18px' : '16px')};
+  padding-top: 12px;
+  font-size: ${(props) => (props.$isPC ? '16px' : '14px')};
   color: var(--gray-800);
   font-weight: 500;
   border-top: 1px solid var(--gray-200);

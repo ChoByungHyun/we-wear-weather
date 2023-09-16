@@ -59,7 +59,7 @@ const BottomNav: React.FC = () => {
     <SNavLayout $isPC={isPC}>
       <SListStyle>
         {navItems.map((item, index) => (
-          <SItemStyle key={index} active={index === bottomNavIndexState}>
+          <SItemStyle $isPC={isPC} key={index} active={index === bottomNavIndexState}>
             <LinkBtn
               src={iconArr[index]}
               text={item}
@@ -100,6 +100,8 @@ const SNavLayout = styled.nav<{ $isPC: boolean }>`
   right: 0;
   z-index: 20;
 
+  box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.05);
+
   background-color: white;
 `;
 
@@ -108,15 +110,14 @@ const SListStyle = styled.ul`
   justify-content: space-between;
 `;
 
-const SItemStyle = styled.li<{ active: boolean }>`
+const SItemStyle = styled.li<{ active: boolean; $isPC: boolean }>`
   a {
     display: inline-block;
     text-align: center;
     width: 84px;
     color: var(--gray);
-    padding: 18px 0 18px;
+    padding: ${(props) => (props.$isPC ? '18px 0' : '10px 0')};
     font-weight: 400;
-    line-height: 14px;
     font-size: 10px;
   }
 `;

@@ -29,6 +29,9 @@ const SCardWaveDelete = styled.div`
   color: var(--gray-800);
   text-decoration: underline;
   cursor: pointer;
+  &:last-child {
+    margin-bottom: 83px;
+  }
 `;
 
 export default CardWaveList;

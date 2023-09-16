@@ -39,7 +39,7 @@ const SCharacter = styled.section`
   position: relative;
 
   img {
-    width: 18vh;
+    width: 16vh;
     cursor: pointer;
   }
 `;

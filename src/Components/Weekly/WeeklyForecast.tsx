@@ -75,4 +75,7 @@ const SLayout = styled.main`
   display: flex;
   flex-direction: column;
   gap: 25px;
+  & > div:last-child {
+    margin-bottom: 83px;
+  }
 `;

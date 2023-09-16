@@ -85,7 +85,6 @@ const STemperatureWrap = styled.ul<{ $isPC: boolean }>`
   display: flex;
   height: 80px;
   width: 100%;
-  padding-bottom: 8px;
   align-items: center;
   justify-content: space-around;
 

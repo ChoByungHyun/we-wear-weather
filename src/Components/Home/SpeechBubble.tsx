@@ -89,7 +89,7 @@ export default SpeechBubble;
 
 const SSpeechBubble = styled.article`
   width: calc(100% - 32px);
-  height: 260px;
+  height: 230px;
   margin-bottom: -20px;
   background-color: white;
   border-radius: 10px;
