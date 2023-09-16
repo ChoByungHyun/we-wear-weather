@@ -41,7 +41,7 @@ const Login = () => {
       setShowModal(true);
     } else {
       setIsUserInfo(userInfo);
-      navigate('/');
+      navigate('/home');
     }
   };
 

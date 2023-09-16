@@ -11,3 +11,11 @@ export const dailyWeather = atom({
   },
   effects_UNSTABLE: [persistAtom],
 });
+
+export const dailyWeatherMinMax = atom({
+  key: 'dailyWeatherMinMax',
+  default: {
+    min: 0,
+    max: 0,
+  },
+});

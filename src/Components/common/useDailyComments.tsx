@@ -1,15 +1,19 @@
 import React, { JSXElementConstructor, useEffect, useState } from 'react';
-import { commentBasedTemp, commentAboutClothesDetail, commentBasedWeather } from './dailyComments';
+import { commentBasedTemp, commentAboutClothesDetail, commentAboutTempGap, commentBasedWeather } from './dailyComments';
 import { commentAboutClothes } from './dailyComments';
 import { commentAboutCaution } from './dailyComments';
 import { useRecoilState } from 'recoil';
-import { dailyWeather } from 'Atom/mainWeatherAtom';
+import { dailyWeather, dailyWeatherMinMax } from 'Atom/mainWeatherAtom';
 import { CLOTHESLIST, FILLLIKE_WEATHER, FILLLIKE_CAUTION } from 'Constants/weatherConfig';
+
+const DailyTempRange = 9;
 
 const useDailyComments = () => {
   const [feelsWeather, setFeelsWeather] = useState<string>('');
   const [weather, setWeather] = useState<string>('');
+  const [tempGap, setTempGap] = useState('');
   const [todayWeather, setTodayWeather] = useRecoilState(dailyWeather);
+  const [DailyRange] = useRecoilState(dailyWeatherMinMax);
 
   useEffect(() => {
     const feelsLike = todayWeather.feelsLike;
@@ -21,6 +25,15 @@ const useDailyComments = () => {
     else if (feelsLike >= FILLLIKE_WEATHER.COLD) setFeelsWeather('cold');
     else if (feelsLike >= FILLLIKE_WEATHER.SUPERCOLD) setFeelsWeather('superCold');
     else setFeelsWeather('freeze');
+
+    const tempDifference = DailyRange.max - DailyRange.min;
+    if (tempDifference > DailyTempRange) {
+      if (todayWeather.feelsLike >= FILLLIKE_WEATHER.CHILLY) {
+        setTempGap('summer');
+      } else {
+        setTempGap('winter');
+      }
+    }
   }, [todayWeather.feelsLike]);
 
   useEffect(() => {
@@ -81,6 +94,9 @@ const useDailyComments = () => {
   function commentModalDetail(): string {
     return feelsWeather && commentAboutClothesDetail[feelsWeather].description;
   }
+  function commentModalTempGap(): string {
+    return feelsWeather && commentAboutTempGap[tempGap];
+  }
 
   return {
     commentFilteredClothes,
@@ -91,6 +107,7 @@ const useDailyComments = () => {
     commentModalDetail,
     commentWeatherSummary,
     extractWeather,
+    commentModalTempGap,
   };
 };
 
