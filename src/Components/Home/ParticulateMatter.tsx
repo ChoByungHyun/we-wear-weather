@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
@@ -6,6 +6,7 @@ import useOpenWeatherAPI from 'API/useOpenWeatherAPI';
 import { userCityAtom, currentUserIndexAtom } from 'Atom/userLocationAtom';
 
 import { useParticulateImg } from 'Components/common/useWeatherImg';
+import { PMSkeleton } from 'Components/Skeleton/HomeSkeleton';
 
 // NOTE : 미세먼지 관련정보
 // PM10은 좋음(0~30㎍/㎥), 보통(31~80㎍/㎥), 약간나쁨(81~120㎍/㎥), 나쁨(121~200㎍/㎥) 등으로 구분
@@ -23,11 +24,7 @@ const ParticulateMatter: FC = () => {
   const pmTen = useParticulateImg(airInfo?.list[0].components.pm10);
 
   if (airRes.isLoading) {
-    return (
-      <SPMLayout>
-        <p>로딩중...</p>
-      </SPMLayout>
-    );
+    return <PMSkeleton />;
   }
 
   if (airRes.error) {
