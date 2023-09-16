@@ -27,17 +27,16 @@ export default LocationConfirmModal;
 
 const SLocationConfirmModal = styled.div`
   ${SModalStyle}
-
+  width: 300px;
   & > h2 {
-    margin-bottom: 20px;
     flex-shrink: 0;
-    font-size: 26px;
+    font-size: 20px;
     font-weight: bold;
   }
 
   strong {
     margin-top: 10px;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
   }
 
@@ -49,8 +48,10 @@ const SLocationConfirmModal = styled.div`
     display: flex;
     gap: 20px;
     button {
-      padding: 10px 20px;
-      background-color: var(--green);
+      font-size: 16px;
+      min-height: 0;
+      padding: 13px 0;
+      background-color: var(--orange);
       &:nth-child(2) {
         background-color: var(--gray-400);
       }

@@ -106,11 +106,6 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
     }
   }
 
-  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'Enter') {
-      handleblurEvent();
-    }
-  }
   function handleSearchValueCheck() {
     const selectedCityInfo = filteredData.find((cityInfo) => cityInfo.docity === searchValue);
     if (selectedCityInfo) {
@@ -195,7 +190,6 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
               onBlur={handleInputBlur}
               value={searchValue}
               onChange={handleInputChange}
-              onKeyDown={handleKeyDown}
               ref={blurRef}
               autoFocus
             />
