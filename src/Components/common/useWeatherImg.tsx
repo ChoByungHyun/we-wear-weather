@@ -1,5 +1,5 @@
 import smallWeatherIcons from 'Components/common/smallWeatherIcons';
-import mainWeatherInfo from 'Components/common/bigWeatherIcons';
+import mainWeatherImg from 'Components/common/bigWeatherIcons';
 import particulateStatus from './particulate';
 
 import { thunderstorm, drizzle, rain, snow, atmosphere, brokenClouds } from 'Utils/iconDesc';
@@ -111,16 +111,16 @@ interface Info {
   label: string;
 }
 
-export function useMainWeatherInfo(weather: string): Info {
-  if (thunderstorm.includes(weather)) return mainWeatherInfo.rainyThunder;
-  else if (rain.includes(weather)) return mainWeatherInfo.rainy;
-  else if (drizzle.includes(weather)) return mainWeatherInfo.showerRainy;
-  else if (snow.includes(weather)) return mainWeatherInfo.snow;
-  else if (atmosphere.includes(weather)) return mainWeatherInfo.mist;
-  else if (weather === 'few clouds') return mainWeatherInfo.fewClouds;
-  else if (weather === 'scattered clouds') return mainWeatherInfo.scatteredClouds;
-  else if (brokenClouds.includes(weather)) return mainWeatherInfo.brokenClouds;
-  else return mainWeatherInfo.clear;
+export function useMainWeatherImg(weather: string): string {
+  if (thunderstorm.includes(weather)) return mainWeatherImg.rainyThunder;
+  else if (rain.includes(weather)) return mainWeatherImg.rainy;
+  else if (drizzle.includes(weather)) return mainWeatherImg.showerRainy;
+  else if (snow.includes(weather)) return mainWeatherImg.snow;
+  else if (atmosphere.includes(weather)) return mainWeatherImg.mist;
+  else if (weather === 'few clouds') return mainWeatherImg.fewClouds;
+  else if (weather === 'scattered clouds') return mainWeatherImg.scatteredClouds;
+  else if (brokenClouds.includes(weather)) return mainWeatherImg.brokenClouds;
+  else return mainWeatherImg.clear;
 }
 
 export function useParticulateImg(status: number): Info {

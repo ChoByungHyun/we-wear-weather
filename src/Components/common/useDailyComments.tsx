@@ -8,7 +8,6 @@ import { CLOTHESLIST, FILLLIKE_WEATHER, FILLLIKE_CAUTION } from 'Constants/weath
 
 const useDailyComments = () => {
   const [feelsWeather, setFeelsWeather] = useState<string>('');
-  const [caution, setCaution] = useState<string>('');
   const [todayWeather, setTodayWeather] = useRecoilState(dailyWeather);
 
   useEffect(() => {
@@ -103,11 +102,11 @@ const useDailyComments = () => {
   }
 
   function commentTemp(): string {
-    return commentBasedTemp[feelsWeather];
+    return feelsWeather && commentBasedTemp[feelsWeather];
   }
 
   function commentClothes(): string {
-    return commentAboutClothes[feelsWeather];
+    return feelsWeather && commentAboutClothes[feelsWeather];
   }
   function commentFilteredClothes(): string[] {
     return feelsWeather ? CLOTHESLIST.filter((item) => commentAboutClothes[feelsWeather].includes(item)) : [];

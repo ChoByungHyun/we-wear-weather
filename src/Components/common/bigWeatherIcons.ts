@@ -9,42 +9,15 @@ import showerRainy from 'Assets/icons-main-weather/weather-shower-rainy.svg';
 import snow from 'Assets/icons-main-weather/weather-snow.svg';
 
 const mainWeatherIcons = {
-  brokenClouds: {
-    icon: brokenClouds,
-    label: '구름조금',
-  },
-  clear: {
-    icon: clearSky,
-    label: '맑은 날씨',
-  },
-  fewClouds: {
-    icon: fewClouds,
-    label: '흐린 날씨',
-  },
-  mist: {
-    icon: mist,
-    label: '구름 많음',
-  },
-  rainyThunder: {
-    icon: rainyThunder,
-    label: '천둥 번개',
-  },
-  rainy: {
-    icon: rainy,
-    label: '비 옴',
-  },
-  scatteredClouds: {
-    icon: scatteredClouds,
-    label: '구름 조금',
-  },
-  showerRainy: {
-    icon: showerRainy,
-    label: '소나기',
-  },
-  snow: {
-    icon: snow,
-    label: '눈 옴',
-  },
+  brokenClouds: brokenClouds,
+  clear: clearSky,
+  fewClouds: fewClouds,
+  mist: mist,
+  rainyThunder: rainyThunder,
+  rainy: rainy,
+  scatteredClouds: scatteredClouds,
+  showerRainy: showerRainy,
+  snow: snow,
 };
 
 export default mainWeatherIcons;
