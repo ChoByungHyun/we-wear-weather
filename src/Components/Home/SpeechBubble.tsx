@@ -13,7 +13,6 @@ import SpeechBubbleComment from './SpeechBubbleComment';
 import useDailyComments from 'Components/common/useDailyComments';
 import { SpeechBubbleSkeleton } from 'Components/Skeleton/HomeSkeleton';
 
-
 const SpeechBubble: FC = () => {
   const latLonData = useRecoilValue(userCityAtom);
   const locationIndex = useRecoilValue(currentUserIndexAtom);
@@ -40,27 +39,30 @@ const SpeechBubble: FC = () => {
     });
   }, [todayInfo, setTodayWeather, setMinMax]);
 
+  useEffect(() => {
+    if (cityRes.dataUpdatedAt) {
+      const date = new Date(cityRes.dataUpdatedAt);
+      date.setHours(date.getHours() + 9);
+      const formattedDate = date.toISOString().slice(0, 16).replace('T', ' ');
+      setIsUpdateDate(formattedDate);
+
+      const isNight: number | string = parseInt(formattedDate.slice(10, 13));
+      if (formattedDate && isNight > 18) {
+        setUpdateNight(true);
+      } else if (0 <= isNight && isNight < 5) {
+        setUpdateNight(true);
+      } else {
+        setUpdateNight(false);
+      }
+    }
+  }, [cityRes]);
+
   if (cityRes.isLoading) {
     return <SpeechBubbleSkeleton />;
   }
+
   if (cityRes.error) {
     return <p>로딩중 문제가 발생했습니다.</p>;
-  }
-
-  if (cityRes.dataUpdatedAt) {
-    const date = new Date(cityRes.dataUpdatedAt);
-    date.setHours(date.getHours() + 9);
-    const formattedDate = date.toISOString().slice(0, 16).replace('T', ' ');
-    setIsUpdateDate(formattedDate);
-
-    const isNight: number | string = parseInt(formattedDate.slice(10, 13));
-    if (formattedDate && isNight > 18) {
-      setUpdateNight(true);
-    } else if (0 <= isNight && isNight < 5) {
-      setUpdateNight(true);
-    } else {
-      setUpdateNight(false);
-    }
   }
 
   return (
