@@ -1,15 +1,18 @@
 import React, { JSXElementConstructor, useEffect, useState } from 'react';
-import { commentBasedTemp, commentAboutClothesDetail } from './dailyComments';
+import { commentBasedTemp, commentAboutClothesDetail, commentAboutTempGap } from './dailyComments';
 import { commentAboutClothes } from './dailyComments';
 import { commentAboutCaution } from './dailyComments';
 import { useRecoilState } from 'recoil';
-import { dailyWeather } from 'Atom/mainWeatherAtom';
+import { dailyWeather, dailyWeatherMinMax } from 'Atom/mainWeatherAtom';
 import { CLOTHESLIST, FILLLIKE_WEATHER, FILLLIKE_CAUTION } from 'Constants/weatherConfig';
+
+const DailyTempRange = 9;
 
 const useDailyComments = () => {
   const [feelsWeather, setFeelsWeather] = useState<string>('');
-  const [caution, setCaution] = useState<string>('');
+  const [tempGap, setTempGap] = useState('');
   const [todayWeather, setTodayWeather] = useRecoilState(dailyWeather);
+  const [DailyRange] = useRecoilState(dailyWeatherMinMax);
 
   useEffect(() => {
     if (todayWeather.feelsLike >= FILLLIKE_WEATHER.SUPERHOT) setFeelsWeather('superhot');
@@ -20,6 +23,15 @@ const useDailyComments = () => {
     else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.COLD) setFeelsWeather('cold');
     else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.SUPERCOLD) setFeelsWeather('superCold');
     else setFeelsWeather('freeze');
+
+    const tempDifference = DailyRange.max - DailyRange.min;
+    if (tempDifference > DailyTempRange) {
+      if (todayWeather.feelsLike >= FILLLIKE_WEATHER.CHILLY) {
+        setTempGap('summer');
+      } else {
+        setTempGap('winter');
+      }
+    }
   }, [todayWeather.feelsLike]);
 
   function commentWeather() {
@@ -115,6 +127,9 @@ const useDailyComments = () => {
   function commentModalDetail(): string {
     return feelsWeather && commentAboutClothesDetail[feelsWeather].description;
   }
+  function commentModalTempGap(): string {
+    return feelsWeather && commentAboutTempGap[tempGap];
+  }
 
   return {
     commentFilteredClothes,
@@ -123,6 +138,7 @@ const useDailyComments = () => {
     commentWeather,
     commentCaution,
     commentModalDetail,
+    commentModalTempGap,
   };
 };
 

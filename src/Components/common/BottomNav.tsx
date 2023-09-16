@@ -30,7 +30,7 @@ const BottomNav: React.FC = () => {
   function updateBottomNavIndexState() {
     const path = location.pathname; // 현재 경로
     switch (path) {
-      case '/':
+      case '/home':
         setBottomNavIndexState(0);
         break;
       case '/search':
@@ -83,7 +83,7 @@ interface LinkBtnProps {
 }
 const LinkBtn: React.FC<LinkBtnProps> = ({ src, text, active, onClick }) => {
   return (
-    <Link onClick={onClick} to={`/${text === 'home' ? '' : text}`}>
+    <Link onClick={onClick} to={`/${text}`}>
       <img src={active ? src.active : src.inactive} alt='네비게이션아이콘' className={active ? 'active' : ''} />
     </Link>
   );

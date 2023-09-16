@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { Outlet, createBrowserRouter } from 'react-router-dom';
 import App from 'App';
 import Home from 'Pages/Home';
 import Permission from 'Pages/Permission';
@@ -7,6 +7,8 @@ import Search from 'Pages/Search';
 import Weekly from 'Pages/Weekly';
 import Setting from 'Pages/Setting';
 import SearchDetail from 'Pages/SearchDetail';
+import Landing from 'Pages/Landing';
+import ProtectRoute from 'Components/ProtectRoute';
 
 const router = createBrowserRouter([
   {
@@ -14,8 +16,8 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: '',
-        element: <Home />,
+        index: true,
+        element: <Landing />,
       },
       {
         path: 'permission',
@@ -26,20 +28,33 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: 'search',
-        element: <Search />,
-      },
-      {
-        path: 'weekly',
-        element: <Weekly />,
-      },
-      {
-        path: 'setting',
-        element: <Setting />,
-      },
-      {
-        path: 'searchDetail',
-        element: <SearchDetail />,
+        element: (
+          <ProtectRoute>
+            <Outlet />
+          </ProtectRoute>
+        ),
+        children: [
+          {
+            path: 'home',
+            element: <Home />,
+          },
+          {
+            path: 'search',
+            element: <Search />,
+          },
+          {
+            path: 'weekly',
+            element: <Weekly />,
+          },
+          {
+            path: 'setting',
+            element: <Setting />,
+          },
+          {
+            path: 'searchDetail',
+            element: <SearchDetail />,
+          },
+        ],
       },
     ],
   },

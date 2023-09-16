@@ -53,16 +53,19 @@ export const commentAboutClothesDetail: {
   };
 } = {
   superhot: {
-    description: '너무 더운 날씨예요. 얇은 재질의 옷과 짧은 옷이 좋겠어요',
+    description:
+      '날씨가 많이 덥네요. 시원한 반팔 티셔츠와 반바지를 입는게 좋겠어요 어디 놀러가신다면 쉬폰 원피스로 휴양지 기분을 내는건 어떤가요?',
   },
   hot: {
     description: '더운 날씨예요. 반팔 티셔츠와 반바지가 좋겠어요.',
   },
   warm: {
-    description: '따뜻한 날씨에요. 가벼운 긴팔 셔츠나 얇은 가디건이 좋겠어요.',
+    description:
+      '따뜻한 날씨에요. 가벼운 긴팔 셔츠나 얇은 가디건이 좋겠어요. 하의는 바람이 잘 통하는 린넨 바지를 입어도 좋을거 같아요',
   },
   cool: {
-    description: '날씨가 시원해요. 가을 재킷이나 스웨터가 딱이겠죠.',
+    description:
+      '날씨가 시원해요. 안에 가벼운 긴팔 티나 얇은 셔츠를 입고 겉에 자켓을 걸치는게 좋겠어요! 가을분위기 물씬 나게 트렌치 코드를 걸쳐도 좋을거같아요!',
   },
   chilly: {
     description:
@@ -78,3 +81,7 @@ export const commentAboutClothesDetail: {
     description: '매우 추워요. 두꺼운 패딩이나 코트, 털 모자와 부츠를 꼭 착용하세요.',
   },
 };
+export const commentAboutTempGap = {
+  summer: '일교차가 있어 추울 수 있으니 가벼운 겉옷을 챙겨주세요.',
+  winter: '일교차가 있어 더울 수 있으니 얇게 겹쳐입어주세요.',
+} as Record<string, string>;
