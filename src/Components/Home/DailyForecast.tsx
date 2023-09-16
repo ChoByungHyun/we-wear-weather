@@ -12,14 +12,12 @@ const DailyForecast = () => {
 
   let content = '';
 
-  if (hasRain && hasSnow) {
-    content = '비와 눈이 예상됩니다.';
-  } else if (hasRain) {
-    content = '비가 예상됩니다.';
+  if (hasRain) {
+    content = '비가 올거예요.';
   } else if (hasSnow) {
-    content = '눈이 예상됩니다.';
+    content = '눈이 올거예요.';
   } else {
-    content = '우산을 챙기지 않아도 돼요.';
+    content = '';
   }
 
   return (
