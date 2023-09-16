@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { styled } from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import WeeklyItem from 'Components/Weekly/WeeklyItem';
-import { useWeatherSmallIcon } from 'Components/common/useWeatherIcon';
+import { useWeatherSmallIcon } from 'Components/common/useWeatherImg';
 import useForecastData from 'Hooks/useForecastData';
 import pcScreen from 'Atom/pcScreen';
 

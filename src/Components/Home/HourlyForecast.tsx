@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import useForecastData from 'Hooks/useForecastData';
-import { useWeatherSmallIcon } from 'Components/common/useWeatherIcon';
+import { useWeatherSmallIcon } from 'Components/common/useWeatherImg';
 import { ItemType } from 'types/weeklyType';
 
 const HourlyForecast = () => {

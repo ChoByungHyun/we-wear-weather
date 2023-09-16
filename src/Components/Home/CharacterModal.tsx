@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import Button from 'Components/common/Button';
 import { useRecoilState } from 'recoil';
 import { dailyWeather } from 'Atom/mainWeatherAtom';
-import { useMainWeatherInfo } from 'Components/common/useWeatherIcon';
+import { useMainWeatherImg } from 'Components/common/useWeatherImg';
 import useDailyComments from 'Components/common/useDailyComments';
 import WeatherDescription from 'Components/Home/ClothingDescription';
 import DailyForecast from './DailyForecast';

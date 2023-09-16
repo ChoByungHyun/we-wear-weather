@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import useOpenWeatherAPI from 'API/useOpenWeatherAPI';
 import { userCityAtom, currentUserIndexAtom } from 'Atom/userLocationAtom';
 
-import { useParticulateImg } from 'Components/common/useWeatherIcon';
+import { useParticulateImg } from 'Components/common/useWeatherImg';
 
 // NOTE : 미세먼지 관련정보
 // PM10은 좋음(0~30㎍/㎥), 보통(31~80㎍/㎥), 약간나쁨(81~120㎍/㎥), 나쁨(121~200㎍/㎥) 등으로 구분

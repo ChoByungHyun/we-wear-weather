@@ -18,25 +18,25 @@ export const commentBasedWeather = {
 } as Record<string, string>;
 
 export const commentBasedTemp = {
-  summer: '한여름 날씨예요',
+  superhot: '한여름 날씨예요',
   hot: '더운 날씨예요',
   warm: '따뜻한 날씨예요',
   cool: '서늘한 날씨예요',
   chilly: '쌀쌀한 날씨예요',
   cold: '추운 날씨예요',
   superCold: '매우 추운 날씨예요',
-  winterCold: '한겨울 날씨예요',
+  freeze: '한겨울 날씨예요',
 } as Record<string, string>;
 
 export const commentAboutClothes = {
-  summer: '시원한 반바지에 민소매 옷을 추천해요',
+  superhot: '시원한 반바지에 민소매 옷을 추천해요',
   hot: '반소매나 얇은 셔츠면 좋겠어요',
   warm: '가디건 혹은 적당한 두께의 긴팔 티를 추천해요',
   cool: '맨투맨이나 후드티를 입을 때가 됐어요',
   chilly: '셔츠나 재킷을 꼭 걸쳐야겠는걸요',
   cold: '옷을 여러 겹 껴입으세요',
   superCold: '코트나 야상 같은 외투를 입으셔야 해요',
-  winterCold: '패딩과 목도리로 꽁꽁!',
+  freeze: '패딩과 목도리로 꽁꽁!',
 } as Record<string, string>;
 
 export const commentAboutCaution = {
@@ -54,10 +54,11 @@ export const commentAboutClothesDetail: {
 } = {
   superhot: {
     description:
-      '날씨가 많이 덥네요. 시원한 반팔 티셔츠와 반바지를 입는게 좋겠어요 어디 놀러가신다면 쉬폰 원피스로 휴양지 기분을 내는건 어떤가요?',
+      '시원하게 입어야 해요. 민소매와 반바지도 좋고, 린넨 소재의 옷도 도움이 될 거에요. 어디 놀러가신다면 쉬폰 원피스로 휴양지 기분을 내는건 어떤가요? 선크림 바르는 것 잊지 마세요!',
   },
   hot: {
-    description: '더운 날씨예요. 반팔 티셔츠와 반바지가 좋겠어요.',
+    description:
+      '적당히 시원하게 반팔 티셔츠나 반바지를 입으면 좋겠어요. 얇은 셔츠나 얇은 면바지도 괜찮을 날씨에요. 취향에 따라 예쁘게 코디해 보세요.',
   },
   warm: {
     description:

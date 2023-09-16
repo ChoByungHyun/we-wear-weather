@@ -4,7 +4,7 @@ import { currentUserIndexAtom, userCityAtom } from 'Atom/userLocationAtom';
 import useOpenWeatherAPI from 'API/useOpenWeatherAPI';
 import { ItemType } from 'types/weeklyType';
 import { useQuery } from 'react-query';
-import { useWeatherSmallIcon } from 'Components/common/useWeatherIcon';
+import { useWeatherSmallIcon } from 'Components/common/useWeatherImg';
 import { changeDate } from 'Utils/changeDate';
 import filterMinMax from 'Utils/filterMinMax';
 import { changeHour } from 'Utils/changeHour';

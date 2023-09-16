@@ -1,6 +1,8 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import CharacterModal from 'Components/Home/CharacterModal';
+import { useRecoilValue } from 'recoil';
+import { dailyWeather } from 'Atom/mainWeatherAtom';
 
 import touchPointer from 'Assets/touch-pointer.svg';
 import useCharacters from 'Components/common/useCharacters';
@@ -8,8 +10,9 @@ import useCharacters from 'Components/common/useCharacters';
 interface CharacterProps {}
 
 const Character: FC<CharacterProps> = ({}) => {
+  const weather = useRecoilValue(dailyWeather);
   const [onModal, setOnModal] = useState<boolean>(false);
-  const character = useCharacters(26);
+  const character = useCharacters(weather.feelsLike);
 
   function handleCharModal() {
     setOnModal(!onModal);
@@ -28,7 +31,7 @@ const Character: FC<CharacterProps> = ({}) => {
 export default Character;
 
 const SCharacter = styled.section`
-  margin-bottom: -13px;
+  margin-bottom: -6px;
   text-align: center;
   /* TODO random으로 해주면 좋겠지만 캐릭터에 가려짐 img 태그로 할까? 고민, 아니면 보여지는 위치 값을 배열로 저장하고 보여줄까? */
   background: url(${touchPointer}) no-repeat 230px 60px;
@@ -36,7 +39,7 @@ const SCharacter = styled.section`
   position: relative;
 
   img {
-    width: 400px;
+    width: 18vh;
     cursor: pointer;
   }
 `;

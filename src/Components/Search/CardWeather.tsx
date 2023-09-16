@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import CardWave from './CardWave';
 import CardRain from './CardRain';
-import { useWeatherIcon, useWeatherKr } from 'Components/common/useWeatherIcon';
+import { useWeatherIcon, useWeatherKr } from 'Components/common/useWeatherImg';
 import { useRecoilValue } from 'recoil';
 import { userNight } from 'Atom/updateDate';
 import useSearchedCities from 'Hooks/useSearchedCites';
