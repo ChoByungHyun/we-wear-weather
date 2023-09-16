@@ -44,7 +44,7 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name, main
     } else {
       setUserCityChange(findCityIndexByName(name));
     }
-    navigate('/');
+    navigate('/home');
   }
 
   return (
