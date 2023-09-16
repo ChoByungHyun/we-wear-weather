@@ -1,11 +1,16 @@
-import { FC } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import useForecastData from 'Hooks/useForecastData';
 import { useWeatherSmallIcon } from 'Components/common/useWeatherImg';
-import { ItemType } from 'types/weeklyType';
+import { HourlySkeleton } from 'Components/Skeleton/HomeSkeleton';
 
-const HourlyForecast = () => {
-  const { hourlyWeather } = useForecastData();
+const HourlyForecast: React.FC = () => {
+  const { hourlyWeather, forecastLoading } = useForecastData();
+
+  if (forecastLoading) {
+    return <HourlySkeleton />;
+  }
+
   return (
     <SHourlyForecastLayout>
       {hourlyWeather.map((weather, index) => {

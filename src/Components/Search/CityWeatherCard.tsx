@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import CardWeather from './CardWeather';
 import { useQuery } from 'react-query';
 import useOpenWeatherAPI from 'API/useOpenWeatherAPI';
+import SearchCardSkeleton from 'Components/Skeleton/SearchCardSkeleton';
 
 interface CityWeatherCardProps {
   cityName: string;
@@ -22,7 +23,7 @@ const CityWeatherCard: FC<CityWeatherCardProps> = ({ cityName, latLonData }) => 
   );
 
   if (isLoading) {
-    return <div>로딩중입니다</div>;
+    return <SearchCardSkeleton />;
   }
 
   if (isError) {

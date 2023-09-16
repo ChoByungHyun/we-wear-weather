@@ -11,6 +11,8 @@ import { updateDate, userNight } from 'Atom/updateDate';
 import { dailyWeather, dailyWeatherMinMax } from 'Atom/mainWeatherAtom';
 import SpeechBubbleComment from './SpeechBubbleComment';
 import useDailyComments from 'Components/common/useDailyComments';
+import { SpeechBubbleSkeleton } from 'Components/Skeleton/HomeSkeleton';
+
 
 const SpeechBubble: FC = () => {
   const latLonData = useRecoilValue(userCityAtom);
@@ -36,15 +38,10 @@ const SpeechBubble: FC = () => {
       min: Math.ceil(todayInfo?.main.temp_min),
       max: Math.ceil(todayInfo?.main.temp_max),
     });
-  }, [todayInfo]);
+  }, [todayInfo, setTodayWeather, setMinMax]);
 
   if (cityRes.isLoading) {
-    return (
-      <SSpeechBubble>
-        <img src={speechBubbleTail} alt=' ' />
-        <p>로딩중...</p>
-      </SSpeechBubble>
-    );
+    return <SpeechBubbleSkeleton />;
   }
   if (cityRes.error) {
     return <p>로딩중 문제가 발생했습니다.</p>;
