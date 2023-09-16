@@ -10,7 +10,7 @@ import { useMainWeatherImg } from 'Components/common/useWeatherImg';
 import { updateDate, userNight } from 'Atom/updateDate';
 import { dailyWeather } from 'Atom/mainWeatherAtom';
 import SpeechBubbleComment from './SpeechBubbleComment';
-import { useWeatherKr } from 'Components/common/useWeatherImg';
+import useDailyComments from 'Components/common/useDailyComments';
 
 const SpeechBubble: FC = () => {
   const latLonData = useRecoilValue(userCityAtom);
@@ -20,10 +20,10 @@ const SpeechBubble: FC = () => {
   const setTodayWeather = useSetRecoilState(dailyWeather);
   const { getCityWeather } = useOpenWeatherAPI();
   const cityRes = useQuery('currentWeather', () => getCityWeather(latLonData[locationIndex].latLonData));
+  const { commentWeatherSummary, extractWeather } = useDailyComments();
 
   const todayInfo = cityRes?.data;
   const mainWeatherImg = useMainWeatherImg(todayInfo?.weather[0].description);
-  const weatherNotice = useWeatherKr(todayInfo?.weather[0].description);
 
   useEffect(() => {
     setTodayWeather({
@@ -73,7 +73,7 @@ const SpeechBubble: FC = () => {
         max={Math.ceil(todayInfo?.main.temp_max) + '°'}
         temp={Math.ceil(todayInfo?.main.temp) + '°'}
         humidity={Math.ceil(todayInfo?.main.humidity) + '%'}
-        label={weatherNotice}
+        label={commentWeatherSummary(extractWeather(todayInfo?.weather[0].description))}
         feels_like={Math.ceil(todayInfo?.main.feels_like) + '°'}
       />
       <SpeechBubbleComment />

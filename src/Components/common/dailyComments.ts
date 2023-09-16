@@ -1,21 +1,23 @@
 export const commentBasedWeather = {
-  thunderstorm: '천둥번개를 동반한 비가 내리고',
-  drizzle: '이슬비가 내리고',
-  lightRain: '약간의 비가 내리고',
-  rain: '비가 내리고',
-  heavyRain: '많은 비가 내리고',
-  shower: '소나기가 내리고',
-  snowRain: '눈 또는 비가 내리고',
-  lightSnow: '약간의 눈이 내리고',
-  snow: '눈이 내리고',
-  heavySnow: '많은 눈이 내립니다',
-  sleet: '진눈깨비가 내리고',
-  clear: '맑고',
-  lightCloud: '적은 양의 구름이 있는',
-  heavyCloud: '많은 양의 구름이 있는',
-  cloud: '흐리고',
-  mist: '안개가 가득한',
-} as Record<string, string>;
+  thunderstorm: ['천둥번개를 동반한 비', '가 내리고'],
+  drizzle: ['이슬비', '가 내리고'],
+  rain: ['비', '가 내리고'],
+  lightRain: ['약간의 비', '가 내리고'],
+  heavyRain: ['많은 비', '가 내리고'],
+  shower: ['소나기', '가 내리고'],
+  heavyShower: ['많은 양의 소나기', '가 내리고'],
+  snowRain: ['눈 또는 비', '가 내리고'],
+  snow: ['눈', '이 내리고'],
+  lightSnow: ['약간의 눈', '이 내리고'],
+  heavySnow: ['많은 눈', '이 내리고'],
+  sleet: ['진눈깨비', '가 내리고'],
+  clear: ['맑은', ''],
+  cloud: ['흐린', ''],
+  lightCloud: ['적은 양의 구름', '이 있는'],
+  heavyCloud: ['많은 양의 구름', '이 있는'],
+
+  mist: ['안개', '가 낀'],
+} as Record<string, Array<string>>;
 
 export const commentBasedTemp = {
   superhot: '한여름 날씨예요',
@@ -61,10 +63,12 @@ export const commentAboutClothesDetail: {
       '적당히 시원하게 반팔 티셔츠나 반바지를 입으면 좋겠어요. 얇은 셔츠나 얇은 면바지도 괜찮을 날씨에요. 취향에 따라 예쁘게 코디해 보세요.',
   },
   warm: {
-    description: '따뜻한 날씨에요. 가벼운 긴팔 셔츠나 얇은 가디건이 좋겠어요.',
+    description:
+      '따뜻한 날씨에요. 가벼운 긴팔 셔츠나 얇은 가디건이 좋겠어요. 추위를 많이 타시면 겉옷을 챙기시는게 든든할거에요',
   },
   cool: {
-    description: '날씨가 시원해요. 가을 재킷이나 스웨터가 딱이겠죠.',
+    description:
+      '날씨가 시원해요. 가을 재킷이나 스웨터가 딱이겠죠. 얇은 니트나 후드티로 캐주얼한 분위기를 내는것도 좋을거에요.',
   },
   chilly: {
     description:

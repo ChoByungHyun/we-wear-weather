@@ -2,11 +2,12 @@ import React, { FC, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import CardWave from './CardWave';
 import CardRain from './CardRain';
-import { useWeatherIcon, useWeatherKr } from 'Components/common/useWeatherImg';
+import { useWeatherIcon } from 'Components/common/useWeatherImg';
 import { useRecoilValue } from 'recoil';
 import { userNight } from 'Atom/updateDate';
 import useSearchedCities from 'Hooks/useSearchedCites';
 import { useNavigate } from 'react-router-dom';
+import useDailyComments from 'Components/common/useDailyComments';
 
 interface CardWeatherProps {
   min: number;
@@ -18,6 +19,7 @@ interface CardWeatherProps {
 }
 
 const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name, main }) => {
+  const { commentWeatherSummary, extractWeather } = useDailyComments();
   const isNight = useRecoilValue(userNight);
   const [isRain, setIsRain] = useState<boolean>(false);
   const currentDate = new Date();
@@ -58,7 +60,7 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name, main
         </SMinMaxWrap>
         <STempWrap>
           <img src={useWeatherIcon(main)} alt='날씨 아이콘' />
-          <span>{useWeatherKr(weather)}</span>
+          <span>{commentWeatherSummary(extractWeather(weather))}</span>
         </STempWrap>
         <h3>{name}</h3>
       </SCardContents>
