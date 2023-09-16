@@ -32,6 +32,8 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
     lat: 0,
   });
 
+  const blurRef = useRef<HTMLInputElement>(null);
+
   const { getCityWeather } = useOpenWeatherAPI();
   const { searchedCities, addSearchedCity } = useSearchedCities();
 
@@ -81,6 +83,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
       setSelectedIndex(filteredData.indexOf(selectedCityInfo));
       setSearchValue(option);
       setShowModal(true);
+      handleblurEvent();
       handleInputBlur();
 
       setLatLonData({
@@ -88,6 +91,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
         lat: lat,
       });
     } else {
+      alert('주소를 다시 입력해주세요!');
     }
   }
 
@@ -96,9 +100,15 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
     handleSearchValueCheck();
   }
 
+  function handleblurEvent() {
+    if (blurRef.current) {
+      blurRef.current.blur(); // 인풋 엘리먼트의 포커스를 해제합니다.
+    }
+  }
+
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter') {
-      // handleSearchValueCheck();
+      handleblurEvent();
     }
   }
   function handleSearchValueCheck() {
@@ -112,13 +122,10 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
 
   function handleModal(confirm: boolean) {
     if (confirm) {
-      console.log('성공');
       addSearchedCity(searchValue, latLonData, false);
       navigate('/home', { state: { cityWeather: { data: data, cityName: searchValue, latLonData: latLonData } } });
       setShowModal(false);
     } else {
-      console.log('실패');
-
       setShowModal(false);
     }
   }
@@ -189,6 +196,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
               value={searchValue}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
+              ref={blurRef}
               autoFocus
             />
 
