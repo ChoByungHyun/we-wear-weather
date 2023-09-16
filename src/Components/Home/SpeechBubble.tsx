@@ -8,7 +8,7 @@ import SpeechBubbleWeatherInfo from 'Components/Home/SpeechBubbleWeatherInfo';
 import speechBubbleTail from 'Assets/speech-bubble-tail.svg';
 import { useMainWeatherImg } from 'Components/common/useWeatherImg';
 import { updateDate, userNight } from 'Atom/updateDate';
-import { dailyWeather } from 'Atom/mainWeatherAtom';
+import { dailyWeather, dailyWeatherMinMax } from 'Atom/mainWeatherAtom';
 import SpeechBubbleComment from './SpeechBubbleComment';
 import { useWeatherKr } from 'Components/common/useWeatherImg';
 
@@ -18,6 +18,7 @@ const SpeechBubble: FC = () => {
   const setIsUpdateDate = useSetRecoilState(updateDate);
   const setUpdateNight = useSetRecoilState(userNight);
   const setTodayWeather = useSetRecoilState(dailyWeather);
+  const setMinMax = useSetRecoilState(dailyWeatherMinMax);
   const { getCityWeather } = useOpenWeatherAPI();
   const cityRes = useQuery('currentWeather', () => getCityWeather(latLonData[locationIndex].latLonData));
 
@@ -30,6 +31,10 @@ const SpeechBubble: FC = () => {
       temp: Math.ceil(todayInfo?.main.temp) + '°',
       weather: todayInfo?.weather[0].description,
       feelsLike: Math.round(todayInfo?.main.feels_like),
+    });
+    setMinMax({
+      min: Math.ceil(todayInfo?.main.temp_min),
+      max: Math.ceil(todayInfo?.main.temp_max),
     });
   }, [todayInfo]);
 
@@ -52,7 +57,7 @@ const SpeechBubble: FC = () => {
     setIsUpdateDate(formattedDate);
 
     const isNight: number | string = parseInt(formattedDate.slice(10, 13));
-    if (formattedDate && isNight > 15) {
+    if (formattedDate && isNight > 18) {
       setUpdateNight(true);
     } else if (0 <= isNight && isNight < 5) {
       setUpdateNight(true);

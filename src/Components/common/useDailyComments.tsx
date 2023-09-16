@@ -3,12 +3,17 @@ import { commentBasedTemp, commentAboutClothesDetail } from './dailyComments';
 import { commentAboutClothes } from './dailyComments';
 import { commentAboutCaution } from './dailyComments';
 import { useRecoilState } from 'recoil';
-import { dailyWeather } from 'Atom/mainWeatherAtom';
+import { dailyWeather, dailyWeatherMinMax } from 'Atom/mainWeatherAtom';
 import { CLOTHESLIST, FILLLIKE_WEATHER, FILLLIKE_CAUTION } from 'Constants/weatherConfig';
+
+const DailyTempRange = 9;
 
 const useDailyComments = () => {
   const [feelsWeather, setFeelsWeather] = useState<string>('');
   const [todayWeather, setTodayWeather] = useRecoilState(dailyWeather);
+  console.log('🚀 ~ file: useDailyComments.tsx:13 ~ useDailyComments ~ todayWeather:', todayWeather);
+  const [DailyRange] = useRecoilState(dailyWeatherMinMax);
+  console.log('🚀 ~ file: useDailyComments.tsx:14 ~ useDailyComments ~ forecastRange:', DailyRange);
 
   useEffect(() => {
     if (todayWeather.feelsLike >= FILLLIKE_WEATHER.SUPERHOT) setFeelsWeather('superhot');
@@ -19,6 +24,31 @@ const useDailyComments = () => {
     else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.COLD) setFeelsWeather('cold');
     else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.SUPERCOLD) setFeelsWeather('superCold');
     else setFeelsWeather('freeze');
+
+    // const tempDifference = DailyRange.max - DailyRange.min;
+    // if (tempDifference > DailyTempRange) {
+    //   // 일교차가 큰 경우
+    //   if (todayWeather.feelsLike >= FILLLIKE_WEATHER.HOT) {
+    //     setFeelsWeather('hot');
+    //   } else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.WARM) {
+    //     setFeelsWeather('warm');
+    //   } else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.COOL) {
+    //     setFeelsWeather('cool');
+    //   } else {
+    //     setFeelsWeather('chilly');
+    //   }
+    // } else {
+    //   // 일교차가 크지 않은 경우
+    //   if (todayWeather.feelsLike >= FILLLIKE_WEATHER.CHILLY) {
+    //     setFeelsWeather('chilly');
+    //   } else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.COLD) {
+    //     setFeelsWeather('cold');
+    //   } else if (todayWeather.feelsLike >= FILLLIKE_WEATHER.SUPERCOLD) {
+    //     setFeelsWeather('superCold');
+    //   } else {
+    //     setFeelsWeather('freeze');
+    //   }
+    // }
   }, [todayWeather.feelsLike]);
 
   function commentWeather() {

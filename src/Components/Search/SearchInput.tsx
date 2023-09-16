@@ -114,7 +114,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
     if (confirm) {
       console.log('성공');
       addSearchedCity(searchValue, latLonData, false);
-      navigate('/', { state: { cityWeather: { data: data, cityName: searchValue, latLonData: latLonData } } });
+      navigate('/home', { state: { cityWeather: { data: data, cityName: searchValue, latLonData: latLonData } } });
       setShowModal(false);
     } else {
       console.log('실패');

@@ -5,7 +5,8 @@ import { useRecoilState } from 'recoil';
 import { dailyWeather } from 'Atom/mainWeatherAtom';
 import { useMainWeatherImg } from 'Components/common/useWeatherImg';
 import useDailyComments from 'Components/common/useDailyComments';
-import WeatherDescription from 'Components/common/ClothingDescription';
+import WeatherDescription from 'Components/Home/ClothingDescription';
+import DailyForecast from './DailyForecast';
 
 interface CharacterModalProps {
   img?: string;
@@ -13,7 +14,6 @@ interface CharacterModalProps {
 }
 
 const CharacterModal: FC<CharacterModalProps> = ({ img, handleCharModal }) => {
-  const [todayWeather, setTodayWeather] = useRecoilState(dailyWeather);
   const { commentTemp, commentWeather, commentModalDetail } = useDailyComments();
   return (
     <SCharModalBG>
@@ -26,7 +26,7 @@ const CharacterModal: FC<CharacterModalProps> = ({ img, handleCharModal }) => {
           {commentWeather()} {commentTemp()}
         </h2>
         <WeatherDescription description={commentModalDetail()}></WeatherDescription>
-        {/* <p>비가 올거예요 우산을 챙기세요</p> */}
+        <DailyForecast />
         <Button onClick={handleCharModal} $fontSize='16px'>
           확인했어요
         </Button>
