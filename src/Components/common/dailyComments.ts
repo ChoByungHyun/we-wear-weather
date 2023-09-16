@@ -82,3 +82,7 @@ export const commentAboutClothesDetail: {
     description: '매우 추워요. 두꺼운 패딩이나 코트, 털 모자와 부츠를 꼭 착용하세요.',
   },
 };
+export const commentAboutTempGap = {
+  summer: '일교차가 있어 추울 수 있으니 가벼운 겉옷을 챙겨주세요.',
+  winter: '일교차가 있어 더울 수 있으니 얇게 겹쳐입어주세요.',
+} as Record<string, string>;
