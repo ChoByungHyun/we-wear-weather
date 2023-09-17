@@ -49,7 +49,7 @@ npm run start
 현재위치 수집, 성별/나이 수집, 홈, 모달, 카드위젯, 서치, 주간, 설정
 | 위치정보 수집 | 성별/나이 수집 | 현재위치에 따른 옷차림 |
 | --- | --- | --- |
-| <img src="https://github.com/dananote/To-do-list/assets/124513796/e85151e4-5988-4ad3-8c3e-aab6e1580633" width="250" /> | <img src="https://github.com/dananote/To-do-list/assets/124513796/d75c3db7-bfa0-4b58-b6da-8d17e6fbc452" width="250"/> | <img src="https://github.com/dananote/To-do-list/assets/124513796/1a1056e6-1bc5-4317-b401-eed6a967acc4" width="250"/> |
+| <img src="https://github.com/dananote/To-do-list/assets/124513796/e85151e4-5988-4ad3-8c3e-aab6e1580633" width="250" /> | <img src="https://github.com/dananote/To-do-list/assets/124513796/d75c3db7-bfa0-4b58-b6da-8d17e6fbc452" width="250"/> | <img src="https://github.com/dananote/To-do-list/assets/124513796/1a1056e6-1bc5-4317-b401-eed6a967acc4" alt="main_image" width="250"/> |
 
 | 카드 위젯 / 낮                                                                                                         | 카드 위젯 / 밤                                                                                                        | 위치 검색                                                                                                             |
 | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
@@ -57,7 +57,7 @@ npm run start
 
 | 주간 날씨                                                                                                              | 설정                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/dananote/To-do-list/assets/124513796/6399603f-fd40-41cb-8909-eb33d53d3122" width="250" /> | <img src="https://github.com/dananote/To-do-list/assets/124513796/e1d934b8-3963-4514-a89c-9b6c4b373286" alt="main_image"/> width="250" |
+| <img src="https://github.com/dananote/To-do-list/assets/124513796/6399603f-fd40-41cb-8909-eb33d53d3122" width="250" /> | <img src="https://github.com/dananote/To-do-list/assets/124513796/e1d934b8-3963-4514-a89c-9b6c4b373286"  width="250"/>  |
 
 ## ⌛ 진행 과정
 
