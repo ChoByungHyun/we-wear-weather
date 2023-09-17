@@ -57,7 +57,7 @@ npm run start
 
 | 주간 날씨                                                                                                              | 설정                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/dananote/To-do-list/assets/124513796/6399603f-fd40-41cb-8909-eb33d53d3122" width="250" /> | <img src="https://github.com/dananote/To-do-list/assets/124513796/e1d934b8-3963-4514-a89c-9b6c4b373286" alt="대표이미지"/> width="250" |
+| <img src="https://github.com/dananote/To-do-list/assets/124513796/6399603f-fd40-41cb-8909-eb33d53d3122" width="250" /> | <img src="https://github.com/dananote/To-do-list/assets/124513796/e1d934b8-3963-4514-a89c-9b6c4b373286" alt="main_image"/> width="250" |
 
 ## ⌛ 진행 과정
 
