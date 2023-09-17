@@ -35,8 +35,8 @@
 
 ## 🔗 배포 링크
 
-배포 예정
-
+[배포 링크](http://we-wear-weather.vercel.app)
+<!--deployLink:http://we-wear-weather.vercel.app-->
 ## ⚙️ 실행 방법
 
 ```
