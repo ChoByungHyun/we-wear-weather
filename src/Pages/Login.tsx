@@ -7,6 +7,7 @@ import LoginCheckModal from 'Components/Login/LoginCheckModal';
 import { useRecoilState } from 'recoil';
 import userInfoAtom from 'Atom/userInfo';
 import { useNavigate, useLocation } from 'react-router-dom';
+import MetaTag from 'Components/common/MetaTag';
 
 export interface UserInfo {
   gender: string | undefined;
@@ -47,6 +48,11 @@ const Login = () => {
 
   return (
     <SLoginLayout>
+      <MetaTag
+        title='WWW 프로필 설정 페이지'
+        description='WWW에 로그인하고 날씨 정보와 옷차림 정보를 확인해보세요'
+        url='https://we-wear-weather.vercel.app/profile'
+      />
       {showModal && <LoginCheckModal setShowModal={setShowModal}>{errorMessage}</LoginCheckModal>}
       <h1>{title}</h1>
       <p>
