@@ -16,7 +16,7 @@ interface CharacterModalProps {
 const CharacterModal: FC<CharacterModalProps> = ({ img, handleCharModal }) => {
   const { commentModalTempGap, commentTemp, commentWeather, commentModalDetail } = useDailyComments();
   return (
-    <SCharModalBG>
+    <SCharModalBG aria-label='옷차림 상세정보'>
       <SCharModalLayout>
         <h1 className='a11y-hidden'>옷차림 상세정보</h1>
         <SCharImgWrap>

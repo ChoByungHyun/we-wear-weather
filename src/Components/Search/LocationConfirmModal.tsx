@@ -8,7 +8,7 @@ interface LocationConfirmModalProps {
 }
 const LocationConfirmModal: FC<LocationConfirmModalProps> = ({ handleModal, searchValue }) => {
   return (
-    <SModalBG>
+    <SModalBG aria-label='지역 검색 확인 안내 모달창'>
       <SLocationConfirmModal>
         <h1 className='a11y-hidden'>지역 검색 확인 안내 모달창</h1>
         <h2>지역을 확인해주세요</h2>
