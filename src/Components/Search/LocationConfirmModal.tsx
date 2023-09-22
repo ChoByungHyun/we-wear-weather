@@ -1,4 +1,4 @@
-import { FC, Dispatch, SetStateAction } from 'react';
+import { FC } from 'react';
 import { styled } from 'styled-components';
 import { SModalBG, SModalStyle } from 'Components/style/SModal';
 import Button from 'Components/common/Button';

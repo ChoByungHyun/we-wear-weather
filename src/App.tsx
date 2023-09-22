@@ -1,6 +1,5 @@
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import { RecoilRoot, useRecoilValue } from 'recoil';
 import GlobalStyle from 'GlobalStyle';
 import SLayout from 'Components/style/SLayout';
 import { QueryClient, QueryClientProvider } from 'react-query';

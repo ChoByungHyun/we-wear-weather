@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { useRecoilValue } from 'recoil';
@@ -19,7 +19,7 @@ const Permission: FC = () => {
   const { addSearchedCity } = useSearchedCities();
   const [geoCompleted, setGeoCompleted] = useState(false);
 
-  async function handleCityName() {
+  const handleCityName = useCallback(async () => {
     const res = await cityNameAPI(latLon);
     const resCityName = res?.region_1depth_name + ' ' + res?.region_2depth_name;
     try {
@@ -27,7 +27,7 @@ const Permission: FC = () => {
     } catch (error) {}
 
     setShowLoading(false);
-  }
+  }, [latLon, addSearchedCity, setShowLoading]);
 
   async function handleGeo(): Promise<void> {
     const getUserLocation = (): Promise<GeolocationPosition> => {
@@ -59,7 +59,7 @@ const Permission: FC = () => {
     if (geoCompleted) {
       handleCityName();
     }
-  }, [geoCompleted, latLon]);
+  }, [handleCityName, geoCompleted, latLon]);
 
   function handleNextBtn() {
     if (userLocation && !showModal) {

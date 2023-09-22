@@ -1,9 +1,7 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 
-interface ToggleProps {}
-
-const Toggle: FC<ToggleProps> = ({}) => {
+const Toggle: FC = () => {
   const [isChecked, setIsChecked] = useState(false);
 
   function handleToggle() {
