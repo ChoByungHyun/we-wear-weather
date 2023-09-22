@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import CardWave from './CardWave';
 import CardRain from './CardRain';
@@ -22,8 +22,7 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name, main
   const { commentWeatherSummary, extractWeather } = useDailyComments();
   const isNight = useRecoilValue(userNight);
   const [isRain, setIsRain] = useState<boolean>(false);
-  const currentDate = new Date();
-  const currentTime: number = Number(currentDate.toTimeString().slice(0, 2));
+  const currentDate = useMemo(() => new Date(), []);
   const { findCityIndexByName, setUserCityChange } = useSearchedCities();
   const navigate = useNavigate();
 

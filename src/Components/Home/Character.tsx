@@ -7,9 +7,7 @@ import { dailyWeather } from 'Atom/mainWeatherAtom';
 import touchPointer from 'Assets/touch-pointer.svg';
 import useCharacters from 'Components/common/useCharacters';
 
-interface CharacterProps {}
-
-const Character: FC<CharacterProps> = ({}) => {
+const Character: FC = () => {
   const weather = useRecoilValue(dailyWeather);
   const [onModal, setOnModal] = useState<boolean>(false);
   const character = useCharacters(weather.feelsLike);

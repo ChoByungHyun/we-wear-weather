@@ -1,6 +1,5 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { styled } from 'styled-components';
-import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import CityWeatherCard from './CityWeatherCard';
 import { userCityAtom } from 'Atom/userLocationAtom';

@@ -1,11 +1,9 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 
 import moreInfoIcn from 'Assets/setting-moreinfo-icon.svg';
 
-interface TermsOfUseProps {}
-
-const TermsOfUse: FC<TermsOfUseProps> = ({}) => {
+const TermsOfUse: FC = () => {
   return (
     <>
       <STermsOfUse>
