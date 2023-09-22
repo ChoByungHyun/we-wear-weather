@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { userCityAtom } from 'Atom/userLocationAtom';
+import MetaTag from 'Components/common/MetaTag';
 
 const Landing: FC = () => {
   const navigate = useNavigate();
@@ -17,6 +18,11 @@ const Landing: FC = () => {
 
   return (
     <LandingBG>
+      <MetaTag
+        title='We Wear Weather 랜딩페이지'
+        description='WWW에 입장하기'
+        url='https://we-wear-weather.vercel.app/'
+      />
       <div>
         <FirstTitle>
           <StrongTitle>W</StrongTitle>e
