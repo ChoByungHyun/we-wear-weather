@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -12,8 +12,12 @@ import SearchIcon_Fill from 'Assets/search-fill-icon.svg';
 import WeeklyIcon_Fill from 'Assets/weekly-fill-icon.svg';
 import SettingIcon_Fill from 'Assets/setting-fill-icon.svg';
 import pcScreen from 'Atom/pcScreen';
+import { preloadImages } from 'Utils/preloadImages';
 
 const BottomNav: React.FC = () => {
+  useLayoutEffect(() => {
+    preloadImages();
+  }, []);
   const isPC = useRecoilValue(pcScreen);
   const [bottomNavIndexState, setBottomNavIndexState] = useRecoilState<number>(bottomNavAtom);
   const navItems: string[] = ['home', 'search', 'weekly', 'setting'];

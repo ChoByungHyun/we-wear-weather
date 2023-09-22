@@ -6,6 +6,7 @@ import { RecoilRoot } from 'recoil';
 
 const container = document.getElementById('root') as Element | DocumentFragment;
 const root = createRoot(container);
+
 root.render(
   <RecoilRoot>
     <RouterProvider router={router} />
