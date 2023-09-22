@@ -24,6 +24,7 @@ const SBtnAgeLayout = styled.button`
   font-weight: 500;
   font-size: 16px;
   transition: all 0.1s;
+  flex-shrink: 0;
 
   &.active {
     color: black;

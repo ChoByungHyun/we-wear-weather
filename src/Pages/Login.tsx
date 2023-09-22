@@ -69,7 +69,7 @@ const Login = () => {
 };
 
 const SLoginLayout = styled.article`
-  padding: 100px 0;
+  padding: 90px 0;
   box-sizing: border-box;
   overflow-y: auto;
   h1 {
@@ -85,7 +85,7 @@ const SLoginLayout = styled.article`
   }
 
   & > button:last-child {
-    position: fixed;
+    position: absolute;
     bottom: 40px;
     right: 24px;
     width: calc(100% - 48px);
