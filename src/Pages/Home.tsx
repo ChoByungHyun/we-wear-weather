@@ -7,11 +7,17 @@ import { useRecoilValue } from 'recoil';
 import { updateDate } from 'Atom/updateDate';
 import HourlyForecast from 'Components/Home/HourlyForecast';
 import SpeechBubble from 'Components/Home/SpeechBubble';
+import MetaTag from 'Components/common/MetaTag';
 
 const Home = () => {
   const date = useRecoilValue(updateDate);
   return (
     <>
+      <MetaTag
+        title='WWW 홈페이지'
+        description='WWW에서 오늘의 날씨, 시간대별 날씨, 주간대별 날씨 등을 확인하고 어떤 옷을 입을지 참고해보세요'
+        url='https://we-wear-weather.vercel.app/home'
+      />
       <Header />
       <main>
         <SUpdateDate>{date} 업데이트</SUpdateDate>
