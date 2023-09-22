@@ -191,6 +191,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
               value={searchValue}
               onChange={handleInputChange}
               ref={blurRef}
+              aria-label='검색 입력란'
               autoFocus
             />
 
@@ -216,9 +217,14 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
               </>
             )}
             {isFocused ? (
-              <SSearchIcon src={SearchIcon_Fill} alt='검색아이콘' onClick={handleSearchIconClick} />
+              <SSearchIcon
+                src={SearchIcon_Fill}
+                alt='검색아이콘'
+                aria-label='검색하기'
+                onClick={handleSearchIconClick}
+              />
             ) : (
-              <SSearchIcon src={SearchIcon} alt='검색아이콘' onClick={handleSearchIconClick} />
+              <SSearchIcon src={SearchIcon} alt='검색아이콘' aria-label='검색하기' onClick={handleSearchIconClick} />
             )}
             {showModal && <LocationConfirmModal handleModal={handleModal} searchValue={searchValue} />}
           </SLayout>

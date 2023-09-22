@@ -50,7 +50,7 @@ const CardWeather: FC<CardWeatherProps> = ({ temp, max, min, weather, name, main
   }
 
   return (
-    <SCardWeatherWrap $isNight={isNight} onClick={handleWeatherCard}>
+    <SCardWeatherWrap $isNight={isNight} onClick={handleWeatherCard} aria-label={`${name} 날씨 정보`}>
       <STemp>{Math.ceil(temp) + '°'}</STemp>
       <SCardContents>
         <SMinMaxWrap>

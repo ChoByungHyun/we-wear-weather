@@ -13,16 +13,16 @@ const DailyForecast = () => {
   let content = '';
 
   if (hasRain) {
-    content = '비가 올거예요.';
+    content = '오늘은 비가 올거예요.';
   } else if (hasSnow) {
-    content = '눈이 올거예요.';
+    content = '오늘은 눈이 올거예요.';
   } else {
     content = '';
   }
 
   return (
     <div>
-      <p>오늘은 {content}</p>
+      <p>{content}</p>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { RecoilRoot, useRecoilValue } from 'recoil';
 import GlobalStyle from 'GlobalStyle';
@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { StyleSheetManager } from 'styled-components';
 import useSetScreen from 'Hooks/useSetScreen';
+import { preloadImages } from 'Utils/preloadImages';
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,9 @@ function App() {
     };
 
     setHeight();
+  }, []);
+  useLayoutEffect(() => {
+    preloadImages();
   }, []);
 
   const isPC = useSetScreen();
