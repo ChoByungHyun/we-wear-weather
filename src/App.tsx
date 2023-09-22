@@ -6,15 +6,16 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { StyleSheetManager } from 'styled-components';
 import useSetScreen from 'Hooks/useSetScreen';
+import { preloadImages } from 'Utils/preloadImages';
+import PWAInstallPrompt from 'Components/common/PWAInstallPrompt';
 
 const queryClient = new QueryClient();
 
 function App() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').then(function (registration) {
-      console.log('ServiceWorker registration successful with scope: ', registration.active);
-    });
+    navigator.serviceWorker.register('/sw.js').then(function (registration) {});
   }
+
   useEffect(() => {
     const setHeight = () => {
       let vh = window.innerHeight * 0.01;
@@ -31,6 +32,7 @@ function App() {
       <ReactQueryDevtools initialIsOpen={true} />
       <StyleSheetManager shouldForwardProp={(prop) => prop !== 'active'}>
         <SLayout $isPC={isPC}>
+          <PWAInstallPrompt />
           <GlobalStyle />
           <Outlet />
         </SLayout>
