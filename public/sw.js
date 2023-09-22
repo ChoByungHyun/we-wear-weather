@@ -24,8 +24,3 @@ self.addEventListener('install', function (e) {
     }),
   );
 });
-self.addEventListener('beforeinstallprompt', function (event) {
-  // 설치 프롬프트를 트리거하는 로직을 작성합니다.
-  // 예를 들어, 사용자에게 설치를 제안하는 UI를 띄우거나, 특정 조건을 확인한 후 트리거할 수 있습니다.
-  event.prompt();
-});
