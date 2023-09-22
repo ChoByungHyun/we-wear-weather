@@ -96,6 +96,7 @@ const LinkBtn: React.FC<LinkBtnProps> = ({ src, text, active, onClick }) => {
 export default BottomNav;
 
 const SNavLayout = styled.nav<{ $isPC: boolean }>`
+  padding-bottom: 20px;
   max-width: ${(props) => (props.$isPC ? '768px' : '430px')};
   margin: 0 auto;
   position: fixed;
