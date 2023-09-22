@@ -33,7 +33,6 @@ function App() {
       <ReactQueryDevtools initialIsOpen={true} />
       <StyleSheetManager shouldForwardProp={(prop) => prop !== 'active'}>
         <SLayout $isPC={isPC}>
-          <PWAInstallPrompt />
           <GlobalStyle />
           <Outlet />
         </SLayout>

@@ -8,6 +8,7 @@ import { updateDate } from 'Atom/updateDate';
 import HourlyForecast from 'Components/Home/HourlyForecast';
 import SpeechBubble from 'Components/Home/SpeechBubble';
 import MetaTag from 'Components/common/MetaTag';
+import PWAInstallPrompt from 'Components/common/PWAInstallPrompt';
 
 const Home = () => {
   const date = useRecoilValue(updateDate);
@@ -20,6 +21,8 @@ const Home = () => {
       />
       <Header />
       <main>
+        <PWAInstallPrompt />
+
         <SUpdateDate>{date} 업데이트</SUpdateDate>
         <SpeechBubble />
         <Character />

@@ -17,12 +17,8 @@ interface BeforeInstallPromptEvent extends Event {
 const PWAInstallPrompt = () => {
   const [showModal, setShowModal] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const location = useLocation();
-  const params = location.pathname.replace('/', '');
+
   useEffect(() => {
-    if (params !== 'home') {
-      return;
-    }
     const handleBeforeInstallPrompt = (event: Event) => {
       event.preventDefault();
       const promptEvent = event as BeforeInstallPromptEvent;
@@ -64,7 +60,7 @@ const PWAInstallPrompt = () => {
             <h2>앱으로 다운로드해주세요!</h2>
             <SButtonLayout>
               <Button onClick={() => handleInstallClick()}>확인</Button>
-              <SButtonCancel onClick={() => setShowModal(false)}>그냥 웹으로 볼게요..</SButtonCancel>
+              <SButtonCancel onClick={() => setShowModal(false)}>오늘은 그냥 웹으로 볼게요..</SButtonCancel>
             </SButtonLayout>
           </SLocationConfirmModal>
         </SModalBG>

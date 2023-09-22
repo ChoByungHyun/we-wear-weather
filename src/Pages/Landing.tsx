@@ -12,7 +12,10 @@ const Landing: FC = () => {
   useEffect(() => {
     setTimeout(() => {
       if (!userCity) navigate('/permission');
-      else navigate('/home');
+      else {
+        navigate('/home', { replace: true });
+        window.location.replace('/home');
+      }
     }, 2000);
   }, [navigate, userCity]);
 
