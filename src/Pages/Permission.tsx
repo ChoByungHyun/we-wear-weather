@@ -124,7 +124,7 @@ const STitleWrap = styled.div`
   & + button {
     position: absolute;
     left: 0;
-    bottom: 20px;
+    bottom: 40px;
   }
 
   h2 {
