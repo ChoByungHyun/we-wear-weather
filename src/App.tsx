@@ -12,6 +12,11 @@ import { preloadImages } from 'Utils/preloadImages';
 const queryClient = new QueryClient();
 
 function App() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then(function (registration) {
+      console.log('ServiceWorker registration successful with scope: ', registration.active);
+    });
+  }
   useEffect(() => {
     const setHeight = () => {
       let vh = window.innerHeight * 0.01;
@@ -19,9 +24,6 @@ function App() {
     };
 
     setHeight();
-  }, []);
-  useLayoutEffect(() => {
-    preloadImages();
   }, []);
 
   const isPC = useSetScreen();

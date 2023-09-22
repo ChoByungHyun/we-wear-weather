@@ -7,6 +7,7 @@ import { HelmetProvider } from 'react-helmet-async';
 
 const container = document.getElementById('root') as Element | DocumentFragment;
 const root = createRoot(container);
+
 root.render(
   <RecoilRoot>
     <HelmetProvider>
