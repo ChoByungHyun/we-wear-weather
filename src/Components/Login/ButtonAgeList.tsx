@@ -33,10 +33,9 @@ const ButtonAgeList: FC<UserInfoProps> = ({ setUserInfo, age }) => {
 };
 
 const SBtnAgeWrap = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 `;
 
 export default ButtonAgeList;
