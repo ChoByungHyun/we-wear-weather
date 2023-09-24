@@ -20,7 +20,9 @@ const Header: React.FC = () => {
 
   return (
     <SLayout>
-      <button onClick={handleBack}>{headerBtn && <img src={headerBtn} alt='' />}</button>
+      <button onClick={handleBack} aria-label='뒤로가기'>
+        {headerBtn && <img src={headerBtn} alt='' />}
+      </button>
     </SLayout>
   );
 };

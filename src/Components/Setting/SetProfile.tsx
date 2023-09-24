@@ -18,7 +18,7 @@ const SetProfile: FC = () => {
     <>
       <SSetProfile>
         <p>성별 및 나이 설정</p>
-        <button onClick={updateProfile}>
+        <button onClick={updateProfile} aria-label='성별 및 나이 설정하러가기'>
           <img src={moreInfoIcn} alt='more-info-icon' />
         </button>
       </SSetProfile>
