@@ -13,7 +13,7 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     const path = location.pathname.replace('/', '');
-    if (path === 'searchDetail') {
+    if (path === 'searchDetail' || path === 'manual') {
       setHeaderBtn(backBtn);
     }
   }, [location.pathname]);
