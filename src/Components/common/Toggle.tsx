@@ -12,7 +12,7 @@ const Toggle: FC = () => {
   return (
     <SToggle>
       <label htmlFor='toggleButton'></label>
-      <input id='toggleButton' type='checkbox' onClick={handleToggle}></input>
+      <input id='toggleButton' type='checkbox' onClick={handleToggle} aria-label='토글버튼'></input>
     </SToggle>
   );
 };

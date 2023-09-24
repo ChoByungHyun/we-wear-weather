@@ -8,7 +8,7 @@ const TermsOfUse: FC = () => {
     <>
       <STermsOfUse>
         <p>이용약관 및 정보처리 방침</p>
-        <button>
+        <button type='button' aria-label='이용약관 및 정보처리 방침 확인하러가기'>
           <img src={moreInfoIcn} alt='more-info-icon' />
         </button>
       </STermsOfUse>
