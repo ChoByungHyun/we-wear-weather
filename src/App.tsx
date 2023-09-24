@@ -6,8 +6,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { StyleSheetManager } from 'styled-components';
 import useSetScreen from 'Hooks/useSetScreen';
-import { preloadImages } from 'Utils/preloadImages';
-import PWAInstallPrompt from 'Components/common/PWAInstallPrompt';
 
 const queryClient = new QueryClient();
 
