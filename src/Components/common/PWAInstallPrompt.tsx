@@ -23,16 +23,15 @@ const PWAInstallPrompt = () => {
   const hasShownModal = sessionStorage.getItem('hasShownPWAInstallModal');
 
   useEffect(() => {
+    if (!hasShownModal && !displayMode && isIOS) {
+      setShowModal(true);
+      sessionStorage.setItem('hasShownPWAInstallModal', 'true');
+      return;
+    }
     const handleBeforeInstallPrompt = (event: Event) => {
       event.preventDefault();
       const promptEvent = event as BeforeInstallPromptEvent;
       if (!showModal && !deferredPrompt) {
-        if (!hasShownModal && !displayMode && isIOS) {
-          setShowModal(true);
-          sessionStorage.setItem('hasShownPWAInstallModal', 'true');
-          return;
-        }
-
         setDeferredPrompt(promptEvent);
         setShowModal(true);
       }
@@ -42,7 +41,7 @@ const PWAInstallPrompt = () => {
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     };
-  });
+  }, [showModal, deferredPrompt]);
 
   const handleInstallClick = () => {
     setShowModal(false);
