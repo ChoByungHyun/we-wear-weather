@@ -23,6 +23,9 @@ const PWAInstallPrompt = () => {
   useEffect(() => {
     const isDeviceIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent);
     setIsIOS(isDeviceIOS);
+    if (isDeviceIOS) {
+      setShowModal(true);
+    }
     const handleBeforeInstallPrompt = (event: Event) => {
       event.preventDefault();
       const promptEvent = event as BeforeInstallPromptEvent;
@@ -42,6 +45,7 @@ const PWAInstallPrompt = () => {
     if (isIOS) {
       navigate('/manual');
       setShowModal(false);
+      return;
     }
 
     if (deferredPrompt) {
@@ -62,17 +66,6 @@ const PWAInstallPrompt = () => {
   return (
     <>
       {showModal && (
-        <SModalBG aria-label='지역 검색 확인 안내 모달창'>
-          <SLocationConfirmModal>
-            <h2>앱으로 다운로드해주세요!</h2>
-            <SButtonLayout>
-              <Button onClick={() => handleInstallClick()}>확인</Button>
-              <SButtonCancel onClick={() => setShowModal(false)}>오늘은 그냥 웹으로 볼게요..</SButtonCancel>
-            </SButtonLayout>
-          </SLocationConfirmModal>
-        </SModalBG>
-      )}
-      {isIOS && (
         <SModalBG aria-label='지역 검색 확인 안내 모달창'>
           <SLocationConfirmModal>
             <h2>앱으로 다운로드해주세요!</h2>
