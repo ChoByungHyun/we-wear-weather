@@ -28,10 +28,6 @@ const router = createBrowserRouter([
         path: 'profile',
         element: <Login />,
       },
-      {
-        path: 'manual',
-        element: <InstallationManual />,
-      },
 
       {
         element: (
@@ -59,6 +55,10 @@ const router = createBrowserRouter([
           {
             path: 'searchDetail',
             element: <SearchDetail />,
+          },
+          {
+            path: 'manual',
+            element: <InstallationManual />,
           },
         ],
       },

@@ -2,6 +2,7 @@ import { SModalBG, SModalStyle } from 'Components/style/SModal';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Button from './Button';
+import { useNavigate } from 'react-router-dom';
 
 // BeforeInstallPromptEvent 타입 정의
 interface BeforeInstallPromptEvent extends Event {
@@ -16,15 +17,18 @@ interface BeforeInstallPromptEvent extends Event {
 const PWAInstallPrompt = () => {
   const [showModal, setShowModal] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [isIOS, setIsIOS] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const isDeviceIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent);
+    setIsIOS(isDeviceIOS);
     const handleBeforeInstallPrompt = (event: Event) => {
       event.preventDefault();
       const promptEvent = event as BeforeInstallPromptEvent;
-      // 모달이 열리지 않은 상태일 때만 열도록 조건 추가
       if (!showModal && !deferredPrompt) {
         setDeferredPrompt(promptEvent);
-        setShowModal(true); // 모달을 표시합니다.
+        setShowModal(true);
       }
     };
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
@@ -32,9 +36,14 @@ const PWAInstallPrompt = () => {
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     };
-  }, [showModal, deferredPrompt]); // showModal 상태가 변경될 때마다 useEffect가 호출되도록 설정
+  }, [showModal, deferredPrompt]);
 
   const handleInstallClick = () => {
+    if (isIOS) {
+      navigate('/manual');
+      setShowModal(false);
+    }
+
     if (deferredPrompt) {
       deferredPrompt.prompt();
 
@@ -45,7 +54,7 @@ const PWAInstallPrompt = () => {
           console.log('사용자가 설치 프롬프트를 무시했습니다.');
         }
 
-        setShowModal(false); // 모달을 닫습니다.
+        setShowModal(false);
       });
     }
   };
@@ -53,6 +62,17 @@ const PWAInstallPrompt = () => {
   return (
     <>
       {showModal && (
+        <SModalBG aria-label='지역 검색 확인 안내 모달창'>
+          <SLocationConfirmModal>
+            <h2>앱으로 다운로드해주세요!</h2>
+            <SButtonLayout>
+              <Button onClick={() => handleInstallClick()}>확인</Button>
+              <SButtonCancel onClick={() => setShowModal(false)}>오늘은 그냥 웹으로 볼게요..</SButtonCancel>
+            </SButtonLayout>
+          </SLocationConfirmModal>
+        </SModalBG>
+      )}
+      {isIOS && (
         <SModalBG aria-label='지역 검색 확인 안내 모달창'>
           <SLocationConfirmModal>
             <h2>앱으로 다운로드해주세요!</h2>
