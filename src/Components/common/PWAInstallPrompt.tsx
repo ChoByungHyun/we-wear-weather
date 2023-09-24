@@ -2,7 +2,6 @@ import { SModalBG, SModalStyle } from 'Components/style/SModal';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Button from './Button';
-import { useLocation } from 'react-router-dom';
 
 // BeforeInstallPromptEvent 타입 정의
 interface BeforeInstallPromptEvent extends Event {
@@ -28,13 +27,12 @@ const PWAInstallPrompt = () => {
         setShowModal(true); // 모달을 표시합니다.
       }
     };
-
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     };
-  }, [showModal]); // showModal 상태가 변경될 때마다 useEffect가 호출되도록 설정
+  }, [showModal, deferredPrompt]); // showModal 상태가 변경될 때마다 useEffect가 호출되도록 설정
 
   const handleInstallClick = () => {
     if (deferredPrompt) {
@@ -68,9 +66,6 @@ const PWAInstallPrompt = () => {
     </>
   );
 };
-const SManual = styled.div`
-  text-align: center;
-`;
 const SButtonLayout = styled.div`
   display: flex;
   flex-direction: column;
