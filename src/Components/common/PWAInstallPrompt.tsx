@@ -17,19 +17,22 @@ interface BeforeInstallPromptEvent extends Event {
 const PWAInstallPrompt = () => {
   const [showModal, setShowModal] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [isIOS, setIsIOS] = useState(false);
   const navigate = useNavigate();
+  const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent);
+  const displayMode = window.matchMedia('(display-mode: standalone)').matches;
+  const hasShownModal = sessionStorage.getItem('hasShownPWAInstallModal');
 
   useEffect(() => {
-    const isDeviceIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent);
-    setIsIOS(isDeviceIOS);
-    if (isDeviceIOS) {
-      setShowModal(true);
-    }
     const handleBeforeInstallPrompt = (event: Event) => {
       event.preventDefault();
       const promptEvent = event as BeforeInstallPromptEvent;
       if (!showModal && !deferredPrompt) {
+        if (!hasShownModal && !displayMode && isIOS) {
+          setShowModal(true);
+          sessionStorage.setItem('hasShownPWAInstallModal', 'true');
+          return;
+        }
+
         setDeferredPrompt(promptEvent);
         setShowModal(true);
       }
@@ -39,30 +42,29 @@ const PWAInstallPrompt = () => {
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     };
-  }, [showModal, deferredPrompt]);
+  });
 
   const handleInstallClick = () => {
+    setShowModal(false);
     if (isIOS) {
       navigate('/manual');
-      setShowModal(false);
-      return;
-    }
+    } else {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
 
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('사용자가 설치 프롬프트에 동의했습니다.');
-        } else {
-          console.log('사용자가 설치 프롬프트를 무시했습니다.');
-        }
-
-        setShowModal(false);
-      });
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('사용자가 설치 프롬프트에 동의했습니다.');
+          } else {
+            console.log('사용자가 설치 프롬프트를 무시했습니다.');
+          }
+        });
+      }
     }
   };
-
+  if (!showModal) {
+    return null;
+  }
   return (
     <>
       {showModal && (
