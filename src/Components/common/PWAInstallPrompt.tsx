@@ -41,7 +41,7 @@ const PWAInstallPrompt = () => {
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     };
-  }, [showModal, deferredPrompt]);
+  }, [showModal, deferredPrompt, displayMode, hasShownModal, isIOS]);
 
   const handleInstallClick = () => {
     setShowModal(false);
