@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import backBtn from 'Assets/backBtn-icon.svg';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const [headerBtn, setHeaderBtn] = useState<string | undefined>(undefined);
@@ -13,14 +13,16 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     const path = location.pathname.replace('/', '');
-    if (path === 'setting' || path === 'searchDetail') {
+    if (path === 'searchDetail' || path === 'manual') {
       setHeaderBtn(backBtn);
     }
   }, [location.pathname]);
 
   return (
     <SLayout>
-      <button onClick={handleBack}>{headerBtn && <img src={headerBtn} alt='' />}</button>
+      <button onClick={handleBack} aria-label='뒤로가기'>
+        {headerBtn && <img src={headerBtn} alt='' />}
+      </button>
     </SLayout>
   );
 };

@@ -35,10 +35,10 @@ const ButtonGenderList: FC<UserInfoProps> = ({ setUserInfo, gender }) => {
 };
 
 const SBtnGenderWrap = styled.div`
+  margin: 40px 0;
   display: flex;
   gap: 32px;
   justify-content: center;
-  margin: 80px 0;
 `;
 
 export default ButtonGenderList;

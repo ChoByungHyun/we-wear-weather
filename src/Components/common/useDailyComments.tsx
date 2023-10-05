@@ -1,8 +1,8 @@
-import React, { JSXElementConstructor, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { commentBasedTemp, commentAboutClothesDetail, commentAboutTempGap, commentBasedWeather } from './dailyComments';
 import { commentAboutClothes } from './dailyComments';
 import { commentAboutCaution } from './dailyComments';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { dailyWeather, dailyWeatherMinMax } from 'Atom/mainWeatherAtom';
 import { CLOTHESLIST, FILLLIKE_WEATHER, FILLLIKE_CAUTION } from 'Constants/weatherConfig';
 
@@ -12,7 +12,7 @@ const useDailyComments = () => {
   const [feelsWeather, setFeelsWeather] = useState<string>('');
   const [weather, setWeather] = useState<string>('');
   const [tempGap, setTempGap] = useState('');
-  const [todayWeather, setTodayWeather] = useRecoilState(dailyWeather);
+  const todayWeather = useRecoilValue(dailyWeather);
   const [DailyRange] = useRecoilState(dailyWeatherMinMax);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const useDailyComments = () => {
         setTempGap('winter');
       }
     }
-  }, [todayWeather.feelsLike]);
+  }, [todayWeather.feelsLike, DailyRange.max, DailyRange.min]);
 
   useEffect(() => {
     if (!todayWeather.weather) return;

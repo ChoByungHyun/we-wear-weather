@@ -3,9 +3,7 @@ import styled from 'styled-components';
 
 import Toggle from 'Components/common/Toggle';
 
-interface SetAlarmLocationProps {}
-
-const SetAlarmLocation: FC<SetAlarmLocationProps> = ({}) => {
+const SetAlarmLocation: FC = () => {
   return (
     <SSetAlarmLocation>
       <SSetAlarm>

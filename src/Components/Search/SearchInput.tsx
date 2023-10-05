@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import SearchIcon from 'Assets/search-icon.svg';
 import SearchIcon_Fill from 'Assets/search-fill-icon.svg';
 import styled from 'styled-components';
@@ -8,7 +8,6 @@ import useSearchedCities from 'Hooks/useSearchedCites';
 import { useQuery } from 'react-query';
 import korea_location_lon_lan from 'Assets/korea-location/korea_location_lon_lan.json';
 import LocationConfirmModal from './LocationConfirmModal';
-import { getLatLonData } from 'API/weatherLatLonAPI';
 interface SearchInputProps {
   type: string;
 }
@@ -35,7 +34,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
   const blurRef = useRef<HTMLInputElement>(null);
 
   const { getCityWeather } = useOpenWeatherAPI();
-  const { searchedCities, addSearchedCity } = useSearchedCities();
+  const { addSearchedCity } = useSearchedCities();
 
   function filterCityResults(value: string): CityInfo[] {
     const lowerValue = value.toLowerCase();
@@ -50,14 +49,9 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
   }
   const navigate = useNavigate();
 
-  // Use the useQuery hook to fetch and manage the data
-  const { data, isLoading, isError } = useQuery(
-    ['weatherCity', searchValue], // Provide a query key based on searchValue
-    () => getCityWeather(latLonData),
-    {
-      enabled: searchValue !== '', // Only enable the query if searchValue is not empty
-    },
-  );
+  const { data } = useQuery(['weatherCity', searchValue], () => getCityWeather(latLonData), {
+    enabled: searchValue !== '',
+  });
   function handleInputFocus() {
     setIsFocused(true);
   }
@@ -75,35 +69,38 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
     setSelectedIndex(-1);
   }
 
-  function handleSelectOption(option: string) {
-    const selectedCityInfo = filteredData.find((cityInfo) => cityInfo.docity === option);
-
-    if (selectedCityInfo) {
-      const { lon, lat } = selectedCityInfo;
-      setSelectedIndex(filteredData.indexOf(selectedCityInfo));
-      setSearchValue(option);
-      setShowModal(true);
-      handleblurEvent();
-      handleInputBlur();
-
-      setLatLonData({
-        lon: lon,
-        lat: lat,
-      });
-    } else {
-      alert('주소를 다시 입력해주세요!');
+  const handleBlurEvent = useCallback(() => {
+    if (blurRef.current) {
+      blurRef.current.blur(); // 인풋 엘리먼트의 포커스를 해제합니다.
     }
-  }
+  }, [blurRef]);
+
+  const handleSelectOption = useCallback(
+    (option: string) => {
+      const selectedCityInfo = filteredData.find((cityInfo) => cityInfo.docity === option);
+
+      if (selectedCityInfo) {
+        const { lon, lat } = selectedCityInfo;
+        setSelectedIndex(filteredData.indexOf(selectedCityInfo));
+        setSearchValue(option);
+        setShowModal(true);
+        handleBlurEvent();
+        setIsFocused(false);
+
+        setLatLonData({
+          lon: lon,
+          lat: lat,
+        });
+      } else {
+        alert('주소를 다시 입력해주세요!');
+      }
+    },
+    [filteredData, setSelectedIndex, setSearchValue, setShowModal, setLatLonData, handleBlurEvent],
+  );
 
   function handleSearchIconClick(event: React.MouseEvent<HTMLImageElement>) {
     event.stopPropagation();
     handleSearchValueCheck();
-  }
-
-  function handleblurEvent() {
-    if (blurRef.current) {
-      blurRef.current.blur(); // 인풋 엘리먼트의 포커스를 해제합니다.
-    }
   }
 
   function handleSearchValueCheck() {
@@ -168,7 +165,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isFocused, selectedIndex, filteredData]);
+  }, [isFocused, selectedIndex, filteredData, handleSelectOption]);
 
   return (
     <>
@@ -191,6 +188,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
               value={searchValue}
               onChange={handleInputChange}
               ref={blurRef}
+              aria-label='검색 입력란'
               autoFocus
             />
 
@@ -216,9 +214,14 @@ const SearchInput: React.FC<SearchInputProps> = ({ type }) => {
               </>
             )}
             {isFocused ? (
-              <SSearchIcon src={SearchIcon_Fill} alt='검색아이콘' onClick={handleSearchIconClick} />
+              <SSearchIcon
+                src={SearchIcon_Fill}
+                alt='검색아이콘'
+                aria-label='검색하기'
+                onClick={handleSearchIconClick}
+              />
             ) : (
-              <SSearchIcon src={SearchIcon} alt='검색아이콘' onClick={handleSearchIconClick} />
+              <SSearchIcon src={SearchIcon} alt='검색아이콘' aria-label='검색하기' onClick={handleSearchIconClick} />
             )}
             {showModal && <LocationConfirmModal handleModal={handleModal} searchValue={searchValue} />}
           </SLayout>

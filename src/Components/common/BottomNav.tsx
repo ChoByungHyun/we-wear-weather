@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -12,8 +12,12 @@ import SearchIcon_Fill from 'Assets/search-fill-icon.svg';
 import WeeklyIcon_Fill from 'Assets/weekly-fill-icon.svg';
 import SettingIcon_Fill from 'Assets/setting-fill-icon.svg';
 import pcScreen from 'Atom/pcScreen';
+import { preloadImages } from 'Utils/preloadImages';
 
 const BottomNav: React.FC = () => {
+  useLayoutEffect(() => {
+    preloadImages();
+  }, []);
   const isPC = useRecoilValue(pcScreen);
   const [bottomNavIndexState, setBottomNavIndexState] = useRecoilState<number>(bottomNavAtom);
   const navItems: string[] = ['home', 'search', 'weekly', 'setting'];
@@ -26,31 +30,31 @@ const BottomNav: React.FC = () => {
 
   const location = useLocation(); // 현재 경로 정보 가져오기
 
-  // 현재 경로에 따라서 bottomNavIndexState를 업데이트하는 함수
-  function updateBottomNavIndexState() {
-    const path = location.pathname; // 현재 경로
-    switch (path) {
-      case '/home':
-        setBottomNavIndexState(0);
-        break;
-      case '/search':
-        setBottomNavIndexState(1);
-        break;
-      case '/weekly':
-        setBottomNavIndexState(2);
-        break;
-      case '/setting':
-        setBottomNavIndexState(3);
-        break;
-      default:
-        break;
-    }
-  }
-
   // 첫 렌더링 시 현재 경로에 따라 bottomNavIndexState 초기화
   useEffect(() => {
+    // 현재 경로에 따라서 bottomNavIndexState를 업데이트하는 함수
+    function updateBottomNavIndexState() {
+      const path = location.pathname; // 현재 경로
+      switch (path) {
+        case '/home':
+          setBottomNavIndexState(0);
+          break;
+        case '/search':
+          setBottomNavIndexState(1);
+          break;
+        case '/weekly':
+          setBottomNavIndexState(2);
+          break;
+        case '/setting':
+          setBottomNavIndexState(3);
+          break;
+        default:
+          break;
+      }
+    }
+
     updateBottomNavIndexState();
-  }, []);
+  }, [location.pathname, setBottomNavIndexState]);
 
   function handleClick(index: number): void {
     setBottomNavIndexState(index);
@@ -92,6 +96,7 @@ const LinkBtn: React.FC<LinkBtnProps> = ({ src, text, active, onClick }) => {
 export default BottomNav;
 
 const SNavLayout = styled.nav<{ $isPC: boolean }>`
+  padding-bottom: 20px;
   max-width: ${(props) => (props.$isPC ? '768px' : '430px')};
   margin: 0 auto;
   position: fixed;

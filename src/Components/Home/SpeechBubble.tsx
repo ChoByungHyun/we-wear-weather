@@ -55,7 +55,7 @@ const SpeechBubble: FC = () => {
         setUpdateNight(false);
       }
     }
-  }, [cityRes]);
+  }, [cityRes, setIsUpdateDate, setUpdateNight]);
 
   if (cityRes.isLoading) {
     return <SpeechBubbleSkeleton />;

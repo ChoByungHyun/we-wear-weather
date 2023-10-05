@@ -12,7 +12,7 @@ const HourlyForecast: React.FC = () => {
   }
 
   return (
-    <SHourlyForecastLayout>
+    <SHourlyForecastLayout aria-label='시간대별 날씨 예보'>
       {hourlyWeather.map((weather, index) => {
         //eslint-disable-next-line
         const icon = useWeatherSmallIcon(weather.weather[0].description);

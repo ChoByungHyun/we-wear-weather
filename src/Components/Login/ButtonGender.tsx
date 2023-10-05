@@ -12,7 +12,7 @@ interface OwnProps {
 
 const ButtonGender: React.FC<OwnProps> = ({ active, gender, text, onClick }) => {
   return (
-    <SBtnGenderLayout type='button'>
+    <SBtnGenderLayout type='button' aria-label={gender === '남성' ? '남성' : '여성'}>
       <img
         className={active ? 'active' : ''}
         src={gender === '남성' ? genderMale : genderFemale}

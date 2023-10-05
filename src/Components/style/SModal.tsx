@@ -10,7 +10,7 @@ export const SModalBG = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: 10;
+  z-index: 40;
 `;
 
 export const SModalStyle = css`

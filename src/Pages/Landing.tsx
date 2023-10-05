@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { userCityAtom } from 'Atom/userLocationAtom';
+import MetaTag from 'Components/common/MetaTag';
 
 const Landing: FC = () => {
   const navigate = useNavigate();
@@ -11,12 +12,20 @@ const Landing: FC = () => {
   useEffect(() => {
     setTimeout(() => {
       if (!userCity) navigate('/permission');
-      else navigate('/home');
+      else {
+        navigate('/home', { replace: true });
+        window.location.replace('/home');
+      }
     }, 2000);
   }, [navigate, userCity]);
 
   return (
     <LandingBG>
+      <MetaTag
+        title='We Wear Weather 랜딩페이지'
+        description='WWW에 입장하기'
+        url='https://we-wear-weather.vercel.app/'
+      />
       <div>
         <FirstTitle>
           <StrongTitle>W</StrongTitle>e

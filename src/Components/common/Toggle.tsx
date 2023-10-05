@@ -1,9 +1,7 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 
-interface ToggleProps {}
-
-const Toggle: FC<ToggleProps> = ({}) => {
+const Toggle: FC = () => {
   const [isChecked, setIsChecked] = useState(false);
 
   function handleToggle() {
@@ -14,7 +12,7 @@ const Toggle: FC<ToggleProps> = ({}) => {
   return (
     <SToggle>
       <label htmlFor='toggleButton'></label>
-      <input id='toggleButton' type='checkbox' onClick={handleToggle}></input>
+      <input id='toggleButton' type='checkbox' onClick={handleToggle} aria-label='토글버튼'></input>
     </SToggle>
   );
 };

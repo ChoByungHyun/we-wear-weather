@@ -9,6 +9,7 @@ import Setting from 'Pages/Setting';
 import SearchDetail from 'Pages/SearchDetail';
 import Landing from 'Pages/Landing';
 import ProtectRoute from 'Components/ProtectRoute';
+import InstallationManual from 'Components/InstallationManual';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
         path: 'profile',
         element: <Login />,
       },
+
       {
         element: (
           <ProtectRoute>
@@ -53,6 +55,10 @@ const router = createBrowserRouter([
           {
             path: 'searchDetail',
             element: <SearchDetail />,
+          },
+          {
+            path: 'manual',
+            element: <InstallationManual />,
           },
         ],
       },
