@@ -1,8 +1,8 @@
 # We Wear Weather
 
-<img width="333" src="https://github.com/ChoByungHyun/time-series-chart/assets/102468625/f9211ee9-b460-4cf8-b70d-dd5528fba2b0" alt="main_image" >
+<img width="800" src="https://github.com/ChoByungHyun/we-wear-weather/assets/102468625/d07a7290-4b9f-4910-a8ed-217ded3fe47d" alt="main_image" >
 
-오늘, 시간대별, 주간 날씨를 제공하고 현재 시간의 날씨에 맞는 옷차림 이미지를 제공하여 사용자가 현재 날씨가 어떤지, 어떤 옷을 입어야하는지를 시각적으로 제공하는 모바일 서비스
+오늘, 시간대별, 주간 날씨를 제공하고 현재 시간의 날씨에 맞는 옷차림 이미지를 제공하여 사용자가 현재 날씨가 어떤지, 어떤 옷을 입어야하는지를 시각적으로 제공하는 모바일 서비스입니다.
 
 
 <h2>팀원 소개</h2>
